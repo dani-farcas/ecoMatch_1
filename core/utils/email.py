@@ -1,27 +1,21 @@
 from django.core.mail import EmailMultiAlternatives
-from itsdangerous import URLSafeTimedSerializer
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 
-def generate_confirmation_token(email):
-    serializer = URLSafeTimedSerializer(settings.SECRET_KEY)
-    return serializer.dumps(email, salt="email-confirm")
-
-def confirm_token(token, expiration=3600):
-    serializer = URLSafeTimedSerializer(settings.SECRET_KEY)
-    try:
-        return serializer.loads(token, salt="email-confirm", max_age=expiration)
-    except Exception:
-        return None
-
 def send_confirmation_email(user):
-    token = generate_confirmation_token(user.email)
-    confirm_url = f"{settings.FRONTEND_URL}/confirm-email/{token}"
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = default_token_generator.make_token(user)
+
+    confirm_url = f"{settings.FRONTEND_URL}/confirm/{uid}/{token}/"
 
     subject = "Bitte bestätige dein Konto bei ecoMatch"
     from_email = settings.DEFAULT_FROM_EMAIL
     to = [user.email]
 
     text_content = f"Hallo {user.username}, bitte bestätige dein Konto unter folgendem Link: {confirm_url}"
+    
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 2rem;">
