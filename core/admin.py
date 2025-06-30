@@ -1,8 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-
-from.models import User, ServiceType, ProviderProfile, Request
+from .models import User, ServiceType, ProviderProfile, Request
 from django.contrib.auth.admin import UserAdmin
 
 @admin.register(User)
@@ -12,6 +9,7 @@ class CustomUserAdmin(UserAdmin):
     )
     list_display = ('username', 'email', 'is_client', 'is_provider', 'is_staff')
 
-    admin.site.register(ServiceType)
-    admin.site.register(ProviderProfile)
-    admin.site.register(Request)
+# 🔽 mutăm acestea în afara clasei!
+admin.site.register(ServiceType)
+admin.site.register(ProviderProfile)
+admin.site.register(Request)

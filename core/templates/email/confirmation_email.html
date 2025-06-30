@@ -1,0 +1,5 @@
+<!-- ecoMatch/core/templates/email/confirmation_email.html -->
+<p>Hallo {{ user.username }},</p>
+<p>Du hast dich erfolgreich auf unserer Plattform registriert. Bitte bestätige deine E-Mail-Adresse, indem du auf den folgenden Link klickst:</p>
+<p><a href="http://{{ domain }}/confirm/{{ uid }}/{{ token }}/">Bestätige dein Konto</a></p>
+<p>Vielen Dank!</p>

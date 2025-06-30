@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from .models import User, ServiceType, ProviderProfile, Request
+from core.utils.email import send_confirmation_email
 import re
 
 # Serialisierer für den User
@@ -15,10 +16,10 @@ class ServiceTypeSerializer(serializers.ModelSerializer):
         model = ServiceType
         fields = ['id', 'name']
 
-# Serialisierer für ProviderProfile, inkludiert User und ServiceType Informationen
+# Serialisierer für ProviderProfile
 class ProviderProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()  # Verschachtelte User-Informationen
-    service = ServiceTypeSerializer(many=True)  # Mehrere ServiceTypes möglich
+    user = UserSerializer()
+    service = ServiceTypeSerializer(many=True)
 
     class Meta:
         model = ProviderProfile
@@ -50,37 +51,32 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'email', 'password', 'password2', 'is_client', 'is_provider']
 
-    # Validierung des Usernamens: erlaubt Buchstaben, Zahlen, Leerzeichen und Sonderzeichen @./+-_
     def validate_username(self, value):
-        pattern = r'^[\w\s@./+-]+$'  # \w = Buchstaben/Zahlen/_ ; \s = Leerzeichen
+        pattern = r'^[\w\s@./+-]+$'
         if not re.match(pattern, value):
             raise serializers.ValidationError(
                 "Der Benutzername darf nur Buchstaben, Zahlen, Leerzeichen und @/./+/-/_ enthalten."
             )
-        # Überprüfung, ob der Username schon vergeben ist
         if User.objects.filter(username=value).exists():
             raise serializers.ValidationError("Dieser Benutzername ist bereits vergeben.")
         return value
 
     def validate(self, attrs):
-        # Überprüfen, ob die beiden Passwörter übereinstimmen
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Passwörter stimmen nicht überein."})
-
-        # Überprüfen der Passwortstärke nach Django-Standards
         validate_password(attrs['password'])
-
         return attrs
 
     def create(self, validated_data):
-        # password2 wird nicht benötigt und wird entfernt
         validated_data.pop('password2')
         password = validated_data.pop('password')
 
-        # User-Objekt wird mit den validierten Daten erstellt
         user = User(**validated_data)
-        # Passwort wird gehasht und gesetzt
         user.set_password(password)
-        # User wird gespeichert
+        user.is_active = False
         user.save()
+
+        print(f"✅ Email wird gesendet an: {user.email}")  # 🟡 Debug: vezi dacă se apelează
+        send_confirmation_email(user)
+
         return user

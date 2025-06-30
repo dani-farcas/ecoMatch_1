@@ -5,16 +5,21 @@ from .views import (
     ServiceTypeViewSet,
     ProviderProfileViewSet,
     RequestViewSet,
-    RegisterView,  # Registrierungs-View importieren
+    ConfirmEmailView,
 )
 
+# 🔧 Router pentru ViewSet-uri
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'service-types', ServiceTypeViewSet)
 router.register(r'provider-profiles', ProviderProfileViewSet)
 router.register(r'requests', RequestViewSet)
 
+# ✅ Toate rutele
 urlpatterns = [
+    # Rutele generate automat de DRF
     path('', include(router.urls)),
-    path('register/', RegisterView.as_view(), name='register'),  # Neue Route für Registrierung
+
+    # Ruta pentru confirmare email
+    path('confirm-email/<str:token>/', ConfirmEmailView.as_view(), name='confirm-email'),
 ]
