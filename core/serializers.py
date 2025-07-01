@@ -1,37 +1,45 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
-from .models import User, ServiceType, ProviderProfile, Request
+from .models import User, ServiceType, ProviderProfile, Request, ClientProfile
 from core.utils.email import send_confirmation_email
 import re
 
-# Serialisierer für den User
+# 🔐 Serializator pentru utilizator (read-only)
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'is_client', 'is_provider']
 
-# Serialisierer für die ServiceType-Model
+# ✅ Serializator pentru ServiceType
 class ServiceTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceType
         fields = ['id', 'name']
 
-# Serialisierer für ProviderProfile
+# 🧑‍🔧 Serializator pentru ProviderProfile (cu nested user + servicii)
 class ProviderProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
     service = ServiceTypeSerializer(many=True)
 
     class Meta:
         model = ProviderProfile
         fields = ['id', 'user', 'region', 'service', 'project_examples']
 
-# Serialisierer für Requests
+# 🧑‍💼 Serializator pentru ClientProfile
+class ClientProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClientProfile
+        fields = '__all__'
+        read_only_fields = ['user']
+
+# 📨 Serializator pentru cereri (Request)
 class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = '__all__'
+        read_only_fields = ['client', 'status', 'created_at']
 
-# Serialisierer für die Registrierung eines neuen Users
+# 📝 Serializator pentru înregistrare (cu validări)
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True,
@@ -76,7 +84,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.is_active = False
         user.save()
 
-        print(f"✅ Email wird gesendet an: {user.email}")  # 🟡 Debug: vezi dacă se apelează
+        print(f"✅ Email wird gesendet an: {user.email}")
         send_confirmation_email(user)
 
         return user
