@@ -15,7 +15,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-w&e_$+%_(+@^=s16+=im)_$292
 # Set debug to False in production
 DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Convertește la boolean
 
-ALLOWED_HOSTS = ['echomatch.onrender.com']
+ALLOWED_HOSTS = ['echomatch.onrender.com', '127.0.0.1', 'localhost']
+
 
 
 
