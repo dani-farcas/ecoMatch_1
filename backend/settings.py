@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'core',
 ]
 
+# ✅ Ruta către urls.py
+ROOT_URLCONF = 'backend.urls'
+
 # Model de utilizator personalizat
 AUTH_USER_MODEL = 'core.User'
 
@@ -53,8 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ✅ Ruta către urls.py
-ROOT_URLCONF = 'backend.urls'
+
 
 # Templates
 TEMPLATES = [
