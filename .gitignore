@@ -1,0 +1,36 @@
+# 🔒 Fișiere de configurare sensibile
+.env
+.env.local
+.env.*.local
+
+# 🗃 Baza de date locală
+*.sqlite3
+*.db
+
+# ⚙️ Foldere de sistem Python
+__pycache__/
+*.py[cod]
+
+# 📦 Node.js
+node_modules/
+dist/
+build/
+
+# 🛠 Vite & React
+.vite/
+*.log
+
+# 🧪 Teste temporare
+coverage/
+jest.config.js
+
+# 🧱 IDE-uri
+.vscode/
+.idea/
+
+# 📄 Alte fișiere pe care nu vrei să le urci
+.DS_Store
+Thumbs.db
+
+# 🔧 Linux / Unix
+*.swp
