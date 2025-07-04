@@ -152,3 +152,5 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 # 🔗 Frontend URL pentru confirmări (redirecturi)
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+
+# Ultima actualizare: 2025-07-04
