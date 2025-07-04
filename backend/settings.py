@@ -29,9 +29,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Terțe
     'rest_framework',
-    'core',
     'corsheaders',
+
+    # Locale
+    'core',
 ]
 
 # Model de utilizator personalizat
@@ -49,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ✅ Ruta către urls.py
 ROOT_URLCONF = 'backend.urls'
 
 # Templates
@@ -59,6 +64,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -69,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# Bază de date SQLite (producție mică / testare)
+# Bază de date SQLite (ideal doar pentru test/deploy mic)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -77,7 +83,7 @@ DATABASES = {
     }
 }
 
-# Validatori pentru parolă
+# Validatori pentru parole
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -85,18 +91,19 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Localizare și fus orar
+# Localizare
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Fișiere statice
+# Static files
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Django REST Framework
+# ✅ Django REST Framework config
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -107,13 +114,8 @@ REST_FRAMEWORK = {
     ],
 }
 
-# ✅ CORS configurat corect pentru Vercel + localhost
+# ✅ CORS pentru React (Vercel) + local
 CORS_ALLOWED_ORIGINS = [
-    "https://echo-match-frontend.vercel.app",
-    "http://localhost:3000",
-]
-
-CORS_ORIGIN_WHITELIST = [
     "https://echo-match-frontend.vercel.app",
     "http://localhost:3000",
 ]
@@ -141,7 +143,7 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
-# 📧 Email – folosește Gmail sau alt SMTP din .env
+# ✅ Email config
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
@@ -150,8 +152,5 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-# 🔗 Frontend URL pentru confirmări (redirecturi)
+# ✅ Frontend redirect URL (confirmări etc.)
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-
-# Ultima actualizare: 2025-07-04
-# Ultima actualizare: fix pentru Render la 2025-07-04
