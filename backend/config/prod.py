@@ -24,13 +24,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
-    'backend.core',
     'corsheaders',
+    'core',  # ✅ corect – numele aplicației tale
 ]
 
+# Model utilizator personalizat
 AUTH_USER_MODEL = 'core.User'
 
+# Middleware
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -42,8 +45,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Rutare principală
 ROOT_URLCONF = 'backend.urls'
 
+# Șabloane
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -59,8 +64,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI pentru deploy
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+# Baza de date (SQLite – simplu, ideal pentru început)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -68,6 +75,7 @@ DATABASES = {
     }
 }
 
+# Validatori parolă
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -75,16 +83,20 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# Internaționalizare
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Static files
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Cheie auto implicită
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -94,13 +106,13 @@ REST_FRAMEWORK = {
     ],
 }
 
-# CORS pentru frontend din producție
+# CORS – permite cereri din frontend Vercel
 CORS_ALLOWED_ORIGINS = [
     "https://echo-match-frontend.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-# Email SMTP
+# Configurare email (SMTP)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
@@ -109,8 +121,8 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-# Frontend redirect URL (pentru confirmări, resetări etc.)
+# URL frontend pentru redirectări confirmare/resetare
 FRONTEND_URL = os.getenv("FRONTEND_URL", "https://echo-match-frontend.vercel.app")
 
-# Pentru Render (SSL behind proxy)
+# Render: SSL behind proxy
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
