@@ -20,7 +20,6 @@ ALLOWED_HOSTS = ['echomatch.onrender.com', '127.0.0.1', 'localhost']
 
 
 
-# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,8 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'backend.core',
     'corsheaders',
+    'core',  # ← Așa e corect!
 ]
 
 # Folosește un model personalizat de utilizator

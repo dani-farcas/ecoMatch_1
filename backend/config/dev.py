@@ -1,3 +1,4 @@
+# Importă dotenv pentru a încărca variabilele de mediu
 from dotenv import load_dotenv
 import os
 from pathlib import Path
@@ -5,23 +6,21 @@ from pathlib import Path
 # Încarcă variabilele de mediu din fișierul .env
 load_dotenv()
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Cheia secretă (din .env)
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-valoare-de-backup')
+# Secret key for production (should be kept secret)
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-w&e_$+%_(+@^=s16+=im)_$292@q&8k=^_(vnqjtoepg5n1)fi')  # Folosește variabila de mediu SECRET_KEY
 
-# Debug activ doar dacă e specificat
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+# Set debug to False in production
+DEBUG = os.getenv('DEBUG', 'True') == 'True'  # Convertește la boolean
 
-# Domenii permise
-ALLOWED_HOSTS = [
-    'echomatch.onrender.com',
-    'localhost',
-    '127.0.0.1',
-    'echo-match-frontend.vercel.app',
-]
+ALLOWED_HOSTS = ['echomatch.onrender.com', '127.0.0.1', 'localhost']
 
-# Aplicații instalate
+
+
+
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,21 +29,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Terțe
     'rest_framework',
-    'corsheaders',
+    'rest_framework_simplejwt',
 
-    # Locale
-    'core',
+    'core',  # ← trebuie să fie aici
 ]
 
-# ✅ Ruta către urls.py
-ROOT_URLCONF = 'backend.urls'
-
-# Model de utilizator personalizat
+# Folosește un model personalizat de utilizator
 AUTH_USER_MODEL = 'core.User'
 
-# Middleware (CORS trebuie să fie primul)
+# Middleware configuration
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -56,17 +50,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL configuration
+ROOT_URLCONF = 'backend.urls'
 
-
-# Templates
+# Template settings
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -77,7 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# Bază de date SQLite (ideal doar pentru test/deploy mic)
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -85,27 +81,35 @@ DATABASES = {
     }
 }
 
-# Validatori pentru parole
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
-# Localizare
+# Internationalization settings
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
+# Static files configuration
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ✅ Django REST Framework config
+# REST Framework configuration
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -116,36 +120,17 @@ REST_FRAMEWORK = {
     ],
 }
 
-# ✅ CORS pentru React (Vercel) + local
+# CORS configuration
 CORS_ALLOWED_ORIGINS = [
-    "https://echo-match-frontend.vercel.app",
-    "http://localhost:3000",
+    "http://localhost:3000",  # Permite doar cereri de pe acest domeniu
 ]
-
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-]
 
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-]
 
-# ✅ Email config
+import os
+
+# 📧 Configurare email (SMTP Gmail)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
@@ -154,10 +139,7 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
-# ✅ Frontend redirect URL (confirmări etc.)
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+# 🌐 Frontend (React)
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
-print("✅ Settings.py loaded successfully!")  # linia de debug
-print("✅ ROOT_URLCONF =", ROOT_URLCONF)
 
-# trigger redeploy
