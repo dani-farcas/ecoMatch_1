@@ -5,17 +5,28 @@ from django.contrib.auth.tokens import default_token_generator
 from django.conf import settings
 
 def send_confirmation_email(user):
+    # UID generieren (base64-codiert)
     uid = urlsafe_base64_encode(force_bytes(user.pk))
+    
+    # Token für Bestätigung erstellen
     token = default_token_generator.make_token(user)
-
+    
+    # URL zur Bestätigungsseite (Frontend)
     confirm_url = f"{settings.FRONTEND_URL}/confirm-email/{uid}/{token}/"
 
+    # 📧 E-Mail-Inhalte definieren
     subject = "Bitte bestätige dein Konto bei ecoMatch"
     from_email = settings.DEFAULT_FROM_EMAIL
     to = [user.email]
 
-    text_content = f"Hallo {user.username}, bitte bestätige dein Konto unter folgendem Link: {confirm_url}"
-    
+    # 📝 Fallback-Text (für Mail-Clients ohne HTML)
+    text_content = (
+        f"Hallo {user.username},\n"
+        f"bitte bestätige dein Konto unter folgendem Link:\n{confirm_url}\n\n"
+        "Falls du dich nicht bei ecoMatch registriert hast, kannst du diese Nachricht ignorieren."
+    )
+
+    # 💅 HTML-Version der E-Mail
     html_content = f"""
     <html>
       <body style="font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 2rem;">
@@ -35,6 +46,7 @@ def send_confirmation_email(user):
     </html>
     """
 
+    # ✉️ E-Mail mit HTML + Text senden
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
