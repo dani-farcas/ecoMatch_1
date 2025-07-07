@@ -110,14 +110,14 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = []
 CORS_ALLOW_CREDENTIALS = True
 
-# E-Mail Konfiguration (z.B. Gmail)
+# 📧 E-Mail Konfiguration (z.B. Gmail SMTP)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST = os.getenv("EMAIL_HOST")  # z.B. smtp.gmail.com
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() == "true"
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "true").lower() in ["true", "1", "yes"]
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
-# Frontend-URL für Links in E-Mails
+# 🌐 Frontend-URL für Links in E-Mails (z.B. Bestätigungslink)
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
