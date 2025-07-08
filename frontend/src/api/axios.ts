@@ -11,7 +11,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // ⚠️ Nur wenn Cookies verwendet werden
+  withCredentials: false, // ⚠️ Nur wenn Cookies verwendet werden
 });
 
 // 🔐 Interceptor zum Anhängen des Access Tokens

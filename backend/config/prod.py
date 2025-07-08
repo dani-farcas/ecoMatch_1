@@ -104,7 +104,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # 🌐 CORS (Cross-Origin Resource Sharing)
-CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "True") == "True"
+CORS_ALLOWED_ORIGINS = [
+    "https://ecomatch-10.vercel.app",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 # 🔑 JWT-Authentifizierung (SimpleJWT)
 REST_FRAMEWORK = {

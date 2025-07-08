@@ -30,11 +30,12 @@ EMAIL_HOST_PASSWORD = 'rfua wycw zolu gwpa'  # Dein Google App-Passwort hier ein
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # 🌍 Frontend URL für Bestätigungslinks (z.B. Vercel Deployment)
-FRONTEND_URL = "https://ecoMatch.vercel.app"
+FRONTEND_URL = "https://ecoMatch-10.vercel.app"
 
 # 🔐 CORS-Konfiguration für lokale Entwicklung (Vite Default Port 5173)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://ecomatch-10.vercel.app",  
 ]
 
 # ⚠️ Erlaube Credentials (Cookies, Auth Header) bei CORS
