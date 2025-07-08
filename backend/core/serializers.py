@@ -1,94 +1,81 @@
 from rest_framework import serializers
-from django.contrib.auth.password_validation import validate_password
-from django.core.exceptions import ValidationError as DjangoValidationError
-from .models import User, ServiceType, ProviderProfile, ClientProfile, Request
-from backend.core.utils.email import send_confirmation_email
-import re
+from django.contrib.auth.hashers import make_password
+from .models import (
+    User, Subscription, ServiceType,
+    ProviderProfile, Request, Offer
+)
 
-# ========== USER SERIALIZERS ==========
 
+
+
+
+# 🔐 Serializer für das benutzerdefinierte User-Modell
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'is_client', 'is_provider']
-        read_only_fields = ['id', 'is_client', 'is_provider']
+        fields = [
+            'id', 'email', 'username',
+            'is_client', 'is_provider', 'current_mode',
+            'region', 'postal_code', 'subscription'
+        ]
 
 
-class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        write_only=True,
-        required=True,
-        style={'input_type': 'password'},
-        help_text="Passwort des Benutzers"
-    )
-    password2 = serializers.CharField(
-        write_only=True,
-        required=True,
-        style={'input_type': 'password'},
-        label="Passwort bestätigen",
-        help_text="Passwort zur Bestätigung erneut eingeben"
-    )
-
+# 💳 Serializer für das Abonnement-Modell
+class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password', 'password2', 'is_client', 'is_provider']
+        model = Subscription
+        fields = ['id', 'is_active', 'created_at', 'expires_at']
 
-    def validate_username(self, value):
-        # Permitem doar caractere acceptabile
-        pattern = r'^[\w\s@./+-]+$'
-        if not re.match(pattern, value):
-            raise serializers.ValidationError(
-                "Der Benutzername darf nur Buchstaben, Zahlen, Leerzeichen und @/./+/-/_ enthalten."
-            )
-        if User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Dieser Benutzername ist bereits vergeben.")
-        return value
 
-    def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Passwörter stimmen nicht überein."})
-        try:
-            validate_password(attrs['password'])
-        except DjangoValidationError as e:
-            raise serializers.ValidationError({"password": e.messages})
-        return attrs
-
-    def create(self, validated_data):
-        validated_data.pop('password2')
-        password = validated_data.pop('password')
-
-        user = User(**validated_data)
-        user.set_password(password)
-        user.is_active = False  # dezactivăm contul până la confirmarea prin email
-        user.save()
-
-        send_confirmation_email(user)
-        return user
-
-# ========== SERVICE TYPE ==========
-
+# 🛠 Serializer für Dienstleistungsarten
 class ServiceTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceType
         fields = ['id', 'name']
 
-# ========== PROVIDER PROFILE ==========
 
+# 🧑‍🔧 Serializer für ProviderProfile mit verknüpften Dienstleistungen
 class ProviderProfileSerializer(serializers.ModelSerializer):
+    services = ServiceTypeSerializer(many=True, read_only=True)
+    service_ids = serializers.PrimaryKeyRelatedField(
+        queryset=ServiceType.objects.all(), many=True, write_only=True, source='services'
+    )
+
     class Meta:
         model = ProviderProfile
-        fields = '__all__'
+        fields = ['id', 'user', 'coverage_area', 'services', 'service_ids']
 
-# ========== CLIENT PROFILE ==========
 
-class ClientProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ClientProfile
-        fields = '__all__'
-
-# ========== REQUEST ==========
-
+# 📩 Serializer für Client-Anfragen
 class RequestSerializer(serializers.ModelSerializer):
+    client_email = serializers.EmailField(source='client.email', read_only=True)
+
     class Meta:
         model = Request
-        fields = '__all__'
+        fields = ['id', 'client', 'client_email', 'service_type', 'description', 'location', 'created_at']
+
+
+# 💬 Serializer für Provider-Angebote
+class OfferSerializer(serializers.ModelSerializer):
+    provider_email = serializers.EmailField(source='provider.email', read_only=True)
+
+    class Meta:
+        model = Offer
+        fields = ['id', 'request', 'provider', 'provider_email', 'message', 'accepted', 'created_at']
+
+        
+# 📝 Serializer zur Benutzerregistrierung mit Rollenwahl
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, min_length=6)
+
+    class Meta:
+        model = User
+        fields = [
+            'id', 'email', 'username', 'password',
+            'is_client', 'is_provider', 'region', 'postal_code'
+        ]
+
+    def create(self, validated_data):
+        # Passwort verschlüsseln
+        validated_data['password'] = make_password(validated_data['password'])
+        return super().create(validated_data)

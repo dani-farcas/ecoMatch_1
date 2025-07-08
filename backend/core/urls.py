@@ -1,35 +1,38 @@
+# 📁 core/urls.py
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import (
-    CustomTokenObtainPairView,
+# 📦 Views importieren
+from core.views import (
+    RegisterView,
+    ConfirmEmailView,
     UserViewSet,
+    SubscriptionViewSet,
     ServiceTypeViewSet,
     ProviderProfileViewSet,
     RequestViewSet,
-    ClientProfileViewSet,
-    RegisterView,
-    ConfirmEmailView,
+    OfferViewSet,
+    client_dashboard  # ✅ optionaler Test-Endpoint für Clients
 )
 
-# 🔄 Router für REST-API-Endpunkte (CRUD)
+# 🔁 REST-Router: Automatische URL-Generierung für alle ViewSets
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'service-types', ServiceTypeViewSet)
+router.register(r'subscriptions', SubscriptionViewSet)
+router.register(r'services', ServiceTypeViewSet)
 router.register(r'provider-profiles', ProviderProfileViewSet)
 router.register(r'requests', RequestViewSet)
-router.register(r'client-profiles', ClientProfileViewSet)
+router.register(r'offers', OfferViewSet)
 
+# 🔓 Öffentliche Endpunkte (keine Authentifizierung erforderlich)
 urlpatterns = [
-    # 📦 API-Endpunkte für Modelle (CRUD via Router)
-    path('', include(router.urls)),
+    path('', include(router.urls)),                      # Alle ViewSet-URLs
+    path('register/', RegisterView.as_view(), name='register'),  # Benutzerregistrierung
+    path('confirm-email/<uidb64>/<token>/', ConfirmEmailView.as_view(), name='confirm-email'),  # E-Mail-Bestätigung
+]
 
-    # 📝 Registrierung + E-Mail-Bestätigung
-    path('register/', RegisterView.as_view(), name='register'),
-    path('confirm-email/<str:uid>/<str:token>/', ConfirmEmailView.as_view(), name='confirm-email'),
-
-    # 🔐 JWT-Authentifizierung (mit aktiven Benutzerprüfung)
-    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+# 🔐 Geschützte Endpunkte (nur mit gültigem JWT-Token zugänglich)
+urlpatterns += [
+    path('dashboard/client/', client_dashboard, name='client-dashboard'),  # Beispiel für geschützten Endpunkt
 ]
