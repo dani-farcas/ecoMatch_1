@@ -1,17 +1,22 @@
+import environ
 import os
 from pathlib import Path
-from datetime import timedelta
 
-# 🗂 Basisverzeichnis des Projekts
-BASE_DIR = Path(__file__).resolve().parent.parent
+# 📁 Basisverzeichnis
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# 🔐 Django-Geheimschlüssel (in .env Datei auslagern in Produktion)
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key')
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# 🌐 Allgemeine erlaubte Hosts (in dev offen, in prod restriktiv)
-ALLOWED_HOSTS = []
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
-# 🧩 Installierte Apps
+# ✅ dein Custom User Model
+AUTH_USER_MODEL = 'core.User'
+
+ROOT_URLCONF = 'backend.config.urls'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -19,19 +24,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # 📦 Drittanbieter
     'rest_framework',
-    'rest_framework_simplejwt',
     'corsheaders',
-
-    # 🧠 Eigene Apps
     'core',
 ]
 
-# ⚙️ Middleware-Konfiguration
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # 🌍 CORS-Unterstützung
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -41,10 +40,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# 🔗 Wurzel-URL-Konfiguration
-ROOT_URLCONF = 'config.urls'
-
-# 📦 Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -61,43 +56,26 @@ TEMPLATES = [
     },
 ]
 
-# 🧠 WSGI-Startpunkt
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'backend.config.wsgi.application'
 
-# 🔧 Benutzerdefiniertes User-Modell
-AUTH_USER_MODEL = 'core.User'
-
-# 🔐 Authentifizierung mit JWT (SimpleJWT)
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+DATABASES = {
+    'default': env.db(default=f'sqlite:///{BASE_DIR}/db.sqlite3')
 }
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'AUTH_HEADER_TYPES': ('Bearer',),
-}
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
-# 🌍 Lokalisierung & Zeitzone
-LANGUAGE_CODE = 'de-de'
-TIME_ZONE = 'Europe/Berlin'
-USE_I18N = True
-USE_TZ = True
+FRONTEND_URL = env('FRONTEND_URL')
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[FRONTEND_URL])
+CORS_ALLOW_CREDENTIALS = True
 
-# 📁 Statische Dateien
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# 💾 Standard-Datenbank (wird in dev/prod überschrieben)
-DATABASES = {}
-
-# 📨 E-Mail-Einstellungen
-# ⚠️ In Produktion wird SMTP in prod.py überschrieben
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# 📧 Standardabsender für E-Mails
-DEFAULT_FROM_EMAIL = "ecoMatch <dlm33730@gmail.com>"
-
-# 🌐 URL zur Bestätigungsseite im Frontend (wird im Bestätigungs-E-Mail verwendet)
-FRONTEND_URL = "http://localhost:5173"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

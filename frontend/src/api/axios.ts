@@ -2,8 +2,13 @@
 
 import axios from 'axios';
 
-// 🌍 Basis-URL aus .env
-const baseURL = import.meta.env.VITE_API_URL;
+// 🌍 Basis-URL aus .env (z.B. http://localhost:8000/api/)
+let baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/';
+
+// Sicherstellen, dass baseURL mit '/' endet
+if (!baseURL.endsWith('/')) {
+  baseURL += '/';
+}
 
 // 🛠️ Eigene Axios-Instanz erstellen
 const api = axios.create({
@@ -11,10 +16,10 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: false, // ⚠️ Nur wenn Cookies verwendet werden
+  withCredentials: false, // Keine Cookies versenden
 });
 
-// 🔐 Interceptor zum Anhängen des Access Tokens
+// 🔐 Request-Interceptor: Authorization Header hinzufügen, falls Token vorhanden
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');
@@ -26,13 +31,13 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 🔁 Interceptor zur Behandlung von 401 → AccessToken automatisch erneuern
+// 🔄 Response-Interceptor: Token bei 401 automatisch erneuern
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    // ⛔ 401 → AccessToken ist abgelaufen, prüfen ob RefreshToken vorhanden ist
+    // Prüfen, ob 401 wegen ungültigem Token und ob Retry noch nicht versucht
     if (
       error.response?.status === 401 &&
       error.response.data?.code === 'token_not_valid' &&
@@ -42,19 +47,20 @@ api.interceptors.response.use(
 
       try {
         const refresh = localStorage.getItem('refreshToken');
-        if (!refresh) throw new Error('Kein RefreshToken vorhanden');
+        if (!refresh) throw new Error('Kein Refresh-Token vorhanden');
 
-        // 🆕 Versuche, neues AccessToken vom Server zu erhalten
+        // Refresh-Token an API senden, um neuen Access-Token zu erhalten
         const res = await axios.post(`${baseURL}token/refresh/`, { refresh });
-
         const newAccess = res.data.access;
+
+        // Neuen Access-Token speichern
         localStorage.setItem('accessToken', newAccess);
 
-        // 🔄 Füge neues AccessToken dem ursprünglichen Request hinzu
+        // Originalanfrage mit neuem Token erneut senden
         originalRequest.headers['Authorization'] = `Bearer ${newAccess}`;
-        return api(originalRequest); // 🔁 Wiederhole Anfrage
+        return api(originalRequest);
       } catch (refreshError) {
-        // ❌ Refresh fehlgeschlagen → Logout und zurück zum Login
+        // Refresh-Token ungültig: Tokens löschen und zum Login weiterleiten
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         window.location.href = '/login';

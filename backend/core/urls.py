@@ -3,7 +3,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-# 📦 Views importieren
+# 📦 Import aller Views (API-Endpunkte)
 from core.views import (
     RegisterView,
     ConfirmEmailView,
@@ -13,10 +13,10 @@ from core.views import (
     ProviderProfileViewSet,
     RequestViewSet,
     OfferViewSet,
-    client_dashboard  # ✅ optionaler Test-Endpoint für Clients
+    client_dashboard,  # ✅ Beispiel für geschützten Client-Endpunkt
 )
 
-# 🔁 REST-Router: Automatische URL-Generierung für alle ViewSets
+# 🔁 REST-API Router: automatische Generierung von CRUD-URLs für ViewSets
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'subscriptions', SubscriptionViewSet)
@@ -25,14 +25,20 @@ router.register(r'provider-profiles', ProviderProfileViewSet)
 router.register(r'requests', RequestViewSet)
 router.register(r'offers', OfferViewSet)
 
-# 🔓 Öffentliche Endpunkte (keine Authentifizierung erforderlich)
+# 🔓 Öffentliche Endpunkte (kein Login erforderlich)
 urlpatterns = [
-    path('', include(router.urls)),                      # Alle ViewSet-URLs
-    path('register/', RegisterView.as_view(), name='register'),  # Benutzerregistrierung
-    path('confirm-email/<uidb64>/<token>/', ConfirmEmailView.as_view(), name='confirm-email'),  # E-Mail-Bestätigung
+    # ➡️ Alle ViewSet-Endpunkte über Router (CRUD-Operationen)
+    path('', include(router.urls)),
+
+    # ➡️ Benutzer-Registrierung (POST)
+    path('register/', RegisterView.as_view(), name='register'),
+
+    # ➡️ E-Mail-Bestätigung nach Registrierung (GET via Link)
+    path('confirm-email/<str:uidb64>/<str:token>/', ConfirmEmailView.as_view(), name='confirm-email'),
 ]
 
-# 🔐 Geschützte Endpunkte (nur mit gültigem JWT-Token zugänglich)
+# 🔐 Authentifizierte Endpunkte (erfordern JWT-Token)
 urlpatterns += [
-    path('dashboard/client/', client_dashboard, name='client-dashboard'),  # Beispiel für geschützten Endpunkt
+    # ➡️ Beispiel für geschützten API-Endpunkt (Client-Dashboard)
+    path('dashboard/client/', client_dashboard, name='client-dashboard'),
 ]

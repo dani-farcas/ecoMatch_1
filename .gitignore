@@ -1,36 +1,44 @@
-# 🔒 Fișiere de configurare sensibile
+# 🔒 Umgebungsvariablen (sensible Daten)
 .env
 .env.local
 .env.*.local
+**/.env
+**/.env.*
 
-# 🗃 Baza de date locală
+# 🗃 Lokale Datenbanken
 *.sqlite3
 *.db
 
-# ⚙️ Foldere de sistem Python
+# ⚙️ Python Cache & virtuelle Umgebungen
 __pycache__/
 *.py[cod]
+venv/
+.env/  # falls virtuelle Umgebung als .env-Ordner verwendet wird
 
-# 📦 Node.js
+# 🖥️ Django statische Dateien
+staticfiles/
+
+# 📦 Node.js (Frontend)
 node_modules/
 dist/
 build/
 
-# 🛠 Vite & React
+# 🛠️ Vite & React Build-Dateien
 .vite/
 *.log
 
-# 🧪 Teste temporare
+# 🧪 Test-Output & Konfigurationen
 coverage/
 jest.config.js
 
-# 🧱 IDE-uri
+# 🖥️ IDE & Editor-Dateien
 .vscode/
 .idea/
 
-# 📄 Alte fișiere pe care nu vrei să le urci
+# 🗄️ System-Dateien
 .DS_Store
 Thumbs.db
 
-# 🔧 Linux / Unix
+# 🔧 Temporäre Dateien von Linux/Vim
 *.swp
+*.swo

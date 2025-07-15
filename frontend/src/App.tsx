@@ -1,11 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-// Globale Kontexte
 import { AuthProvider } from './features/Auth/AuthContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 
-// Öffentliche Seiten
 import LandingPage from './pages/LandingPage';
 import AboDetailPage from './pages/AboDetailPage';
 import Login from './features/Auth/Login';
@@ -14,7 +12,6 @@ import ForgotPassword from './features/Auth/ForgotPassword';
 import ConfirmEmail from './pages/ConfirmEmail';
 import ConfirmEmailInvalid from './pages/ConfirmEmailInvalid';
 
-// Geschützte Dashboards
 import ProtectedRoute from './features/Auth/ProtectedRoute';
 import ClientDashboard from './pages/dashboard/ClientDashboard';
 import ProviderDashboard from './pages/dashboard/ProviderDashboard';
@@ -26,7 +23,7 @@ const App: React.FC = () => {
     <DarkModeProvider>
       <AuthProvider>
         <Routes>
-          {/* 🌐 Öffentliche Seiten */}
+          {/* Öffentliche Seiten */}
           <Route index element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -35,7 +32,7 @@ const App: React.FC = () => {
           <Route path="/confirm-email/invalid" element={<ConfirmEmailInvalid />} />
           <Route path="/abo/:plan" element={<AboDetailPage />} />
 
-          {/* 🔒 Geschützte Routen */}
+          {/* Geschützte Dashboards */}
           <Route
             path="/dashboard/client"
             element={

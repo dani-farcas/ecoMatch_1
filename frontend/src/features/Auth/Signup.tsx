@@ -1,29 +1,28 @@
+// 📁 React-Komponenten & Hooks importieren
 import React, { useState, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from '../../api/axios';
 
 const Signup: React.FC = () => {
-  const navigate = useNavigate();
-
-  // 🔐 Zustände für Formulardaten
-  const [username, setUsername] = useState(''); // 👤 NEU: Benutzername
+  // 📌 📌 States für Formulardaten
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [role, setRole] = useState<'client' | 'provider'>('client');
   const [showPassword, setShowPassword] = useState(false);
 
-  // 📁 Zustände für Logo (optional)
+  // 🖼️ Logo-Datei (optional)
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ⚠️ Fehler- & Erfolgsstatus
+  // ⚠️ Fehler und Erfolgsmeldungen
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
-  // 🧾 Gemeinsamer Stil für alle Eingabefelder
+  // 📏 Gemeinsamer Stil für Eingabefelder
   const inputBaseStyle: React.CSSProperties = {
     width: '100%',
     height: '48px',
@@ -35,7 +34,7 @@ const Signup: React.FC = () => {
     marginBottom: '1.2rem',
   };
 
-  // 🔁 Logo-Upload mit Vorschau
+  // 📤 Logo-Datei Vorschau aktualisieren
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -50,31 +49,30 @@ const Signup: React.FC = () => {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  // 📤 Formular absenden
+  // 📨 Formular absenden
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setSuccess(false);
+    setSuccessMessage('');
 
     if (password !== password2) {
-      setError('Die Passwörter stimmen nicht überein.');
+      setError('❌ Die Passwörter stimmen nicht überein.');
       return;
     }
 
-  // ✅ Payload angepasst an das Backend
-const formData = {
-  username,      // 🆕 Benutzername
-  email,
-  password,
-  password2,
-  is_client: role === 'client',     // 🔁 boolean aus dem Dropdown-Wert
-  is_provider: role === 'provider',
-};
+    // ✅ Payload vorbereiten
+    const formData = {
+      username,
+      email,
+      password,
+      password2,
+      is_client: role === 'client',
+      is_provider: role === 'provider',
+    };
 
     try {
       await axios.post('register/', formData);
-      setSuccess(true);
-      setTimeout(() => navigate('/confirm-email-pending'), 2000);
+      setSuccessMessage('✅ Registrierung erfolgreich! Bitte bestätige deine E-Mail-Adresse bevor du dich einloggst.');
     } catch (err: any) {
       const backendError = err.response?.data;
       if (backendError) {
@@ -84,7 +82,7 @@ const formData = {
           setError(backendError);
         }
       } else {
-        setError('Registrierung fehlgeschlagen.');
+        setError('❌ Registrierung fehlgeschlagen.');
       }
     }
   };
@@ -99,8 +97,7 @@ const formData = {
       fontFamily: 'sans-serif',
       padding: '2rem',
     }}>
-      <form
-        onSubmit={handleSubmit}
+      <form onSubmit={handleSubmit}
         style={{
           backgroundColor: 'white',
           padding: '3rem',
@@ -108,13 +105,12 @@ const formData = {
           boxShadow: '0 6px 24px rgba(0,0,0,0.1)',
           width: '100%',
           maxWidth: '450px',
-        }}
-      >
+        }}>
         <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '1.8rem', color: '#111827' }}>
           Registrierung
         </h2>
 
-        {/* 🆕 Benutzername */}
+        {/* Benutzername */}
         <label style={{ fontWeight: 500 }}>Benutzername</label>
         <input
           type="text"
@@ -125,6 +121,7 @@ const formData = {
           style={inputBaseStyle}
         />
 
+        {/* E-Mail */}
         <label style={{ fontWeight: 500 }}>E-Mail</label>
         <input
           type="email"
@@ -135,6 +132,7 @@ const formData = {
           style={inputBaseStyle}
         />
 
+        {/* Passwort */}
         <label style={{ fontWeight: 500 }}>Passwort</label>
         <div style={{
           display: 'flex',
@@ -182,26 +180,28 @@ const formData = {
           </button>
         </div>
 
+        {/* Passwort bestätigen */}
         <label style={{ fontWeight: 500 }}>Passwort bestätigen</label>
         <input
           type={showPassword ? 'text' : 'password'}
           value={password2}
           onChange={(e) => setPassword2(e.target.value)}
-          placeholder="Wiederholen"
+          placeholder="Passwort wiederholen"
           required
           style={inputBaseStyle}
         />
 
+        {/* Rolle auswählen */}
         <label style={{ fontWeight: 500 }}>Rolle</label>
         <select
           value={role}
           onChange={(e) => setRole(e.target.value as 'client' | 'provider')}
-          style={inputBaseStyle}
-        >
+          style={inputBaseStyle}>
           <option value="client">Kunde</option>
           <option value="provider">Dienstleister</option>
         </select>
 
+        {/* Logo Upload */}
         <label style={{ fontWeight: 500 }}>Logo hochladen (optional)</label>
         <button
           type="button"
@@ -225,6 +225,7 @@ const formData = {
           style={{ display: 'none' }}
         />
 
+        {/* Logo Vorschau */}
         {logoPreview && (
           <div style={{ margin: '1rem 0', textAlign: 'center', position: 'relative' }}>
             <img
@@ -256,24 +257,23 @@ const formData = {
           </div>
         )}
 
+        {/* Fehler oder Erfolg anzeigen */}
         {error && <p style={{ color: '#dc2626', marginBottom: '1rem', textAlign: 'center' }}>{error}</p>}
-        {success && <p style={{ color: '#15803d', marginBottom: '1rem', textAlign: 'center' }}>✅ Registrierung erfolgreich!</p>}
+        {successMessage && <p style={{ color: '#15803d', marginBottom: '1rem', textAlign: 'center' }}>{successMessage}</p>}
 
-        <button
-          type="submit"
-          style={{
-            width: '100%',
-            padding: '0.9rem',
-            border: 'none',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            backgroundColor: '#15803d',
-            color: 'white',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            marginBottom: '1.5rem',
-          }}
-        >
+        {/* Submit Button */}
+        <button type="submit" style={{
+          width: '100%',
+          padding: '0.9rem',
+          border: 'none',
+          borderRadius: '8px',
+          fontSize: '1rem',
+          backgroundColor: '#15803d',
+          color: 'white',
+          cursor: 'pointer',
+          fontWeight: 'bold',
+          marginBottom: '1.5rem',
+        }}>
           Konto erstellen
         </button>
 

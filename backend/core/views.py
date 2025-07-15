@@ -1,5 +1,3 @@
-# 📁 core/views.py
-
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,50 +5,39 @@ from rest_framework.decorators import api_view
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
+from django.conf import settings  # ✅ FRONTEND_URL wird bei Bedarf verwendet
 
-# 📦 Modelle & Serializer importieren
-from .models import (
-    Subscription, ServiceType,
-    ProviderProfile, Request, Offer
-)
+from .models import Subscription, ServiceType, ProviderProfile, Request, Offer
 from .serializers import (
     RegisterSerializer, UserSerializer, SubscriptionSerializer,
     ServiceTypeSerializer, ProviderProfileSerializer,
     RequestSerializer, OfferSerializer
 )
-
-# 🔧 Eigene Berechtigungen
 from core.utils.permissions import role_required
-
-# 📩 Import der E-Mail-Funktion (du musst sie in utils/email.py definieren)
 from core.utils.email import send_confirmation_email
 
-# 🔄 Aktuelles User-Modell laden
+# 🔐 Eigenes User-Modell laden
 User = get_user_model()
 
-# 🔐 Benutzerverwaltung
+# ✅ Benutzerverwaltung via API
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
-# 💳 Abonnements
+# ✅ Abonnements-Management via API
 class SubscriptionViewSet(viewsets.ModelViewSet):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
-# 🛠 Öffentliche Servicetypen
+# ✅ Öffentliche API für Servicetypen
 class ServiceTypeViewSet(viewsets.ModelViewSet):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
     permission_classes = [permissions.AllowAny]
 
-
-# 🧑‍🔧 Anbieterprofile
+# ✅ Anbieterprofile nur für authentifizierte Anbieter
 class ProviderProfileViewSet(viewsets.ModelViewSet):
     queryset = ProviderProfile.objects.all()
     serializer_class = ProviderProfileSerializer
@@ -59,8 +46,7 @@ class ProviderProfileViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-
-# 📩 Kundenanfragen
+# ✅ Kundenanfragen nur für authentifizierte Clients
 class RequestViewSet(viewsets.ModelViewSet):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
@@ -69,8 +55,7 @@ class RequestViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(client=self.request.user)
 
-
-# 💬 Angebote von Dienstleistern
+# ✅ Angebote von Anbietern nur für eingeloggte Anbieter
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
@@ -79,8 +64,7 @@ class OfferViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(provider=self.request.user)
 
-
-# 📝 Registrierung eines neuen Benutzers (GAST)
+# ✅ Registrierung eines neuen Benutzers inkl. E-Mail-Bestätigung
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -88,37 +72,31 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            user.is_active = False  # Konto bleibt inaktiv bis Bestätigung
+            user.is_active = False  # Benutzer bleibt inaktiv bis E-Mail bestätigt
             user.save()
-            send_confirmation_email(user, request)  # 📩 E-Mail mit Link senden
-            return Response({'message': 'Bitte bestätige deine E-Mail-Adresse.'}, status=status.HTTP_201_CREATED)
+            send_confirmation_email(user, request)
+            return Response({'message': '✅ Bitte bestätige deine E-Mail-Adresse.'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# ✅ Kontoaktivierung per Link (aus E-Mail)
+# ✅ E-Mail Bestätigung via API-Endpoint (JSON Response für React)
 class ConfirmEmailView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, uidb64, token):
         try:
-            # 🔓 Nutzer-ID decodieren
             uid = urlsafe_base64_decode(uidb64).decode()
             user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({"message": "❌ Ungültiger Bestätigungslink."}, status=status.HTTP_400_BAD_REQUEST)
 
-            # 🔐 Token validieren
-            if default_token_generator.check_token(user, token):
-                user.is_active = True
-                user.save()
-                # 🌐 Weiterleitung zum Frontend nach erfolgreicher Aktivierung
-                return HttpResponseRedirect("https://ecoMatch.vercel.app/confirm-email/success")
-            else:
-                return HttpResponseRedirect("https://ecoMatch.vercel.app/confirm-email/invalid")
-        except Exception:
-            return HttpResponseRedirect("https://ecoMatch.vercel.app/confirm-email/invalid")
+        if default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return Response({"message": "✅ Deine E-Mail-Adresse wurde erfolgreich bestätigt."}, status=status.HTTP_200_OK)
+        return Response({"message": "❌ Der Token ist ungültig oder abgelaufen."}, status=status.HTTP_400_BAD_REQUEST)
 
-
-# 🔒 Beispiel für Client-Zugriff mit Rollenprüfung
+# 🔒 Beispiel: Nur Clients haben Zugriff
 @api_view(['GET'])
-@role_required('client')  # erlaubt Zugriff für Clients & Superuser
+@role_required('client')
 def client_dashboard(request):
     return Response({'nachricht': 'Willkommen im Client-Dashboard'})

@@ -1,15 +1,22 @@
 // 📁 src/pages/ConfirmEmailInvalid.tsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ConfirmEmailInvalid: React.FC = () => {
   const navigate = useNavigate();
 
-  // 🔁 Weiterleitung zur Registrierung
   const handleRedirect = () => {
     navigate('/signup');
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/signup');
+    }, 7000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <div
@@ -27,9 +34,9 @@ const ConfirmEmailInvalid: React.FC = () => {
     >
       <h2 style={{ color: '#dc2626' }}>❌ Ungültiger Bestätigungslink</h2>
       <p style={{ fontSize: '1.1rem', maxWidth: '500px' }}>
-        Dieser Link ist entweder <strong>abgelaufen</strong>, wurde bereits <strong>verwendet</strong> oder ist <strong>ungültig</strong>.
+        Dieser Link ist entweder <strong>abgelaufen</strong>, wurde bereits <strong>verwendet</strong> oder ist <strong>ungültig</strong>.<br />
+        Du wirst automatisch zur Registrierung weitergeleitet.
       </p>
-
       <button
         onClick={handleRedirect}
         style={{
@@ -43,7 +50,7 @@ const ConfirmEmailInvalid: React.FC = () => {
           cursor: 'pointer',
         }}
       >
-        Zur Registrierung
+        Jetzt registrieren
       </button>
     </div>
   );
