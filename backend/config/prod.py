@@ -1,12 +1,38 @@
-# 📁 config/prod.py
 from .base import *
 
-DEBUG = False
+# 📁 Statische Dateien für Produktion (collectstatic)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-
+# 📁 Datenbankeinstellungen – Produktion (PostgreSQL)
 DATABASES = {
-    'default': env.db(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST', default='db'),
+        'PORT': env('POSTGRES_PORT', default='5432'),
+    }
 }
 
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS')
+# 🔐 Sicherheits-Einstellungen für Produktion
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=True)
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# 🟣 Logging – nur WARN und ERROR werden ausgegeben
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}

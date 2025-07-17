@@ -1,13 +1,16 @@
-# 🔒 Umgebungsvariablen (sensible Daten)
-.env
-.env.local
-.env.*.local
+# 🔐 Umgebungsvariablen (sensible Daten)
+backend/.env*
 **/.env
 **/.env.*
 
-# 🗃 Lokale Datenbanken
+# 🗃 Lokale Datenbanken (Django)
 *.sqlite3
 *.db
+
+# 🟣 Docker Volumes
+postgres_data/
+static_volume/
+media_volume/
 
 # ⚙️ Python Cache & virtuelle Umgebungen
 __pycache__/
@@ -16,15 +19,15 @@ venv/
 .env/  # falls virtuelle Umgebung als .env-Ordner verwendet wird
 
 # 🖥️ Django statische Dateien
-staticfiles/
+backend/staticfiles/
 
 # 📦 Node.js (Frontend)
-node_modules/
-dist/
-build/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
 
 # 🛠️ Vite & React Build-Dateien
-.vite/
+frontend/.vite/
 *.log
 
 # 🧪 Test-Output & Konfigurationen

@@ -1,31 +1,38 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// 📌 Workaround für __dirname in ESM
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// 📌 Für __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  build: {
-    outDir: 'dist', // 📁 Ausgabeordner für den Build (z. B. für Vercel)
-  },
+
+  // 📁 Aliase für sauberes Importieren
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'), // 🎯 Alias für Importe aus /src
+      '@': path.resolve(__dirname, 'src'),
     },
   },
+
+  // 📌 Build-Ordner für Produktion
+  build: {
+    outDir: 'dist',
+  },
+
+  // 🟢 Lokaler Dev-Server für Docker Compose Setup
   server: {
-    port: 5173, // 📍 Lokaler Port für die Entwicklung
+    host: true, // 🔑 notwendig für Docker (0.0.0.0)
+    port: 5173,
     proxy: {
+      // 📌 Proxy an Django Backend weiterleiten
       '/api': {
-        target: 'http://localhost:8000', // 🎯 Weiterleitung an das Backend (Django)
+        target: process.env.VITE_BACKEND_URL || 'http://backend:8000',
         changeOrigin: true,
         secure: false,
       },
     },
   },
-})
+});

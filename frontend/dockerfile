@@ -1,0 +1,18 @@
+# 📌 Offizielles Node Image
+FROM node:20-slim
+
+# 📌 Arbeitsverzeichnis im Container
+WORKDIR /app
+
+# 📌 Kopieren und Installieren der Abhängigkeiten
+COPY package.json package-lock.json ./
+RUN npm install
+
+# 📌 Kopieren des gesamten Frontend-Codes
+COPY . .
+
+# 🟢 Fix Rollup/Node Build Probleme in Docker
+RUN rm -rf node_modules package-lock.json && npm install
+
+# 📌 Start Befehl für Vite Dev-Server
+CMD ["npm", "run", "dev"]

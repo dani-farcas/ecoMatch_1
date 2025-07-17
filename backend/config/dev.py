@@ -1,15 +1,31 @@
-# 📁 config/dev.py
 from .base import *
 
-DEBUG = True
+# 🟢 Lokale statische Dateien für Entwicklung
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-ALLOWED_HOSTS = ['*']
-
+# 📁 Datenbankeinstellungen – Entwicklung (PostgreSQL)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST', default='db'),
+        'PORT': env('POSTGRES_PORT', default='5432'),
     }
 }
 
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:5173'])
+# 🟢 Logging für Entwicklung – alles wird in Konsole ausgegeben
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}

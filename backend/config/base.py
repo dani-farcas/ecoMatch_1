@@ -2,21 +2,25 @@ import environ
 import os
 from pathlib import Path
 
-# 📁 Basisverzeichnis
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+# 📌 Root-Verzeichnis (root/backend)
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
+# 🟢 Environment laden
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
+# 🔐 Sicherheitseinstellungen
 SECRET_KEY = env('SECRET_KEY')
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
-# ✅ dein Custom User Model
+# 🔑 Custom User Model
 AUTH_USER_MODEL = 'core.User'
 
-ROOT_URLCONF = 'backend.config.urls'
+# 🌐 Root URL Configuration
+ROOT_URLCONF = 'config.urls'
 
+# 📦 Installierte Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,6 +33,7 @@ INSTALLED_APPS = [
     'core',
 ]
 
+# ⚙️ Middleware
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -40,6 +45,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 📁 Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -56,26 +62,41 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.config.wsgi.application'
+# 📌 WSGI-Anwendung
+WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
-    'default': env.db(default=f'sqlite:///{BASE_DIR}/db.sqlite3')
+# 🟣 REST Framework Einstellungen
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
+# 🟢 CORS Einstellungen
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[env('FRONTEND_URL')])
+CORS_ALLOW_CREDENTIALS = True
+
+# 📧 E-Mail Einstellungen
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_PORT = env.int('EMAIL_PORT')
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
+# 🌐 Frontend-URL für Bestätigungslinks
 FRONTEND_URL = env('FRONTEND_URL')
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[FRONTEND_URL])
-CORS_ALLOW_CREDENTIALS = True
 
+# 🌐 Internationalisierung
+LANGUAGE_CODE = 'de'
+TIME_ZONE = 'Europe/Berlin'
+USE_I18N = True
+USE_TZ = True
+
+# 📁 Static Dateien
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# 📁 Media Dateien (optional)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'

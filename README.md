@@ -1,93 +1,166 @@
-# 🌱 ecoMatch – Smart B2B Service Matching Platform
+# 📚 ecoMatch – Setup & Deployment Guide
 
-**ecoMatch** is a full-stack web application that connects **clients** (e.g. municipalities or companies) with suitable **service providers** in their region – based on service type, location, and availability.
+## 🚀 Overview
 
----
-
-## 🚀 Key Features
-
-- Role-based access: **Client** (e.g. public authority) and **Provider** (service company)
-- Secure registration & login with **email confirmation**
-- Dynamic **project request form** with validation and file/image upload
-- **Smart matching algorithm** based on selected services and provider coverage area
-- Modern, mobile-friendly UI with **dark mode** and **responsive dashboards**
-- JWT authentication & role-specific routes
-- Optional: profile image upload, edit, delete
-- Planned: **Subscription system via Stripe or Mollie**
+ecoMatch is a full-stack project with React (frontend), Django REST API (backend), PostgreSQL database, all containerized via Docker Compose. Production-ready setup includes Nginx as reverse proxy and pgAdmin for DB management.
 
 ---
 
-## 🧱 Tech Stack
+## 📁 Project Structure
 
-### 🔹 Frontend
-- **React** with **TypeScript**
-- **Vite** (replaced CRA for better performance)
-- **Zustand** for state management
-- React Router, Axios, React Icons
-- Dark Mode using `useState` + `localStorage`
-- Deployment: **Vercel**
-
-### 🔹 Backend
-- **Django 5** + **Django REST Framework**
-- JWT Authentication (`SimpleJWT`)
-- PostgreSQL database
-- Role-based ViewSets & permission system
-- File/image upload & media handling
-- Deployment: **Render**
-
----
-
-## 📂 Project Structure (excerpt)
-
-ecoMatch/
-├── backend/
-│ ├── core/
-│ │ ├── models.py
-│ │ └── views.py
-│ ├── api/
-│ │ ├── serializers.py
-│ │ └── urls.py
-│ └── config/
-│ ├── settings.py
-│ └── wsgi.py
-├── frontend/
-│ ├── src/
-│ │ ├── pages/
-│ │ │ ├── Login.tsx
-│ │ │ ├── Signup.tsx
-│ │ │ └── dashboard/
-│ │ │ ├── ClientDashboard.tsx
-│ │ │ └── ProviderDashboard.tsx
-│ ├── assets/
-│ └── styles/
-└── README.md
-
+```
+project_root/
+│
+├── backend/              # Django backend
+│   ├── .env.dev
+│   ├── .env.prod
+│   └── .env.example
+│
+├── frontend/             # React frontend
+├── nginx/                # Nginx configuration
+│   └── nginx.conf
+│
+├── docker-compose.yml
+└── README.md             # this file
+```
 
 ---
 
-## 🔐 Security & Architecture
+## 💻 Local Development (Docker Compose)
 
-- Secure handling of secrets using `.env` files for dev & production
-- JWT token system with refresh, token expiry & logout
-- Protected API routes + frontend route guards
-- Input validations (email, phone number, postal code, URLs)
-- Profile/logo image preview, live validation, and deletion
+### ✅ 1. Clone the project
+
+```bash
+git clone https://github.com/your-username/ecoMatch.git
+cd ecoMatch
+```
+
+### ✅ 2. Configure Environment Variables
+
+In `backend/`:
+
+```bash
+cp .env.example .env.dev
+```
+
+Adjust credentials (optional).
+
+### ✅ 3. Start the full stack (React + Django + DB)
+
+```bash
+docker compose -f docker-compose.yml up -d --build
+```
+
+### ✅ 4. Setup Django
+
+```bash
+docker compose exec backend python manage.py migrate
+# optional admin user
+docker compose exec backend python manage.py createsuperuser
+```
+
+### ✅ 5. Access Locally
+
+* Frontend (React build): [http://localhost](http://localhost)
+* Django Admin: [http://localhost/admin/](http://localhost/admin/)
+* pgAdmin: [http://localhost:5050](http://localhost:5050) (login: [admin@ecomatch.local](mailto:admin@ecomatch.local) / admin123)
 
 ---
 
-## 📈 Next Steps
+## 🌐 Production Deployment (AWS EC2)
 
-- Integration of **Stripe/Mollie** for managing subscriptions and checkout
-- Admin dashboard for analytics, user & request management
-- Email notifications & system messages
-- Feedback system (ratings/reviews) for completed services
-- Performance monitoring and logging (Sentry, LogRocket, etc.)
-- Multilingual support (de / en / ro)
+### ✅ 1. Setup EC2 Instance
+
+* Ubuntu Server 24.04 LTS
+* Install Docker + Docker Compose
+
+### ✅ 2. Clone and Setup Environment
+
+```bash
+git clone https://github.com/your-username/ecoMatch.git
+cd ecoMatch
+cp backend/.env.example backend/.env.prod
+# edit backend/.env.prod for production
+```
+
+### ✅ 3. Start Production Stack
+
+```bash
+docker compose -f docker-compose.yml up -d --build
+```
+
+### ✅ 4. Collect Static Files
+
+```bash
+docker compose exec backend python manage.py collectstatic --noinput
+```
+
+### ✅ 5. Migrate Database and Create Superuser
+
+```bash
+docker compose exec backend python manage.py migrate
+docker compose exec backend python manage.py createsuperuser
+```
+
+### ✅ 6. Server Access Points
+
+* Website: [http://your-ec2-ip/](http://your-ec2-ip/)
+* Admin Panel: [http://your-ec2-ip/admin/](http://your-ec2-ip/admin/)
+* pgAdmin: [http://your-ec2-ip:5050](http://your-ec2-ip:5050)
+
+✅ You can add your domain and SSL later via Nginx configuration.
 
 ---
 
-## 📌 Project Status
+## ⚙️ Docker Compose Services Explained
 
-🟢 **Actively in development**  
-🔒 **Private codebase** – this overview is for documentation & presentation only  
-📞 Interested in collaboration? Reach out via GitHub: [@dani-farcas](https://github.com/dani-farcas)
+| Service  | Description                                |
+| -------- | ------------------------------------------ |
+| db       | PostgreSQL database                        |
+| pgadmin  | DB Admin Panel on port 5050                |
+| backend  | Django REST API served by Gunicorn         |
+| frontend | React app build handled in Docker          |
+| nginx    | Reverse Proxy + static/media files + React |
+
+---
+
+## 🟢 Useful Commands
+
+### View Logs:
+
+```bash
+docker compose logs -f backend
+docker compose logs -f nginx
+```
+
+### Stop & Remove Containers:
+
+```bash
+docker compose down
+```
+
+### Rebuild Everything:
+
+```bash
+docker compose down && docker compose up -d --build
+```
+
+---
+
+## ✅ Best Practices
+
+* Use `.env.prod` for production secrets (never commit!)
+* Frontend is served via Nginx from React build folder.
+* Admin and API routed via Nginx (`/admin/`, `/api/`).
+* pgAdmin available for DB inspection.
+
+---
+
+## 📌 Future Improvements
+
+* [ ] SSL with Let’s Encrypt via Nginx
+* [ ] Frontend React on AWS S3 + CloudFront
+* [ ] AWS RDS for database
+* [ ] Auto-deployment via GitHub Actions
+
+✅ Ready to deploy and scale!
