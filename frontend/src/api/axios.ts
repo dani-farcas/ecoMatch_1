@@ -3,7 +3,7 @@
 import axios from "axios";
 
 // 🌍 Basis-URL aus .env (z.B. http://localhost:8000/api/)
-let baseURL = import.meta.env.VITE_API_URL || "http://localhost:8000/api/";
+let baseURL = import.meta.env.VITE_API_URL || "http://localhost/api/";
 
 // Sicherstellen, dass baseURL mit '/' endet
 if (!baseURL.endsWith("/")) {

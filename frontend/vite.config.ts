@@ -29,7 +29,7 @@ export default defineConfig({
     proxy: {
       // 📌 Proxy an Django Backend weiterleiten
       '/api': {
-        target: process.env.VITE_BACKEND_URL || 'http://backend:8000',
+        target: process.env.VITE_BACKEND_URL,
         changeOrigin: true,
         secure: false,
       },
