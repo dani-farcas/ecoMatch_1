@@ -24,7 +24,7 @@ const App: React.FC = () => {
       <AuthProvider>
         <Routes>
           {/* Öffentliche Seiten */}
-          <Route index element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
