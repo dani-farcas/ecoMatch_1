@@ -36,3 +36,6 @@ LOGGING = {
         'level': 'WARNING',
     },
 }
+SECURE_HSTS_SECONDS = 3600  # poți crește la 31536000 după testare
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True

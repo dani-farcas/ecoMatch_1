@@ -1,8 +1,14 @@
 // 📁 src/features/auth/AuthContext.tsx
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 
 // 🧾 Typdefinition für den AuthContext
 interface AuthContextType {
@@ -22,7 +28,9 @@ const AuthContext = createContext<AuthContextType>({
 export const useAuth = () => useContext(AuthContext);
 
 // 📦 Provider-Komponente für AuthContext
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const navigate = useNavigate();
 
   // 🔐 Zustand für Authentifizierung
@@ -31,7 +39,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // 🔑 Login-Funktion – speichert Tokens im localStorage
   const login = async (username: string, password: string) => {
     try {
-      const response = await axios.post('token/', {
+      const response = await axios.post("token/", {
         username,
         password,
       });
@@ -40,28 +48,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const accessToken = response.data.access;
       const refreshToken = response.data.refresh;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
 
       setIsAuthenticated(true); // Benutzer ist jetzt angemeldet
     } catch (error: any) {
-      throw new Error(
-        error.response?.data?.detail || 'Login fehlgeschlagen.'
-      );
+      throw new Error(error.response?.data?.detail || "Login fehlgeschlagen.");
     }
   };
 
   // 🚪 Logout-Funktion – entfernt Tokens und navigiert zum Login
   const logout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setIsAuthenticated(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   // 🔄 Prüft beim Laden, ob ein Token vorhanden ist
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token) {
       setIsAuthenticated(true);
     }

@@ -1,56 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useAuth } from '../../features/Auth/AuthContext';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
 
-import { FaSun, FaMoon, FaEdit, FaSave, FaTimes, FaInfoCircle } from 'react-icons/fa';
+import {
+  FaSun,
+  FaMoon,
+  FaEdit,
+  FaSave,
+  FaTimes,
+  FaInfoCircle,
+} from "react-icons/fa";
 
 const landkreiseMap: Record<string, string[]> = {
-  Hessen: ['Gießen', 'Marburg-Biedenkopf', 'Offenbach'],
-  Bayern: ['München', 'Augsburg', 'Nürnberg'],
-  Berlin: ['Mitte', 'Pankow', 'Charlottenburg-Wilmersdorf'],
+  Hessen: ["Gießen", "Marburg-Biedenkopf", "Offenbach"],
+  Bayern: ["München", "Augsburg", "Nürnberg"],
+  Berlin: ["Mitte", "Pankow", "Charlottenburg-Wilmersdorf"],
 };
 
 const ClientSetupForm: React.FC = () => {
   const { token } = useAuth();
 
   const [formData, setFormData] = useState({
-    institution_name: '',
-    contact_person: '',
-    contact_function: '',
-    contact_phone: '',
-    region: '',
-    landkreis: '',
-    stadt: '',
-    plz: '',
-    strasse_nr: '',
-    über_mich: '',
-    external_link: '',
+    institution_name: "",
+    contact_person: "",
+    contact_function: "",
+    contact_phone: "",
+    region: "",
+    landkreis: "",
+    stadt: "",
+    plz: "",
+    strasse_nr: "",
+    über_mich: "",
+    external_link: "",
   });
 
   const [logo, setLogo] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [überMichCount, setÜberMichCount] = useState(0);
 
-  const landkreise = formData.region ? landkreiseMap[formData.region] || [] : [];
+  const landkreise = formData.region
+    ? landkreiseMap[formData.region] || []
+    : [];
 
   useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? '#121212' : '#f5f5f5';
-    document.body.style.color = darkMode ? '#e0e0e0' : '#222';
+    document.body.style.backgroundColor = darkMode ? "#121212" : "#f5f5f5";
+    document.body.style.color = darkMode ? "#e0e0e0" : "#222";
     return () => {
-      document.body.style.backgroundColor = '';
-      document.body.style.color = '';
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
     };
   }, [darkMode]);
 
   useEffect(() => {
-    console.log("JWT token:", token)
+    console.log("JWT token:", token);
     if (!token) return;
     axios
-      .get('/api/client-profiles/', {
+      .get("/api/client-profiles/", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -72,16 +81,18 @@ const ClientSetupForm: React.FC = () => {
   }, [logo]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
 
-    if (name === 'über_mich') setÜberMichCount(value.length);
+    if (name === "über_mich") setÜberMichCount(value.length);
 
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-      ...(name === 'region' ? { landkreis: '' } : {}),
+      ...(name === "region" ? { landkreis: "" } : {}),
     }));
   };
 
@@ -91,24 +102,24 @@ const ClientSetupForm: React.FC = () => {
     const urlRegex = /^(https?:\/\/)?[\w\-]+(\.[\w\-]+)+[/#?]?.*$/i;
 
     if (formData.contact_phone && !phoneRegex.test(formData.contact_phone))
-      return 'Telefonnummer ist ungültig.';
+      return "Telefonnummer ist ungültig.";
 
     if (formData.plz && !plzRegex.test(formData.plz))
-      return 'Postleitzahl muss genau 5 Ziffern enthalten.';
+      return "Postleitzahl muss genau 5 Ziffern enthalten.";
 
     if (formData.external_link && !urlRegex.test(formData.external_link))
-      return 'Externer Link ist ungültig.';
+      return "Externer Link ist ungültig.";
 
     if (formData.über_mich.length > 500)
-      return '„Über mich“ darf maximal 500 Zeichen enthalten.';
+      return "„Über mich“ darf maximal 500 Zeichen enthalten.";
 
-    return '';
+    return "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSuccess('');
-    setError('');
+    setSuccess("");
+    setError("");
 
     const validationError = validateFields();
     if (validationError) {
@@ -117,19 +128,21 @@ const ClientSetupForm: React.FC = () => {
     }
 
     try {
-      const res = await axios.get('/api/client-profiles/', {
+      const res = await axios.get("/api/client-profiles/", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       const profile = res.data.find((p: any) => p && p.id);
-      const url = profile ? `/api/client-profiles/${profile.id}/` : '/api/client-profiles/';
-      const method = profile ? 'put' : 'post';
+      const url = profile
+        ? `/api/client-profiles/${profile.id}/`
+        : "/api/client-profiles/";
+      const method = profile ? "put" : "post";
 
       const sendData = new FormData();
       Object.entries(formData).forEach(([key, value]) =>
         sendData.append(key, value as string)
       );
-      if (logo) sendData.append('logo', logo);
+      if (logo) sendData.append("logo", logo);
 
       await axios({
         method,
@@ -137,166 +150,172 @@ const ClientSetupForm: React.FC = () => {
         data: sendData,
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
-      setSuccess('✔️ Profil wurde erfolgreich gespeichert.');
-      setTimeout(() => setSuccess(''), 3000);
+      setSuccess("✔️ Profil wurde erfolgreich gespeichert.");
+      setTimeout(() => setSuccess(""), 3000);
       setEditMode(false);
     } catch {
-      setError('❌ Fehler beim Speichern.');
+      setError("❌ Fehler beim Speichern.");
     }
   };
   const style = {
     container: {
       maxWidth: 700,
-      margin: '40px auto',
+      margin: "40px auto",
       padding: 30,
-      backgroundColor: darkMode ? '#1e1e1e' : '#fff',
-      color: darkMode ? '#e0e0e0' : '#222',
+      backgroundColor: darkMode ? "#1e1e1e" : "#fff",
+      color: darkMode ? "#e0e0e0" : "#222",
       borderRadius: 10,
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      boxShadow: darkMode ? '0 0 15px rgba(0,0,0,0.9)' : '0 0 10px rgba(0,0,0,0.1)',
-      position: 'relative' as const,
+      boxShadow: darkMode
+        ? "0 0 15px rgba(0,0,0,0.9)"
+        : "0 0 10px rgba(0,0,0,0.1)",
+      position: "relative" as const,
     },
     toggleModeBtn: {
-      position: 'absolute' as const,
+      position: "absolute" as const,
       top: 15,
       right: 15,
-      background: 'none',
-      border: 'none',
-      cursor: 'pointer',
+      background: "none",
+      border: "none",
+      cursor: "pointer",
       fontSize: 22,
-      color: darkMode ? '#f9d71c' : '#555',
+      color: darkMode ? "#f9d71c" : "#555",
     },
     editBtn: {
-      position: 'absolute' as const,
+      position: "absolute" as const,
       top: 15,
       left: 15,
-      backgroundColor: '#007bff',
-      color: '#fff',
-      padding: '8px 14px',
+      backgroundColor: "#007bff",
+      color: "#fff",
+      padding: "8px 14px",
       borderRadius: 8,
       fontSize: 15,
       fontWeight: 600,
-      cursor: 'pointer',
-      border: 'none',
-      display: 'flex',
-      alignItems: 'center',
+      cursor: "pointer",
+      border: "none",
+      display: "flex",
+      alignItems: "center",
       gap: 8,
     },
     field: { marginBottom: 20 },
     label: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
       marginBottom: 6,
       fontWeight: 600,
     },
     input: {
-      width: '100%',
+      width: "100%",
       padding: 10,
       borderRadius: 5,
-      border: `1px solid ${darkMode ? '#555' : '#ccc'}`,
-      backgroundColor: darkMode ? '#2c2c2c' : '#fff',
-      color: darkMode ? '#e0e0e0' : '#222',
+      border: `1px solid ${darkMode ? "#555" : "#ccc"}`,
+      backgroundColor: darkMode ? "#2c2c2c" : "#fff",
+      color: darkMode ? "#e0e0e0" : "#222",
       fontSize: 16,
     },
     textarea: {
-      width: '100%',
+      width: "100%",
       padding: 10,
       borderRadius: 5,
-      border: `1px solid ${darkMode ? '#555' : '#ccc'}`,
-      backgroundColor: darkMode ? '#2c2c2c' : '#fff',
-      color: darkMode ? '#e0e0e0' : '#222',
+      border: `1px solid ${darkMode ? "#555" : "#ccc"}`,
+      backgroundColor: darkMode ? "#2c2c2c" : "#fff",
+      color: darkMode ? "#e0e0e0" : "#222",
       fontSize: 16,
       minHeight: 80,
     },
     counter: {
-      textAlign: 'right' as const,
+      textAlign: "right" as const,
       fontSize: 12,
-      color: '#999',
+      color: "#999",
       marginTop: 4,
     },
     success: {
-      backgroundColor: '#28a745',
-      color: '#fff',
-      padding: '10px 14px',
+      backgroundColor: "#28a745",
+      color: "#fff",
+      padding: "10px 14px",
       borderRadius: 6,
       marginBottom: 15,
       fontWeight: 600,
     },
     error: {
-      backgroundColor: '#dc3545',
-      color: '#fff',
-      padding: '10px 14px',
+      backgroundColor: "#dc3545",
+      color: "#fff",
+      padding: "10px 14px",
       borderRadius: 6,
       marginBottom: 15,
       fontWeight: 600,
     },
     button: {
       padding: 12,
-      width: '100%',
+      width: "100%",
       borderRadius: 5,
-      border: 'none',
-      backgroundColor: '#28a745',
-      color: '#fff',
+      border: "none",
+      backgroundColor: "#28a745",
+      color: "#fff",
       fontSize: 16,
       fontWeight: 600,
-      cursor: 'pointer',
+      cursor: "pointer",
     },
     labelStatic: {
       fontSize: 13,
       fontWeight: 400,
-      color: '#aaa',
-      textTransform: 'uppercase' as const,
+      color: "#aaa",
+      textTransform: "uppercase" as const,
       marginBottom: 4,
-      letterSpacing: '0.5px',
+      letterSpacing: "0.5px",
     },
     valueStatic: {
       fontSize: 17,
       fontWeight: 500,
-      color: '#f0f0f0',
+      color: "#f0f0f0",
       lineHeight: 1.4,
     },
     sectionStatic: {
       marginBottom: 16,
       paddingBottom: 12,
-      borderBottom: '1px solid #333',
+      borderBottom: "1px solid #333",
     },
     logoPreview: {
-      maxWidth: '100%',
+      maxWidth: "100%",
       maxHeight: 120,
       marginTop: 8,
       borderRadius: 6,
     },
     logoRow: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       gap: 12,
     },
     removeLogoBtn: {
-      backgroundColor: '#dc3545',
-      color: '#fff',
-      border: 'none',
+      backgroundColor: "#dc3545",
+      color: "#fff",
+      border: "none",
       borderRadius: 6,
-      padding: '4px 8px',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
+      padding: "4px 8px",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
     },
     tooltip: {
       marginLeft: 6,
-      color: '#888',
-      cursor: 'help',
+      color: "#888",
+      cursor: "help",
       fontSize: 14,
     },
   };
 
   return (
     <div style={style.container}>
-      <button onClick={() => setDarkMode(!darkMode)} style={style.toggleModeBtn} title="Dark Mode umschalten">
+      <button
+        onClick={() => setDarkMode(!darkMode)}
+        style={style.toggleModeBtn}
+        title="Dark Mode umschalten"
+      >
         {darkMode ? <FaSun /> : <FaMoon />}
       </button>
 
@@ -308,28 +327,38 @@ const ClientSetupForm: React.FC = () => {
             <FaEdit /> Bearbeiten
           </button>
           {Object.entries(formData)
-            .filter(([key]) => key !== 'id' && key !== 'user')
+            .filter(([key]) => key !== "id" && key !== "user")
             .map(([key, value]) => (
               <div style={style.sectionStatic} key={key}>
-                <div style={style.labelStatic}>{key.replace(/_/g, ' ')}</div>
-                <div style={style.valueStatic}>{value?.toString().trim() || '–'}</div>
+                <div style={style.labelStatic}>{key.replace(/_/g, " ")}</div>
+                <div style={style.valueStatic}>
+                  {value?.toString().trim() || "–"}
+                </div>
               </div>
             ))}
           {logoPreview && (
             <div style={{ marginTop: 10 }}>
               <div style={style.labelStatic}>Logo:</div>
-              <img src={logoPreview} alt="Logo Vorschau" style={style.logoPreview} />
+              <img
+                src={logoPreview}
+                alt="Logo Vorschau"
+                style={style.logoPreview}
+              />
             </div>
           )}
         </>
       ) : (
         <form onSubmit={handleSubmit}>
           {[
-            { name: 'institution_name', label: 'Name der Institution' },
-            { name: 'contact_person', label: 'Kontaktperson' },
-            { name: 'contact_function', label: 'Funktion' },
-            { name: 'contact_phone', label: 'Telefonnummer' },
-            { name: 'external_link', label: 'Externer Link', tooltip: 'z. B. Webseite oder Social Media' },
+            { name: "institution_name", label: "Name der Institution" },
+            { name: "contact_person", label: "Kontaktperson" },
+            { name: "contact_function", label: "Funktion" },
+            { name: "contact_phone", label: "Telefonnummer" },
+            {
+              name: "external_link",
+              label: "Externer Link",
+              tooltip: "z. B. Webseite oder Social Media",
+            },
           ].map((field) => (
             <div style={style.field} key={field.name}>
               <label style={style.label}>
@@ -386,14 +415,14 @@ const ClientSetupForm: React.FC = () => {
             </select>
           </div>
 
-          {['stadt', 'plz', 'strasse_nr'].map((field) => (
+          {["stadt", "plz", "strasse_nr"].map((field) => (
             <div style={style.field} key={field}>
               <label style={style.label}>
-                {field === 'stadt'
-                  ? 'Stadt'
-                  : field === 'plz'
-                  ? 'Postleitzahl'
-                  : 'Straße & Nr.'}
+                {field === "stadt"
+                  ? "Stadt"
+                  : field === "plz"
+                  ? "Postleitzahl"
+                  : "Straße & Nr."}
               </label>
               <input
                 name={field}
@@ -455,4 +484,3 @@ const ClientSetupForm: React.FC = () => {
 };
 
 export default ClientSetupForm;
-

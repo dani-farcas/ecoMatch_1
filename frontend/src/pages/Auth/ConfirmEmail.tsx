@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import axios from "../../api/axios";
 
 const ConfirmEmail: React.FC = () => {
   // 🔗 URL-Parameter uid und token aus der Route auslesen
