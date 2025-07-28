@@ -3,7 +3,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-# 📦 Import aller API-Views
+# 📦 Import aller Views (API-Endpunkte)
 from core.views import (
     RegisterView,
     ConfirmEmailView,
@@ -13,12 +13,10 @@ from core.views import (
     ProviderProfileViewSet,
     RequestViewSet,
     OfferViewSet,
-    GuestInitiateAPIView,
-    GuestConfirmView,
-    client_dashboard,
+    client_dashboard,  # ✅ Beispiel für geschützten Client-Endpunkt
 )
 
-# 🔁 Automatischer Router für ViewSets (CRUD-Operationen)
+# 🔁 REST-API Router: automatische Generierung von CRUD-URLs für ViewSets
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'subscriptions', SubscriptionViewSet)
@@ -27,26 +25,20 @@ router.register(r'provider-profiles', ProviderProfileViewSet)
 router.register(r'requests', RequestViewSet)
 router.register(r'offers', OfferViewSet)
 
-# 🔓 Öffentliche API-Endpunkte (ohne Authentifizierung)
+# 🔓 Öffentliche Endpunkte (kein Login erforderlich)
 urlpatterns = [
-    # ➕ REST-API-ViewSets (automatisch generiert)
+    # ➡️ Alle ViewSet-Endpunkte über Router (CRUD-Operationen)
     path('', include(router.urls)),
 
-    # 📝 Registrierung eines neuen Benutzers
+    # ➡️ Benutzer-Registrierung (POST)
     path('register/', RegisterView.as_view(), name='register'),
 
-    # ✅ Bestätigung der E-Mail-Adresse (für registrierte Benutzer)
+    # ➡️ E-Mail-Bestätigung nach Registrierung (GET via Link)
     path('confirm-email/<str:uidb64>/<str:token>/', ConfirmEmailView.as_view(), name='confirm-email'),
-
-    # 📨 GAST: Initialisierung mit E-Mail + DSGVO-Zustimmung
-    path('gast/initiate/', GuestInitiateAPIView.as_view(), name='gast-initiate'),
-
-    # ✅ GAST: Bestätigung des Tokens (E-Mail-Link)
-    path('gast/confirm/', GuestConfirmView.as_view(), name='gast-confirm'),
 ]
 
-# 🔐 Geschützte Endpunkte (erfordern Authentifizierung per JWT)
+# 🔐 Authentifizierte Endpunkte (erfordern JWT-Token)
 urlpatterns += [
-    # 🔒 Beispiel: Nur Clients haben Zugriff auf Dashboard
+    # ➡️ Beispiel für geschützten API-Endpunkt (Client-Dashboard)
     path('dashboard/client/', client_dashboard, name='client-dashboard'),
 ]

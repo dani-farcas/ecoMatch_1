@@ -1,7 +1,6 @@
 # 📁 core/utils/email.py
 
 from django.core.mail import EmailMultiAlternatives
-from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
@@ -30,8 +29,6 @@ def send_confirmation_email(user, request):
         "Wenn du dich nicht bei ecoMatch registriert hast, kannst du diese Nachricht ignorieren.\n"
     )
 
-    
-
     # 🌍 HTML-Version der E-Mail für moderne Clients
     html_content = f"""
     <html>
@@ -56,16 +53,3 @@ def send_confirmation_email(user, request):
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-
-# 📨 2. Funktion zum Versand der GAST-Bestätigungs-E-Mail (nur Text)
-def send_guest_confirmation_email(email, token):
-    link = f"{settings.FRONTEND_URL}/gast-confirmieren?token={token}"
-    subject = "Bestätige deine Anfrage bei ecoMatch"
-    message = f"Klicke auf den folgenden Link, um deine Anfrage zu bestätigen:\n{link}"
-    send_mail(
-        subject,
-        message,
-        settings.DEFAULT_FROM_EMAIL,
-        [email],
-        fail_silently=False,
-    )

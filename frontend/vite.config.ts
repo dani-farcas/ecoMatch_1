@@ -11,11 +11,15 @@ export default defineConfig({
   plugins: [react()],
 
   // 📁 Aliase für sauberes Importieren
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
+ resolve: {
+  alias: {
+    '@': path.resolve(__dirname, 'src'),
+    '@assets': path.resolve(__dirname, 'src/assets'),
+    '@pages': path.resolve(__dirname, 'src/pages'),
+    '@features': path.resolve(__dirname, 'src/features'),
+    '@components': path.resolve(__dirname, 'src/components'), // 🟢 jetzt OK
   },
+},
 
   // 📌 Build-Ordner für Produktion
   build: {

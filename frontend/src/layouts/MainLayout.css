@@ -1,0 +1,34 @@
+/* 🔧 Gesamt-Layoutcontainer für die gesamte Seite */
+.main-layout-container {
+  display: flex;                  /* Flexbox-Layout vertikal */
+  flex-direction: column;         /* Elemente von oben nach unten */
+  height: 100vh;                  /* Gesamthöhe = gesamte Bildschirmhöhe */
+  overflow: hidden;               /* Kein Scrollen auf Desktop und Tablet */
+  position: relative;             /* Ermöglicht absolute Positionierung für ChatBot */
+}
+
+/* 📄 Hauptbereich der Seite zwischen Header und Footer */
+main {
+  flex-grow: 1;                   /* Hauptinhalt nimmt verfügbaren Platz ein */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;       /* Inhalt vertikal zentriert */
+  align-items: center;           /* Inhalt horizontal zentriert */
+  overflow: hidden;              /* Kein internes Scrollen */
+  padding: 0 1rem;               /* Horizontaler Innenabstand */
+}
+
+/* 📱 Auf Smartphones: Scrollen aktivieren und Inhalt normal anordnen */
+@media (max-width: 767px) {
+  .main-layout-container {
+    height: auto;                /* Höhe passt sich dem Inhalt an */
+    overflow-y: auto;            /* Scrollen aktivieren */
+  }
+
+  main {
+    justify-content: flex-start; /* Inhalt beginnt oben */
+    align-items: stretch;        /* Breite 100% */
+    padding: 1rem;               /* Etwas Innenabstand */
+    overflow: visible;           /* Alles sichtbar */
+  }
+}

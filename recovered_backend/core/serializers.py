@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from .models import (
     User, Subscription, ServiceType,
-    ProviderProfile, Request, Offer, Lead,
+    ProviderProfile, Request, Offer
 )
 
 
@@ -19,14 +19,6 @@ class UserSerializer(serializers.ModelSerializer):
             'region', 'postal_code', 'subscription'
         ]
 
-class LeadInitiateSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    consent = serializers.BooleanField()
-
-    def validate(self, data):
-        if not data["consent"]:
-            raise serializers.ValidationError("Zustimmung zur Datenverarbeitung ist erforderlich.")
-        return data
 
 # 💳 Serializer für das Abonnement-Modell
 class SubscriptionSerializer(serializers.ModelSerializer):

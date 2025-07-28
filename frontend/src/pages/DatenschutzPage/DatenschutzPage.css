@@ -1,0 +1,36 @@
+/* 📄 src/pages/DatenschutzPage.css */
+
+.datenschutz-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: sans-serif;
+  line-height: 1.6;
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+.datenschutz-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.datenschutz-container h2 {
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  color: #047857;
+}
+
+.datenschutz-container p {
+  margin-bottom: 1rem;
+}
+
+.datenschutz-container ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.datenschutz-container li {
+  margin-bottom: 0.5rem;
+}

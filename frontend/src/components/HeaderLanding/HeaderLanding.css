@@ -1,0 +1,138 @@
+/* HeaderLanding.css – Kopfzeile im ecoMatch-Stil */
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 250px;
+  height: auto;
+}
+
+/* Navigation */
+.nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #1e1e1e;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: large;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #148344;
+}
+
+/* 🔐 Login-Button */
+.login-button {
+  background-color: #1a9f4e;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: large;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.login-button:hover {
+  background-color: #148344;
+}
+
+/* 🆕 Registrieren-Button */
+.register-button {
+  background-color: transparent;
+  color: #1a9f4e;
+  border: 2px solid #1a9f4e;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: large;
+  transition: all 0.2s ease-in-out;
+  margin-left: 8px;
+}
+
+.register-button:hover {
+  background-color: #1a9f4e;
+  color: white;
+}
+
+/* Container pentru ambele butoane */
+.header-buttons {
+  display: flex;
+  gap: 12px;
+  margin-left: 20px;
+}
+
+/* 🍔 Burger-Menü */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: #1e1e1e;
+  border-radius: 2px;
+}
+
+/* 🔄 Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    flex-direction: column;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    gap: 16px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .header-buttons {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 10px;
+  }
+
+  .login-button,
+  .register-button {
+    width: 100%;
+    text-align: center;
+  }
+}

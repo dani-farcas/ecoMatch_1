@@ -1,0 +1,25 @@
+# 📌 Offizielles Python-Image mit minimaler Größe
+FROM python:3.12-slim
+
+# 📌 Um Python-Cache-Dateien zu vermeiden
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# 📌 Arbeitsverzeichnis im Container
+WORKDIR /app
+
+# 📌 Systempakete installieren (für psycopg2 und andere Abhängigkeiten notwendig)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && apt-get clean
+
+# 📌 Anforderungen kopieren und installieren
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+# 📌 Ganzen Code kopieren
+COPY . .
+
+# 📌 Startbefehl für Gunicorn (WSGI-Server)
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]

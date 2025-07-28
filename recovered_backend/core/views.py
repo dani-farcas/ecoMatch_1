@@ -1,5 +1,3 @@
-# 📁 core/views.py
-
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,19 +5,18 @@ from rest_framework.decorators import api_view
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
-from django.conf import settings
-import secrets
+from django.conf import settings  # ✅ FRONTEND_URL wird bei Bedarf verwendet
 
-from .models import Subscription, ServiceType, ProviderProfile, Request, Offer, Lead
+from .models import Subscription, ServiceType, ProviderProfile, Request, Offer
 from .serializers import (
     RegisterSerializer, UserSerializer, SubscriptionSerializer,
     ServiceTypeSerializer, ProviderProfileSerializer,
-    RequestSerializer, OfferSerializer, LeadInitiateSerializer,
+    RequestSerializer, OfferSerializer
 )
 from core.utils.permissions import role_required
-from core.utils.email import send_confirmation_email, send_guest_confirmation_email
+from core.utils.email import send_confirmation_email
 
-# 🔐 Benutzerdefiniertes User-Modell laden
+# 🔐 Eigenes User-Modell laden
 User = get_user_model()
 
 # ✅ Benutzerverwaltung via API
@@ -28,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-# ✅ Abonnementsverwaltung
+# ✅ Abonnements-Management via API
 class SubscriptionViewSet(viewsets.ModelViewSet):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
@@ -40,7 +37,7 @@ class ServiceTypeViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceTypeSerializer
     permission_classes = [permissions.AllowAny]
 
-# ✅ Anbieterprofile für eingeloggte Anbieter
+# ✅ Anbieterprofile nur für authentifizierte Anbieter
 class ProviderProfileViewSet(viewsets.ModelViewSet):
     queryset = ProviderProfile.objects.all()
     serializer_class = ProviderProfileSerializer
@@ -49,7 +46,7 @@ class ProviderProfileViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-# ✅ Kundenanfragen nur für eingeloggte Clients
+# ✅ Kundenanfragen nur für authentifizierte Clients
 class RequestViewSet(viewsets.ModelViewSet):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
@@ -58,7 +55,7 @@ class RequestViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(client=self.request.user)
 
-# ✅ Angebote von Anbietern
+# ✅ Angebote von Anbietern nur für eingeloggte Anbieter
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
@@ -75,13 +72,13 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            user.is_active = False
+            user.is_active = False  # Benutzer bleibt inaktiv bis E-Mail bestätigt
             user.save()
             send_confirmation_email(user, request)
             return Response({'message': '✅ Bitte bestätige deine E-Mail-Adresse.'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ Bestätigung der E-Mail über UID + Token (für reguläre Registrierung)
+# ✅ E-Mail Bestätigung via API-Endpoint (JSON Response für React)
 class ConfirmEmailView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -98,67 +95,8 @@ class ConfirmEmailView(APIView):
             return Response({"message": "✅ Deine E-Mail-Adresse wurde erfolgreich bestätigt."}, status=status.HTTP_200_OK)
         return Response({"message": "❌ Der Token ist ungültig oder abgelaufen."}, status=status.HTTP_400_BAD_REQUEST)
 
-# 🔒 Beispiel: Nur Clients dürfen zugreifen
+# 🔒 Beispiel: Nur Clients haben Zugriff
 @api_view(['GET'])
 @role_required('client')
 def client_dashboard(request):
     return Response({'nachricht': 'Willkommen im Client-Dashboard'})
-
-# ✅ GAST: Initialisierung mit E-Mail + Zustimmung
-class GuestInitiateAPIView(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request):
-        serializer = LeadInitiateSerializer(data=request.data)
-        if serializer.is_valid():
-            email = serializer.validated_data["email"]
-            consent = serializer.validated_data["consent"]
-
-            lead, created = Lead.objects.get_or_create(email=email)
-
-            if lead.validated:
-                return Response({"detail": "Diese E-Mail wurde bereits bestätigt."}, status=status.HTTP_400_BAD_REQUEST)
-            if lead.used_for_request:
-                return Response({"detail": "Diese E-Mail wurde bereits verwendet."}, status=status.HTTP_403_FORBIDDEN)
-
-            # 🔐 Zufälliges Token für Bestätigungslink generieren
-            token = secrets.token_urlsafe(32)
-            lead.token = token
-            lead.consent_given = consent
-            lead.validated = False
-            lead.used_for_request = False
-            lead.save()
-
-            send_guest_confirmation_email(email, token)
-
-            return Response({"detail": "Bestätigungs-E-Mail wurde gesendet."}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# ✅ GAST: Bestätigung des Tokens und Erstellung eines inaktiven Benutzerkontos
-class GuestConfirmView(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def get(self, request):
-        token = request.query_params.get("token")
-
-        if not token:
-            return Response({"message": "❌ Kein Token übergeben."}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            lead = Lead.objects.get(token=token)
-        except Lead.DoesNotExist:
-            return Response({"message": "❌ Ungültiger oder abgelaufener Link."}, status=status.HTTP_400_BAD_REQUEST)
-
-        # ✅ Nur einmalige Bestätigung
-        if not lead.validated:
-            lead.validated = True
-            lead.save()
-
-            if not User.objects.filter(email=lead.email).exists():
-                User.objects.create_user(
-                    email=lead.email,
-                    username=lead.email.split("@")[0],
-                    is_active=False
-                )
-
-        return Response({"message": "✅ E-Mail erfolgreich bestätigt."}, status=status.HTTP_200_OK)

@@ -1,0 +1,145 @@
+/* 🌿 GAST – Design identic cu Signup */
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  font-family: sans-serif;
+}
+
+.gaststart-container {
+  display: flex;                      /* ✅ flex pe tot containerul */
+  justify-content: center;           /* ⬅️ centru vertical */
+  align-items: center;               /* ⬅️ centru orizontal */
+  height: 100vh;                     /* ⬅️ exact înălțimea vizibilă */
+  width: 100vw;                      /* ⬅️ la nevoie, forțează tot viewportul */
+  overflow: hidden;
+  background: linear-gradient(rgba(0, 8, 20, 0.2), rgba(0, 58, 20, 0.2)),
+              url("@assets/pictures/bg-landingpage.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+.gaststart-form-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+
+.gaststart-form {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+.gaststart-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: #111827;
+}
+
+.gaststart-form label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.gaststart-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 1.2rem;
+}
+
+.checkbox-label {
+  font-size: 0.9rem;
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+.checkbox-label input {
+  margin-right: 8px;
+}
+
+button {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #059669;
+}
+
+.erfolg,
+.fehler {
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.erfolg {
+  color: #15803d;
+  margin-bottom: 1rem;
+}
+
+.fehler {
+  color: #dc2626;
+}
+@media (max-width: 480px) {
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .gaststart-container {
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center center;
+    background-attachment: scroll;
+  }
+
+  .gaststart-form-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .gaststart-form {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+}

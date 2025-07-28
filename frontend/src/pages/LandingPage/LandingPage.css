@@ -1,296 +1,287 @@
-/* ✅ Gesamtlayout */
-.landing-page {
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* ✅ Header-Bereich */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-  padding: 0 50px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-}
-
-/* ✅ Logo */
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo-icon {
-  height: 150px;
-  transition: transform 0.3s;
-}
-
-.logo:hover .logo-icon {
-  transform: scale(1.08);
-}
-
-/* ✅ Desktop Navigation */
-.nav-links a {
-  margin: 0 15px;
-  font-weight: 500;
-  color: #1e1e1e;
-  font-weight: 700;
-  text-decoration: none;
-  position: relative;
-}
-
-.nav-links a::after {
-  content: "";
-  width: 0;
-  height: 2px;
-  background: #00704a;
+/* 🌿 Hauptcontainer für die LandingPage */
+.landing-container {
   display: block;
-  position: absolute;
-  bottom: -5px;
+  min-height: 100vh;
+  overflow-y: auto;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* 🔝 Fixierter Header (kommt aus externer Komponente) */
+header {
+  position: fixed;
+  top: 0;
   left: 0;
-  transition: width 0.3s;
+  right: 0;
+  height: 60px;
+  z-index: 1000;
 }
 
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-/* ✅ Burger-Menü nur auf Mobile */
-.burger-menu {
-  display: none;
-  color: #1e1e1e;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-/* ✅ Mobile Slide Menü */
-.mobile-menu {
-  display: none;
-}
-
-/* ✅ Hauptinhalt */
-.main-content {
+/* 🧩 Hauptbereich unterhalb des Headers */
+main {
   flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
-  height: 100vh;
+  flex-direction: column;
+  overflow-y: auto; /* ⬅️ important pentru scroll */
+  overflow-x: hidden;
 }
 
-/* ✅ Werbung links und rechts */
-.ads-left, .ads-right {
+/* 🌄 Hero-Sektion mit Bild + Farbverlauf */
+.hero-section {
+  flex: 0 0 auto; /* în loc de flex: 1 */
+  padding-top: 100px;
+  padding-bottom: 90px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-/* ✅ Werbekarten */
-.ad-card {
-  background: rgba(255, 255, 255, 0.5);
-  padding: 8px;
-  border-radius: 2px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  width: 400px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 8, 20, 0.2), rgba(0, 58, 20, 0.2)),
+    url("@assets/pictures/bg-landingpage.png");
+  background-size: cover;
+  background-position: center 40%;
+  color: white;
   text-align: center;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-section h1 {
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.cta-button {
+  background-color: #ecfdf5;
+  color: #166534;
+  border: none;
+  padding: 12px 24px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  display: inline-block;
+  width: auto;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cta-button:hover {
+  background-color: #d1fae5;
+  transform: translateY(-2px);
+}
+
+/* 🧩 Dienstleistungen */
+/* 🧩 Layout-Bereich für alle Service-Karten */
+.services-section {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.3s;
+  justify-content: center;
+  gap: 24px;
+  padding: 50px 100px;
+  background-color: #f0fdf4;
+  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
-.ad-card:hover {
-  transform: scale(1.04);
+/* 📦 Einzelne klickbare Karte – als Link gestaltet */
+.service-card {
+  display: block; /* Link verhält sich wie ein Blockelement */
+  background-color: white;
+  width: 250px;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  text-decoration: none; /* keine Unterstreichung */
+  color: inherit; /* kein blau für Links */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.ad-logo {
-  width: 60px;
-  height: auto;
-  margin-bottom: 4px;
+/* 🖱 Hover-Effekt für Karten */
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.ad-card p {
-  font-size: 12px;
-  font-weight: 600;
+/* 🖼 Icon-Image innerhalb der Karte */
+.service-card img {
+  width: 48px;
+  height: 48px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+/* 🏷 Titel der Karte */
+.service-card h3 {
+  margin-top: 8px;
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+/* 📄 Beschreibungstext in der Karte */
+.service-card p {
+  font-size: 0.95rem;
+  color: #4b5563;
   margin: 0;
 }
 
-.ad-card button {
-  background-color: #00704a;
-  color: white;
-  font-size: 12px;
-  padding: 6px 8px;
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  transition: background 0.3s;
+/* 💬 Kundenmeinung */
+.testimonial-section {
+  background-color: #e5e7eb;
+  padding: 20px 20px 20px; /* sus 40px, lateral 20px, jos 50px */
+  text-align: center;
+  flex-shrink: 0;
 }
 
-.ad-card button:hover {
-  background-color: #005f3b;
-}
-
-.ads-left, .ads-right {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 10px;
-}
-
-
-.ad-card a {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-
-.ad-card:hover {
-  transform: scale(1.05);
-}
-
-.ad-logo {
-  width: 40px;
+.testimonial-section img {
+  width: 80px;
+  height: 80px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
   margin-bottom: 10px;
 }
 
-.ad-card button {
-  background: #00704a;
+.testimonial-section p {
+  font-style: italic;
+  max-width: 600px;
+  margin: 0 auto 10px;
+  color: #166534;
+}
+
+/* 🔚 Footer */
+footer {
+  background-color: #1e293b;
   color: white;
-  padding: 10px;
-  width: 100%;
-  border: none;
-  border-radius: 2px;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.ad-card button:hover {
-  background: #005f3b;
-}
-
-/* ✅ Login Box */
-.center-login {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 40px;
-  border-radius: 2px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  gap: 15px;
+  padding: 10px;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
-.center-login input {
-  margin: 8px 0;
-  padding: 12px;
-  width: 250px;
-  border-radius: 2px;
-  border: 1px solid #ddd;
+.footer-links {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 0px;
+  flex-wrap: wrap;
 }
 
-.center-login button {
-  background: #00704a;
+.footer-links a {
   color: white;
-  padding: 12px;
-  width: 250px;
-  border: none;
-  border-radius: 2px;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.center-login button:hover {
-  background: #005f3b;
-}
-
-.forgot-link, .register-link {
-  color: #333;
-  font-weight: 500;
   text-decoration: none;
+  transition: opacity 0.2s ease;
 }
 
-.forgot-link:hover, .register-link:hover {
-  text-decoration: underline;
-  color: #ffff;
+.footer-links a:hover {
+  opacity: 0.7;
 }
 
-/* ✅ Footer */
-.footer {
-  text-align: center;
-  padding: 15px;
-  font-size: 13px;
-  background: rgba(255, 255, 255, 0.8);
-  font-weight: bold;
+.footer-separator {
+  width: 100%;
+  height: 1px;
+  background-color: #94a3b8;
+  margin: 5px 0;
 }
 
-/* ✅ Tablet Ansicht */
-@media (max-width: 1024px) {
-  .main-content {
-    padding: 0 20px;
-    gap: 20px;
+/* 🌱 Layout mobil (max. 767px) */
+@media (max-width: 767px) {
+  .hero-section h1 {
+    font-size: 2rem;
+    line-height: 1.3;
+    text-align: center;
   }
 
-  .ad-card {
-    width: 170px;
-  }
-
-  .center-login {
-    padding: 30px;
-  }
-}
-
-/* ✅ Mobile Ansicht */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .burger-menu { display: block; }
-
-  .mobile-menu {
-    display: flex;
+  .services-section {
     flex-direction: column;
-    gap: 25px;
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 65%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-    padding: 80px 20px;
-    font-weight: bold;
-    transition: right 0.3s ease;
-    z-index: 1000;
-  }
-
-  .mobile-menu.open { right: 0; }
-
-  .mobile-menu a {
-    text-decoration: none;
-    color: #1e1e1e;
-    font-size: 20px;
-  }
-
-  .mobile-menu a:hover {
-    color: #00704a;
-  }
-
-  .ads-left, .ads-right { display: none; }
-  .main-content {
-    justify-content: center;
-    padding: 0 20px;
-  }
-  .center-login {
-    width: 100%;
     padding: 30px 20px;
   }
-  .center-login input, .center-login button { width: 100%; }
+
+  .service-card {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .landing-container {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+}
+
+/* 📱 Optimierung für Tablet (z.B. iPad Pro 1024px) */
+@media (max-width: 1400px) {
+  /* 🧱 Basisstruktur: keine doppelten Scroll-Leisten */
+  html,
+  body,
+  #root {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* ✅ nur äußeres Scrollen erlaubt */
+    overflow-x: hidden;
+  }
+
+  /* 🧱 Hauptlayout soll keine eigene Scrollbar erzeugen */
+  .landing-container {
+    height: auto; /* ✅ kein 100vh + flex mehr */
+    overflow: visible; /* ✅ erlaubt normalen Fluss */
+  }
+
+  /* 🌄 Hero-Bereich füllt gesamten sichtbaren Bereich */
+  .hero-section {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 120px;
+    padding-bottom: 100px;
+    background-position: center 22%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+
+  /* 📝 Testimonial & Footer lückenlos verbinden */
+  .testimonial-section {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  footer {
+    margin-top: 0;
+    padding-top: 1rem;
+  }
 }

@@ -82,18 +82,3 @@ class AccessLog(models.Model):
     view_type = models.CharField(max_length=20)  # 'client' oder 'provider'
     view_count = models.IntegerField(default=0)
     last_access = models.DateTimeField(auto_now=True)
-
-# core/models.py
-
-from django.db import models
-
-class Lead(models.Model):
-    email = models.EmailField(unique=True)
-    consent_given = models.BooleanField(default=False)  # ✅ GDPR-Zustimmung
-    token = models.CharField(max_length=64, unique=True, null=True, blank=True)
-    validated = models.BooleanField(default=False)      # ✅ E-Mail bestätigt?
-    used_for_request = models.BooleanField(default=False)  # ✅ Anfrage schon gestellt?
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.email
