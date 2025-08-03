@@ -3,16 +3,10 @@ from .base import *
 # 🟢 Lokale statische Dateien für Entwicklung
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# 📁 Datenbankeinstellungen – Entwicklung (PostgreSQL)
+# 📁 Datenbankeinstellungen – Entwicklung mit DATABASE_URL
+# Nutzt automatisch die Variable DATABASE_URL aus .env.dev
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB'),
-        'USER': env('POSTGRES_USER'),
-        'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': env('POSTGRES_HOST', default='db'),
-        'PORT': env('POSTGRES_PORT', default='5432'),
-    }
+    'default': env.db()
 }
 
 # 🟢 Logging für Entwicklung – alles wird in Konsole ausgegeben
