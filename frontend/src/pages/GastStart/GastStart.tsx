@@ -16,6 +16,14 @@ const GastStart: React.FC = () => {
       alert("Bitte stimmen Sie der Datenschutzbestimmung zu.");
       return;
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+      return;
+    }
+
+    // Email valid → salvează în localStorage
+    localStorage.setItem("gast_email", email);
 
     try {
       setStatus("loading");
@@ -55,19 +63,17 @@ const GastStart: React.FC = () => {
             required
           />
 
-          <label className="checkbox-label">
+          <label className="checkbox-inline">
             <input
               type="checkbox"
-              name="consent"
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
-              required
             />
-            Ich stimme der{" "}
-            <a href="/datenschutz" target="_blank">
+            Ich stimme der&nbsp;
+            <a href="/datenschutz" target="_blank" rel="noopener noreferrer">
               Datenschutzbestimmung
-            </a>{" "}
-            zu.
+            </a>
+            &nbsp;zu.
           </label>
 
           <button type="submit" disabled={status === "loading"}>

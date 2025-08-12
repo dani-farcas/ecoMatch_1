@@ -3,24 +3,56 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from rest_framework.parsers import MultiPartParser, FormParser
 import secrets
 
-from .models import Subscription, ServiceType, ProviderProfile, Request, Offer, Lead
+# ✅ Standort-API: Rückgabe von Stadt und Straßen basierend auf PLZ
+from core.models import PlzOrt, Strasse
+from .models import Subscription, ServiceType, ProviderProfile, Request, Offer, Lead, Bundesland, Region
 from .serializers import (
     RegisterSerializer, UserSerializer, SubscriptionSerializer,
     ServiceTypeSerializer, ProviderProfileSerializer,
-    RequestSerializer, OfferSerializer, LeadInitiateSerializer,
+    RequestSerializer, OfferSerializer, LeadInitiateSerializer, GuestRequestSerializer, BundeslandSerializer, RegionSerializer,
 )
 from core.utils.permissions import role_required
 from core.utils.email import send_confirmation_email, send_guest_confirmation_email
 
-# 🔐 Benutzerdefiniertes User-Modell laden
+
+
 User = get_user_model()
+# 🔐 Benutzerdefiniertes User-Modell lade
+# ✅ GAST – POST Confirmare Email
+class GuestConfirmAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        token = request.data.get("token")
+        if not token:
+            return Response({"detail": "❌ Kein Token übergeben."}, status=status.HTTP_400_BAD_REQUEST)
+
+        lead = Lead.objects.filter(token=token).first()
+
+        if not lead:
+            return Response({"detail": "❌ Ungültiger oder abgelaufener Link."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # ✅ Markiere als validiert (auch wenn schon gesetzt)
+        if not lead.validated:
+            lead.validated = True
+            lead.save()
+
+        # ✅ Returne immer token și email actual (să fie sincronizat cu frontendul)
+        return Response({
+            "token": lead.token,
+            "email": lead.email,
+        }, status=status.HTTP_200_OK)
+
+
 
 # ✅ Benutzerverwaltung via API
 class UserViewSet(viewsets.ModelViewSet):
@@ -35,10 +67,9 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 # ✅ Öffentliche API für Servicetypen
-class ServiceTypeViewSet(viewsets.ModelViewSet):
+class ServiceTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
-    permission_classes = [permissions.AllowAny]
 
 # ✅ Anbieterprofile für eingeloggte Anbieter
 class ProviderProfileViewSet(viewsets.ModelViewSet):
@@ -66,6 +97,28 @@ class OfferViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(provider=self.request.user)
+
+        # ✅ GAST: Anfrage mit Bildern absenden (nach Bestätigung)
+import logging
+
+logger = logging.getLogger(__name__)
+
+class GuestRequestAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        serializer = GuestRequestSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "✅ Anfrage erfolgreich empfangen."}, status=201)
+        else:
+            # Loghează erorile detaliat
+            logger.error(f"Serializer errors: {serializer.errors}")
+            # Returnează erorile explicite în răspuns JSON
+            return Response({"errors": serializer.errors}, status=400)
+
+
 
 # ✅ Registrierung eines neuen Benutzers inkl. E-Mail-Bestätigung
 class RegisterView(APIView):
@@ -104,6 +157,28 @@ class ConfirmEmailView(APIView):
 def client_dashboard(request):
     return Response({'nachricht': 'Willkommen im Client-Dashboard'})
 
+class BundeslandViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    🔓 Öffentliche API: Gibt alle Bundesländer zurück
+    """
+    queryset = Bundesland.objects.all().order_by("name")
+    serializer_class = BundeslandSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class RegionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Region.objects.all()  # ✅ adăugat pentru router
+    serializer_class = RegionSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        bundesland_name = self.request.query_params.get("bundesland")
+        if bundesland_name:
+            qs = qs.filter(land__name=bundesland_name)
+        return qs
+
+
 # ✅ GAST: Initialisierung mit E-Mail + Zustimmung
 class GuestInitiateAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -130,35 +205,47 @@ class GuestInitiateAPIView(APIView):
             lead.save()
 
             send_guest_confirmation_email(email, token)
+            print(f"🔔 send_guest_confirmation_email a fost apelat cu token: {token}")
 
             return Response({"detail": "Bestätigungs-E-Mail wurde gesendet."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ✅ GAST: Bestätigung des Tokens und Erstellung eines inaktiven Benutzerkontos
-class GuestConfirmView(APIView):
-    permission_classes = [permissions.AllowAny]
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def strassen_lookup(request):
+    print("📥 Query params:", request.query_params)
 
-    def get(self, request):
-        token = request.query_params.get("token")
+    plz_ort_id = request.GET.get("plz_ort")
+    if not plz_ort_id:
+        return Response({"error": "Kein PLZ-Ort angegeben."}, status=400)
 
-        if not token:
-            return Response({"message": "❌ Kein Token übergeben."}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        plz_ort_id = int(plz_ort_id)
+    except ValueError:
+        return Response({"error": "Ungültige PLZ-Ort-ID."}, status=400)
 
-        try:
-            lead = Lead.objects.get(token=token)
-        except Lead.DoesNotExist:
-            return Response({"message": "❌ Ungültiger oder abgelaufener Link."}, status=status.HTTP_400_BAD_REQUEST)
+    # 📦 Lade alle eindeutigen Straßennamen (vollständig, ohne Hausnummer)
+    namen = (
+        Strasse.objects
+        .filter(plz_ort_id=plz_ort_id)
+        .values_list("name", flat=True)
+        .distinct()
+        .order_by("name")
+    )
 
-        # ✅ Nur einmalige Bestätigung
-        if not lead.validated:
-            lead.validated = True
-            lead.save()
+    # 🧼 Optional: entferne doppelte Namen exakt
+    unique_names = sorted(set(namen))
 
-            if not User.objects.filter(email=lead.email).exists():
-                User.objects.create_user(
-                    email=lead.email,
-                    username=lead.email.split("@")[0],
-                    is_active=False
-                )
+    return Response({"strassen": unique_names})
 
-        return Response({"message": "✅ E-Mail erfolgreich bestätigt."}, status=status.HTTP_200_OK)
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def get_location_by_plz(request):
+    plz = request.GET.get("plz")
+    if not plz:
+        return Response([], status=400)
+
+    matches = PlzOrt.objects.filter(plz=plz)
+    data = [{"id": p.id, "plz": p.plz, "ort": p.ort} for p in matches]
+    return Response(data)
+

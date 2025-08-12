@@ -1,0 +1,135 @@
+[
+  {
+    "model": "core.servicetype",
+    "pk": 1,
+    "fields": { "name": "Landschaftsplanung", "category": "Umweltfachplanung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 2,
+    "fields": { "name": "Bauleitplanung", "category": "Umweltfachplanung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 3,
+    "fields": { "name": "Artenschutzprüfung", "category": "Umweltfachplanung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 4,
+    "fields": { "name": "Eingriffsregelung", "category": "Umweltfachplanung" }
+  },
+
+  {
+    "model": "core.servicetype",
+    "pk": 5,
+    "fields": {
+      "name": "Biotopkartierung",
+      "category": "Ökologische Erfassung"
+    }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 6,
+    "fields": { "name": "Avifauna", "category": "Ökologische Erfassung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 7,
+    "fields": { "name": "Reptilien", "category": "Ökologische Erfassung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 8,
+    "fields": { "name": "Fledermäuse", "category": "Ökologische Erfassung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 9,
+    "fields": { "name": "Vegetation", "category": "Ökologische Erfassung" }
+  },
+
+  {
+    "model": "core.servicetype",
+    "pk": 10,
+    "fields": { "name": "Monitoring", "category": "Umweltmanagement" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 11,
+    "fields": { "name": "Bauüberwachung", "category": "Umweltmanagement" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 12,
+    "fields": {
+      "name": "Nachhaltigkeitskonzepte",
+      "category": "Umweltmanagement"
+    }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 13,
+    "fields": { "name": "Berichtserstellung", "category": "Umweltmanagement" }
+  },
+
+  {
+    "model": "core.servicetype",
+    "pk": 14,
+    "fields": { "name": "Pflegepläne", "category": "Naturschutzberatung" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 15,
+    "fields": {
+      "name": "Fördermittelberatung",
+      "category": "Naturschutzberatung"
+    }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 16,
+    "fields": {
+      "name": "Kompensationsmaßnahmen",
+      "category": "Naturschutzberatung"
+    }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 17,
+    "fields": {
+      "name": "Habitatsmanagement",
+      "category": "Naturschutzberatung"
+    }
+  },
+
+  {
+    "model": "core.servicetype",
+    "pk": 18,
+    "fields": {
+      "name": "Standortanalyse Solar",
+      "category": "Erneuerbare Energien"
+    }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 19,
+    "fields": { "name": "Windkraftplanung", "category": "Erneuerbare Energien" }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 20,
+    "fields": {
+      "name": "Genehmigungsplanung",
+      "category": "Erneuerbare Energien"
+    }
+  },
+  {
+    "model": "core.servicetype",
+    "pk": 21,
+    "fields": {
+      "name": "Beteiligungsverfahren",
+      "category": "Erneuerbare Energien"
+    }
+  }
+]

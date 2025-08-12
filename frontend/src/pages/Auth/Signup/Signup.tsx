@@ -130,7 +130,7 @@ const Signup: React.FC = () => {
             />
             <span
               className="toggle-password-icon"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               role="button"
               aria-label="Passwort anzeigen/verbergen"
             >

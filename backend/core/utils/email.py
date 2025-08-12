@@ -57,15 +57,20 @@ def send_confirmation_email(user, request):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-# 📨 2. Funktion zum Versand der GAST-Bestätigungs-E-Mail (nur Text)
+# 📨 GAST-Bestätigungs-E-Mail mit Logging
 def send_guest_confirmation_email(email, token):
     link = f"{settings.FRONTEND_URL}/gast-confirmieren?token={token}"
     subject = "Bestätige deine Anfrage bei ecoMatch"
     message = f"Klicke auf den folgenden Link, um deine Anfrage zu bestätigen:\n{link}"
-    send_mail(
-        subject,
-        message,
-        settings.DEFAULT_FROM_EMAIL,
-        [email],
-        fail_silently=False,
-    )
+
+    try:
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [email],
+            fail_silently=False,
+        )
+        print(f"✅ E-Mail erfolgreich gesendet an {email}")
+    except Exception as e:
+        print(f"❌ Fehler beim Senden der GAST-Bestätigungs-E-Mail an {email}: {e}")

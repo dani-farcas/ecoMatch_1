@@ -11,18 +11,12 @@ body,
 }
 
 .gaststart-container {
-  display: flex;                      /* ✅ flex pe tot containerul */
-  justify-content: center;           /* ⬅️ centru vertical */
-  align-items: center;               /* ⬅️ centru orizontal */
-  height: 100vh;                     /* ⬅️ exact înălțimea vizibilă */
-  width: 100vw;                      /* ⬅️ la nevoie, forțează tot viewportul */
+  display: flex;                      
+  justify-content: center;           
+  align-items: center;               
+  height: 80vh;                    
+  width: 100vw;                      
   overflow: hidden;
-  background: linear-gradient(rgba(0, 8, 20, 0.2), rgba(0, 58, 20, 0.2)),
-              url("@assets/pictures/bg-landingpage.png");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 
@@ -37,7 +31,7 @@ body,
 
 
 .gaststart-form {
-  background-color: white;
+  background-color: rgba(240, 253, 244, 0.75);
   padding: 3rem;
   border-radius: 12px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
@@ -70,14 +64,19 @@ body,
   margin-bottom: 1.2rem;
 }
 
-.checkbox-label {
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 0.9rem;
-  text-align: left;
-  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+  color: #111827;
 }
 
-.checkbox-label input {
-  margin-right: 8px;
+.checkbox-inline input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #10b981;
 }
 
 button {

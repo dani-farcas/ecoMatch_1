@@ -1,0 +1,43 @@
+/* 📁 components/autocomplete/DropdownStrasse.css */
+
+.dropdown-strasse-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.dropdown-strasse-container label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #155e75;
+}
+
+.dropdown-strasse {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.dropdown-strasse:focus {
+  border-color: #10b981;
+  outline: none;
+  background-color: #fff;
+}
+
+.dropdown-strasse:disabled {
+  background-color: #eee;
+  color: #888;
+}
+
+/* ✅ Responsive für mobile */
+@media (max-width: 768px) {
+  .dropdown-strasse {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.9rem;
+  }
+}

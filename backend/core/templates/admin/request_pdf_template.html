@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Anfrage #{{ request.id }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      color: #222;
+      font-size: 13px;
+    }
+    h1 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    .label {
+      font-weight: bold;
+      color: #555;
+      width: 150px;
+      display: inline-block;
+    }
+    .value {
+      display: inline-block;
+    }
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .image-grid img {
+      width: 200px;
+      height: auto;
+      border: 1px solid #ccc;
+      padding: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Anfrage Nr. {{ request.id }}</h1>
+
+  <div class="section">
+    <div><span class="label">Datum:</span> {{ request.created_at|date:"d.m.Y H:i" }}</div>
+  </div>
+
+  <div class="section">
+    <div><span class="label">Vorname:</span> {{ request.client.first_name }}</div>
+    <div><span class="label">Nachname:</span> {{ request.client.last_name }}</div>
+    <div><span class="label">E-Mail:</span> {{ request.client.email }}</div>
+    <div><span class="label">Telefon:</span> {{ request.client.phone_number }}</div>
+    <div><span class="label">Firma:</span> {{ request.client.company }}</div>
+  </div>
+
+  <div class="section">
+    <div><span class="label">Straße & Nr.:</span> {{ request.client.street }}</div>
+    <div><span class="label">PLZ:</span> {{ request.client.postal_code }}</div>
+    <div><span class="label">Ort:</span> {{ request.client.city }}</div>
+    <div><span class="label">Region:</span> {{ request.client.region }}</div>
+  </div>
+
+  <div class="section">
+    <div><span class="label">Angeforderter Dienst:</span> {{ request.service_type.name }}</div>
+  </div>
+
+  <div class="section">
+    <div><span class="label">Beschreibung:</span></div>
+    <div style="margin-top: 5px;">{{ request.description|linebreaks }}</div>
+  </div>
+
+  {% if request.images.all %}
+  <div class="section">
+    <div><span class="label">Bilder:</span></div>
+    <div class="image-grid">
+      {% for img in request.images.all %}
+        <img src="{{ img.image.url }}" alt="Bild">
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</body>
+</html>

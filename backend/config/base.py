@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # 🟢 Environment laden
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+print("✅ .env geladen – BASE_DIR =", BASE_DIR)
 
 # 🔐 Sicherheitseinstellungen
 SECRET_KEY = env('SECRET_KEY')
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'core',
+    'import_export',  # Optional für Datenexport
 ]
 
 # ⚙️ Middleware
@@ -49,7 +51,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'core', 'templates')], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -61,6 +63,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 # 📌 WSGI-Anwendung
 WSGI_APPLICATION = 'config.wsgi.application'
@@ -100,3 +103,29 @@ STATIC_URL = '/static/'
 # 📁 Media Dateien (optional)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',  # Cel mai comun, dar poți seta și DEBUG pentru mai multe detalii
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'core': {  # numele aplicației tale
+            'handlers': ['console'],
+            'level': 'DEBUG',  # pentru a vedea erori și mesaje de debug
+            'propagate': False,
+        },
+    },
+}

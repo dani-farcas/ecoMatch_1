@@ -21,6 +21,10 @@ from django.conf.urls.static import static
 if settings.DEBUG:
     # 🟢 Development: local staticfiles direkt aus /static/ Ordner
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+     # 📷 Media-Dateien lokal verfügbar machen
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:
     # 🔴 Production: staticfiles gesammelt in STATIC_ROOT (z.B. /staticfiles/)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+     # 📷 Media-Dateien auch in Produktion ausliefern (falls kein NGINX)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

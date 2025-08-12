@@ -4,7 +4,6 @@ from .base import *
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # 📁 Datenbankeinstellungen – Entwicklung mit DATABASE_URL
-# Nutzt automatisch die Variable DATABASE_URL aus .env.dev
 DATABASES = {
     'default': env.db()
 }

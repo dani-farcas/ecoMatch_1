@@ -3,7 +3,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-# 📦 Import aller API-Views
+# 📦 API-Views & ViewSets
 from core.views import (
     RegisterView,
     ConfirmEmailView,
@@ -14,11 +14,16 @@ from core.views import (
     RequestViewSet,
     OfferViewSet,
     GuestInitiateAPIView,
-    GuestConfirmView,
+    GuestConfirmAPIView,
     client_dashboard,
+    strassen_lookup,
+    GuestRequestAPIView,
+    BundeslandViewSet,        # ✅ Bundesländer: dropdown im Formular
+    RegionViewSet,            # 🔄 Regionen gefiltert nach Bundesland
+    get_location_by_plz,
 )
 
-# 🔁 Automatischer Router für ViewSets (CRUD-Operationen)
+# 🔁 DRF-Router mit allen ViewSets
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'subscriptions', SubscriptionViewSet)
@@ -26,27 +31,24 @@ router.register(r'services', ServiceTypeViewSet)
 router.register(r'provider-profiles', ProviderProfileViewSet)
 router.register(r'requests', RequestViewSet)
 router.register(r'offers', OfferViewSet)
+router.register(r'bundeslaender', BundeslandViewSet)
+router.register(r'regionen', RegionViewSet)
 
-# 🔓 Öffentliche API-Endpunkte (ohne Authentifizierung)
+# 🔓 Öffentliche Endpunkte (z. B. Registrierung, GAST-Anfrage)
 urlpatterns = [
-    # ➕ REST-API-ViewSets (automatisch generiert)
     path('', include(router.urls)),
 
-    # 📝 Registrierung eines neuen Benutzers
     path('register/', RegisterView.as_view(), name='register'),
-
-    # ✅ Bestätigung der E-Mail-Adresse (für registrierte Benutzer)
     path('confirm-email/<str:uidb64>/<str:token>/', ConfirmEmailView.as_view(), name='confirm-email'),
 
-    # 📨 GAST: Initialisierung mit E-Mail + DSGVO-Zustimmung
     path('gast/initiate/', GuestInitiateAPIView.as_view(), name='gast-initiate'),
-
-    # ✅ GAST: Bestätigung des Tokens (E-Mail-Link)
-    path('gast/confirm/', GuestConfirmView.as_view(), name='gast-confirm'),
+    path('gast/confirm/', GuestConfirmAPIView.as_view(), name='gast-confirm'),
+    path("strassen/", strassen_lookup, name="strassen-lookup"),
+    path("gast/request/", GuestRequestAPIView.as_view(), name="gast-request"),
+    path("plz/", get_location_by_plz),
 ]
 
-# 🔐 Geschützte Endpunkte (erfordern Authentifizierung per JWT)
+# 🔐 Geschützte Endpunkte (nur mit Authentifizierung)
 urlpatterns += [
-    # 🔒 Beispiel: Nur Clients haben Zugriff auf Dashboard
     path('dashboard/client/', client_dashboard, name='client-dashboard'),
 ]

@@ -1,9 +1,10 @@
+// 📁 index.tsx – Einstiegspunkt der React-App
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// Optional: React Router & Contexts, dacă le folosești
+// 🧭 Routing und globale Kontexte
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { DarkModeProvider } from "./contexts/DarkModeContext";

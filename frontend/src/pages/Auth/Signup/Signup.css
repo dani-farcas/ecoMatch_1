@@ -2,7 +2,7 @@
 html,
 body,
 #root {
-  height: 100%;
+  height: 80%;
   margin: 0;
   padding: 0;
   overflow: auto; /* ✅ Gesamte Seite ist scrollbar */
@@ -14,18 +14,10 @@ body,
   display: flex;
   flex-direction: column;
   width: 100vw; /* 🔁 Gesamte Breite */
-  min-height: 100vh; /* 🔁 Gesamte Höhe */
+  height: 80vh; /* 🔁 Gesamte Höhe */
   font-family: sans-serif;
   margin: 0;
   padding: 0;
-
-  /* 🌄 Hintergrundbild + grüner Verlauf */
-  background: linear-gradient(rgba(0, 8, 20, 0.2), rgba(0, 58, 20, 0.2)),
-    url("@assets/pictures/bg-landingpage.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* ✅ Für Parallax-Effekt */
 }
 
 /* 🧾 Wrapper für das Formular – zentriert auf Desktop */
@@ -34,19 +26,21 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
+  padding: 30px;
   box-sizing: border-box;
 }
 
 /* 📋 Formularbox */
 .signup-form {
-  background-color: white;
-  padding: 3rem;
-  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2rem 2.5rem;
+  border-radius: 10px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-  width: 600px;
-  max-width: 90vw;
-  box-sizing: border-box;
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* 🖋️ Titel im Formular */
@@ -59,21 +53,24 @@ body,
 
 /* 🧾 Eingabefeld-Beschriftungen */
 .signup-form label {
-  font-weight: 500;
-  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #111827;
   margin-bottom: 0.3rem;
+  display: block;
+  text-align: left;
 }
 
 /* ✏️ Standard-Eingabefelder */
 .signup-input {
   width: 100%;
-  height: 48px;
-  padding: 0 0.9rem;
+  height: 42px;
+  padding: 0 0.8rem;
+  font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
   box-sizing: border-box;
-  margin-bottom: 1.2rem;
 }
 
 /* 🔒 Passwortfeld mit Umschalt-Icon */
@@ -208,6 +205,7 @@ body,
 .signup-link {
   text-align: center;
   font-size: 0.9rem;
+  color: #111827;
 }
 
 .signup-link a {
