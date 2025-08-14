@@ -1,0 +1,3170 @@
+[
+{
+  "model": "core.region",
+  "pk": 1,
+  "fields": {
+    "name": "Alb-Donau-Kreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 2,
+  "fields": {
+    "name": "Biberach",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 3,
+  "fields": {
+    "name": "Bodenseekreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 4,
+  "fields": {
+    "name": "Böblingen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 5,
+  "fields": {
+    "name": "Breisgau-Hochschwarzwald",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 6,
+  "fields": {
+    "name": "Calw",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 7,
+  "fields": {
+    "name": "Emmendingen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 8,
+  "fields": {
+    "name": "Enzkreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 9,
+  "fields": {
+    "name": "Esslingen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 10,
+  "fields": {
+    "name": "Freudenstadt",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 11,
+  "fields": {
+    "name": "Göppingen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 12,
+  "fields": {
+    "name": "Heidelberg",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 13,
+  "fields": {
+    "name": "Heidenheim",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 14,
+  "fields": {
+    "name": "Heilbronn",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 15,
+  "fields": {
+    "name": "Hohenlohekreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 16,
+  "fields": {
+    "name": "Karlsruhe",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 17,
+  "fields": {
+    "name": "Konstanz",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 18,
+  "fields": {
+    "name": "Lörrach",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 19,
+  "fields": {
+    "name": "Ludwigsburg",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 20,
+  "fields": {
+    "name": "Main-Tauber-Kreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 21,
+  "fields": {
+    "name": "Neckar-Odenwald-Kreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 22,
+  "fields": {
+    "name": "Ortenaukreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 23,
+  "fields": {
+    "name": "Ostalbkreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 24,
+  "fields": {
+    "name": "Rastatt",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 25,
+  "fields": {
+    "name": "Ravensburg",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 26,
+  "fields": {
+    "name": "Rems-Murr-Kreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 27,
+  "fields": {
+    "name": "Reutlingen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 28,
+  "fields": {
+    "name": "Rhein-Neckar-Kreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 29,
+  "fields": {
+    "name": "Rottweil",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 30,
+  "fields": {
+    "name": "Schwäbisch Hall",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 31,
+  "fields": {
+    "name": "Schwarzwald-Baar-Kreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 32,
+  "fields": {
+    "name": "Sigmaringen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 33,
+  "fields": {
+    "name": "Stuttgart",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 34,
+  "fields": {
+    "name": "Tübingen",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 35,
+  "fields": {
+    "name": "Ulm",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 36,
+  "fields": {
+    "name": "Waldshut",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 37,
+  "fields": {
+    "name": "Zollernalbkreis",
+    "land": 1
+  }
+},
+{
+  "model": "core.region",
+  "pk": 38,
+  "fields": {
+    "name": "Aichach-Friedberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 39,
+  "fields": {
+    "name": "Altötting",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 40,
+  "fields": {
+    "name": "Amberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 41,
+  "fields": {
+    "name": "Amberg-Sulzbach",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 42,
+  "fields": {
+    "name": "Ansbach",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 43,
+  "fields": {
+    "name": "Aschaffenburg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 44,
+  "fields": {
+    "name": "Aschaffenburg (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 45,
+  "fields": {
+    "name": "Augsburg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 46,
+  "fields": {
+    "name": "Augsburg (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 47,
+  "fields": {
+    "name": "Bad Kissingen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 48,
+  "fields": {
+    "name": "Bad Tölz-Wolfratshausen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 49,
+  "fields": {
+    "name": "Bamberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 50,
+  "fields": {
+    "name": "Bamberg (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 51,
+  "fields": {
+    "name": "Bayreuth",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 52,
+  "fields": {
+    "name": "Bayreuth (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 53,
+  "fields": {
+    "name": "Berchtesgadener Land",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 54,
+  "fields": {
+    "name": "Cham",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 55,
+  "fields": {
+    "name": "Coburg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 56,
+  "fields": {
+    "name": "Coburg (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 57,
+  "fields": {
+    "name": "Dachau",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 58,
+  "fields": {
+    "name": "Deggendorf",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 59,
+  "fields": {
+    "name": "Dillingen an der Donau",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 60,
+  "fields": {
+    "name": "Dingolfing-Landau",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 61,
+  "fields": {
+    "name": "Donau-Ries",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 62,
+  "fields": {
+    "name": "Ebersberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 63,
+  "fields": {
+    "name": "Eichstätt",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 64,
+  "fields": {
+    "name": "Erding",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 65,
+  "fields": {
+    "name": "Erlangen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 66,
+  "fields": {
+    "name": "Erlangen-Höchstadt",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 67,
+  "fields": {
+    "name": "Forchheim",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 68,
+  "fields": {
+    "name": "Freising",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 69,
+  "fields": {
+    "name": "Freyung-Grafenau",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 70,
+  "fields": {
+    "name": "Fürstenfeldbruck",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 71,
+  "fields": {
+    "name": "Fürth",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 72,
+  "fields": {
+    "name": "Fürth (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 73,
+  "fields": {
+    "name": "Garmisch-Partenkirchen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 74,
+  "fields": {
+    "name": "Günzburg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 75,
+  "fields": {
+    "name": "Haßberge",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 76,
+  "fields": {
+    "name": "Hof",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 77,
+  "fields": {
+    "name": "Hof (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 78,
+  "fields": {
+    "name": "Ingolstadt",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 79,
+  "fields": {
+    "name": "Kelheim",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 80,
+  "fields": {
+    "name": "Kempten (Allgäu)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 81,
+  "fields": {
+    "name": "Kitzingen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 82,
+  "fields": {
+    "name": "Kronach",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 83,
+  "fields": {
+    "name": "Kulmbach",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 84,
+  "fields": {
+    "name": "Landsberg am Lech",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 85,
+  "fields": {
+    "name": "Landshut",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 86,
+  "fields": {
+    "name": "Landshut (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 87,
+  "fields": {
+    "name": "Lichtenfels",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 88,
+  "fields": {
+    "name": "Lindau (Bodensee)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 89,
+  "fields": {
+    "name": "Main-Spessart",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 90,
+  "fields": {
+    "name": "Miesbach",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 91,
+  "fields": {
+    "name": "Miltenberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 92,
+  "fields": {
+    "name": "Mühldorf am Inn",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 93,
+  "fields": {
+    "name": "München",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 94,
+  "fields": {
+    "name": "München (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 95,
+  "fields": {
+    "name": "Neuburg-Schrobenhausen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 96,
+  "fields": {
+    "name": "Neumarkt in der Oberpfalz",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 97,
+  "fields": {
+    "name": "Neustadt an der Aisch-Bad Windsheim",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 98,
+  "fields": {
+    "name": "Neustadt an der Waldnaab",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 99,
+  "fields": {
+    "name": "Nürnberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 100,
+  "fields": {
+    "name": "Nürnberger Land",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 101,
+  "fields": {
+    "name": "Oberallgäu",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 102,
+  "fields": {
+    "name": "Oberpfalz",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 103,
+  "fields": {
+    "name": "Ostallgäu",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 104,
+  "fields": {
+    "name": "Passau",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 105,
+  "fields": {
+    "name": "Passau (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 106,
+  "fields": {
+    "name": "Pfaffenhofen an der Ilm",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 107,
+  "fields": {
+    "name": "Regen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 108,
+  "fields": {
+    "name": "Regensburg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 109,
+  "fields": {
+    "name": "Regensburg (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 110,
+  "fields": {
+    "name": "Rhön-Grabfeld",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 111,
+  "fields": {
+    "name": "Rosenheim",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 112,
+  "fields": {
+    "name": "Rosenheim (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 113,
+  "fields": {
+    "name": "Roth",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 114,
+  "fields": {
+    "name": "Rottal-Inn",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 115,
+  "fields": {
+    "name": "Schwabach",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 116,
+  "fields": {
+    "name": "Schwandorf",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 117,
+  "fields": {
+    "name": "Schweinfurt",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 118,
+  "fields": {
+    "name": "Schweinfurt (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 119,
+  "fields": {
+    "name": "Starnberg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 120,
+  "fields": {
+    "name": "Straubing",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 121,
+  "fields": {
+    "name": "Straubing-Bogen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 122,
+  "fields": {
+    "name": "Tirschenreuth",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 123,
+  "fields": {
+    "name": "Traunstein",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 124,
+  "fields": {
+    "name": "Unterallgäu",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 125,
+  "fields": {
+    "name": "Weiden in der Oberpfalz",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 126,
+  "fields": {
+    "name": "Weilheim-Schongau",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 127,
+  "fields": {
+    "name": "Weißenburg-Gunzenhausen",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 128,
+  "fields": {
+    "name": "Wunsiedel im Fichtelgebirge",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 129,
+  "fields": {
+    "name": "Würzburg",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 130,
+  "fields": {
+    "name": "Würzburg (Landkreis)",
+    "land": 2
+  }
+},
+{
+  "model": "core.region",
+  "pk": 131,
+  "fields": {
+    "name": "Berlin",
+    "land": 3
+  }
+},
+{
+  "model": "core.region",
+  "pk": 132,
+  "fields": {
+    "name": "Barnim",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 133,
+  "fields": {
+    "name": "Brandenburg an der Havel",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 134,
+  "fields": {
+    "name": "Cottbus",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 135,
+  "fields": {
+    "name": "Dahme-Spreewald",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 136,
+  "fields": {
+    "name": "Elbe-Elster",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 137,
+  "fields": {
+    "name": "Frankfurt (Oder)",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 138,
+  "fields": {
+    "name": "Havelland",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 139,
+  "fields": {
+    "name": "Märkisch-Oderland",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 140,
+  "fields": {
+    "name": "Oberhavel",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 141,
+  "fields": {
+    "name": "Oberspreewald-Lausitz",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 142,
+  "fields": {
+    "name": "Oder-Spree",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 143,
+  "fields": {
+    "name": "Ostprignitz-Ruppin",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 144,
+  "fields": {
+    "name": "Potsdam",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 145,
+  "fields": {
+    "name": "Potsdam-Mittelmark",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 146,
+  "fields": {
+    "name": "Prignitz",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 147,
+  "fields": {
+    "name": "Spree-Neiße",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 148,
+  "fields": {
+    "name": "Teltow-Fläming",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 149,
+  "fields": {
+    "name": "Uckermark",
+    "land": 4
+  }
+},
+{
+  "model": "core.region",
+  "pk": 150,
+  "fields": {
+    "name": "Bremen",
+    "land": 5
+  }
+},
+{
+  "model": "core.region",
+  "pk": 151,
+  "fields": {
+    "name": "Bremerhaven",
+    "land": 5
+  }
+},
+{
+  "model": "core.region",
+  "pk": 152,
+  "fields": {
+    "name": "Hamburg",
+    "land": 6
+  }
+},
+{
+  "model": "core.region",
+  "pk": 153,
+  "fields": {
+    "name": "Bergstraße",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 154,
+  "fields": {
+    "name": "Darmstadt",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 155,
+  "fields": {
+    "name": "Darmstadt-Dieburg",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 156,
+  "fields": {
+    "name": "Frankfurt am Main",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 157,
+  "fields": {
+    "name": "Fulda",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 158,
+  "fields": {
+    "name": "Gießen",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 159,
+  "fields": {
+    "name": "Groß-Gerau",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 160,
+  "fields": {
+    "name": "Hersfeld-Rotenburg",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 161,
+  "fields": {
+    "name": "Hochtaunuskreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 162,
+  "fields": {
+    "name": "Kassel",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 163,
+  "fields": {
+    "name": "Kassel (Landkreis)",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 164,
+  "fields": {
+    "name": "Lahn-Dill-Kreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 165,
+  "fields": {
+    "name": "Limburg-Weilburg",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 166,
+  "fields": {
+    "name": "Main-Kinzig-Kreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 167,
+  "fields": {
+    "name": "Main-Taunus-Kreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 168,
+  "fields": {
+    "name": "Marburg-Biedenkopf",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 169,
+  "fields": {
+    "name": "Offenbach",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 170,
+  "fields": {
+    "name": "Offenbach (Landkreis)",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 171,
+  "fields": {
+    "name": "Odenwaldkreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 172,
+  "fields": {
+    "name": "Rheingau-Taunus-Kreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 173,
+  "fields": {
+    "name": "Schwalm-Eder-Kreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 174,
+  "fields": {
+    "name": "Vogelsbergkreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 175,
+  "fields": {
+    "name": "Waldeck-Frankenberg",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 176,
+  "fields": {
+    "name": "Werra-Meißner-Kreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 177,
+  "fields": {
+    "name": "Wetteraukreis",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 178,
+  "fields": {
+    "name": "Wiesbaden",
+    "land": 7
+  }
+},
+{
+  "model": "core.region",
+  "pk": 179,
+  "fields": {
+    "name": "Mecklenburgische Seenplatte",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 180,
+  "fields": {
+    "name": "Rostock",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 181,
+  "fields": {
+    "name": "Ludwigslust-Parchim",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 182,
+  "fields": {
+    "name": "Nordwestmecklenburg",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 183,
+  "fields": {
+    "name": "Vorpommern-Greifswald",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 184,
+  "fields": {
+    "name": "Vorpommern-Rügen",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 185,
+  "fields": {
+    "name": "Schwerin",
+    "land": 8
+  }
+},
+{
+  "model": "core.region",
+  "pk": 186,
+  "fields": {
+    "name": "Ammerland",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 187,
+  "fields": {
+    "name": "Aurich",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 188,
+  "fields": {
+    "name": "Braunschweig",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 189,
+  "fields": {
+    "name": "Celle",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 190,
+  "fields": {
+    "name": "Cloppenburg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 191,
+  "fields": {
+    "name": "Cuxhaven",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 192,
+  "fields": {
+    "name": "Delmenhorst",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 193,
+  "fields": {
+    "name": "Diepholz",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 194,
+  "fields": {
+    "name": "Emden",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 195,
+  "fields": {
+    "name": "Emsland",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 196,
+  "fields": {
+    "name": "Friesland",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 197,
+  "fields": {
+    "name": "Gifhorn",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 198,
+  "fields": {
+    "name": "Göttingen",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 199,
+  "fields": {
+    "name": "Goslar",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 200,
+  "fields": {
+    "name": "Grafschaft Bentheim",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 201,
+  "fields": {
+    "name": "Hameln-Pyrmont",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 202,
+  "fields": {
+    "name": "Hannover",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 203,
+  "fields": {
+    "name": "Harburg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 204,
+  "fields": {
+    "name": "Heidekreis",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 205,
+  "fields": {
+    "name": "Helmstedt",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 206,
+  "fields": {
+    "name": "Hildesheim",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 207,
+  "fields": {
+    "name": "Holzminden",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 208,
+  "fields": {
+    "name": "Leer",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 209,
+  "fields": {
+    "name": "Lüchow-Dannenberg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 210,
+  "fields": {
+    "name": "Lüneburg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 211,
+  "fields": {
+    "name": "Nienburg (Weser)",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 212,
+  "fields": {
+    "name": "Northeim",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 213,
+  "fields": {
+    "name": "Oldenburg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 214,
+  "fields": {
+    "name": "Oldenburg (Stadt)",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 215,
+  "fields": {
+    "name": "Osnabrück",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 216,
+  "fields": {
+    "name": "Osnabrück (Stadt)",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 217,
+  "fields": {
+    "name": "Osterholz",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 218,
+  "fields": {
+    "name": "Peine",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 219,
+  "fields": {
+    "name": "Region Hannover",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 220,
+  "fields": {
+    "name": "Rotenburg (Wümme)",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 221,
+  "fields": {
+    "name": "Salzgitter",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 222,
+  "fields": {
+    "name": "Schaumburg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 223,
+  "fields": {
+    "name": "Stade",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 224,
+  "fields": {
+    "name": "Uelzen",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 225,
+  "fields": {
+    "name": "Vechta",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 226,
+  "fields": {
+    "name": "Verden",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 227,
+  "fields": {
+    "name": "Wesermarsch",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 228,
+  "fields": {
+    "name": "Wilhelmshaven",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 229,
+  "fields": {
+    "name": "Wittmund",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 230,
+  "fields": {
+    "name": "Wolfenbüttel",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 231,
+  "fields": {
+    "name": "Wolfsburg",
+    "land": 9
+  }
+},
+{
+  "model": "core.region",
+  "pk": 232,
+  "fields": {
+    "name": "Aachen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 233,
+  "fields": {
+    "name": "Bielefeld",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 234,
+  "fields": {
+    "name": "Bochum",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 235,
+  "fields": {
+    "name": "Bonn",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 236,
+  "fields": {
+    "name": "Borken",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 237,
+  "fields": {
+    "name": "Bottrop",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 238,
+  "fields": {
+    "name": "Coesfeld",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 239,
+  "fields": {
+    "name": "Dortmund",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 240,
+  "fields": {
+    "name": "Duisburg",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 241,
+  "fields": {
+    "name": "Düren",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 242,
+  "fields": {
+    "name": "Düsseldorf",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 243,
+  "fields": {
+    "name": "Ennepe-Ruhr-Kreis",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 244,
+  "fields": {
+    "name": "Essen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 245,
+  "fields": {
+    "name": "Euskirchen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 246,
+  "fields": {
+    "name": "Gelsenkirchen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 247,
+  "fields": {
+    "name": "Gütersloh",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 248,
+  "fields": {
+    "name": "Hagen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 249,
+  "fields": {
+    "name": "Hamm",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 250,
+  "fields": {
+    "name": "Heinsberg",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 251,
+  "fields": {
+    "name": "Herford",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 252,
+  "fields": {
+    "name": "Herne",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 253,
+  "fields": {
+    "name": "Hochsauerlandkreis",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 254,
+  "fields": {
+    "name": "Höxter",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 255,
+  "fields": {
+    "name": "Kleve",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 256,
+  "fields": {
+    "name": "Köln",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 257,
+  "fields": {
+    "name": "Krefeld",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 258,
+  "fields": {
+    "name": "Leverkusen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 259,
+  "fields": {
+    "name": "Lippe",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 260,
+  "fields": {
+    "name": "Mettmann",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 261,
+  "fields": {
+    "name": "Minden-Lübbecke",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 262,
+  "fields": {
+    "name": "Mönchengladbach",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 263,
+  "fields": {
+    "name": "Mülheim an der Ruhr",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 264,
+  "fields": {
+    "name": "Münster",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 265,
+  "fields": {
+    "name": "Oberbergischer Kreis",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 266,
+  "fields": {
+    "name": "Oberhausen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 267,
+  "fields": {
+    "name": "Olpe",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 268,
+  "fields": {
+    "name": "Paderborn",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 269,
+  "fields": {
+    "name": "Recklinghausen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 270,
+  "fields": {
+    "name": "Remscheid",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 271,
+  "fields": {
+    "name": "Rhein-Erft-Kreis",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 272,
+  "fields": {
+    "name": "Rhein-Kreis Neuss",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 273,
+  "fields": {
+    "name": "Rhein-Sieg-Kreis",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 274,
+  "fields": {
+    "name": "Rheinisch-Bergischer Kreis",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 275,
+  "fields": {
+    "name": "Siegen-Wittgenstein",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 276,
+  "fields": {
+    "name": "Soest",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 277,
+  "fields": {
+    "name": "Solingen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 278,
+  "fields": {
+    "name": "Steinfurt",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 279,
+  "fields": {
+    "name": "Unna",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 280,
+  "fields": {
+    "name": "Viersen",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 281,
+  "fields": {
+    "name": "Warendorf",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 282,
+  "fields": {
+    "name": "Wesel",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 283,
+  "fields": {
+    "name": "Wuppertal",
+    "land": 10
+  }
+},
+{
+  "model": "core.region",
+  "pk": 284,
+  "fields": {
+    "name": "Ahrweiler",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 285,
+  "fields": {
+    "name": "Altenkirchen (Westerwald)",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 286,
+  "fields": {
+    "name": "Alzey-Worms",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 287,
+  "fields": {
+    "name": "Bad Dürkheim",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 288,
+  "fields": {
+    "name": "Bad Kreuznach",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 289,
+  "fields": {
+    "name": "Bernkastel-Wittlich",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 290,
+  "fields": {
+    "name": "Birkenfeld",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 291,
+  "fields": {
+    "name": "Bitburg-Prüm",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 292,
+  "fields": {
+    "name": "Cochem-Zell",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 293,
+  "fields": {
+    "name": "Donnersbergkreis",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 294,
+  "fields": {
+    "name": "Eifelkreis Bitburg-Prüm",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 295,
+  "fields": {
+    "name": "Frankenthal (Pfalz)",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 296,
+  "fields": {
+    "name": "Germersheim",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 297,
+  "fields": {
+    "name": "Kaiserslautern",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 298,
+  "fields": {
+    "name": "Kaiserslautern (Landkreis)",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 299,
+  "fields": {
+    "name": "Koblenz",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 300,
+  "fields": {
+    "name": "Kusel",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 301,
+  "fields": {
+    "name": "Landau in der Pfalz",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 302,
+  "fields": {
+    "name": "Ludwigshafen am Rhein",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 303,
+  "fields": {
+    "name": "Mainz",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 304,
+  "fields": {
+    "name": "Mainz-Bingen",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 305,
+  "fields": {
+    "name": "Mayen-Koblenz",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 306,
+  "fields": {
+    "name": "Neuwied",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 307,
+  "fields": {
+    "name": "Pirmasens",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 308,
+  "fields": {
+    "name": "Rhein-Hunsrück-Kreis",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 309,
+  "fields": {
+    "name": "Rhein-Lahn-Kreis",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 310,
+  "fields": {
+    "name": "Rhein-Pfalz-Kreis",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 311,
+  "fields": {
+    "name": "Speyer",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 312,
+  "fields": {
+    "name": "Südliche Weinstraße",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 313,
+  "fields": {
+    "name": "Südwestpfalz",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 314,
+  "fields": {
+    "name": "Trier",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 315,
+  "fields": {
+    "name": "Trier-Saarburg",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 316,
+  "fields": {
+    "name": "Westerwaldkreis",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 317,
+  "fields": {
+    "name": "Worms",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 318,
+  "fields": {
+    "name": "Zweibrücken",
+    "land": 11
+  }
+},
+{
+  "model": "core.region",
+  "pk": 319,
+  "fields": {
+    "name": "Merzig-Wadern",
+    "land": 12
+  }
+},
+{
+  "model": "core.region",
+  "pk": 320,
+  "fields": {
+    "name": "Neunkirchen",
+    "land": 12
+  }
+},
+{
+  "model": "core.region",
+  "pk": 321,
+  "fields": {
+    "name": "Regionalverband Saarbrücken",
+    "land": 12
+  }
+},
+{
+  "model": "core.region",
+  "pk": 322,
+  "fields": {
+    "name": "Saarlouis",
+    "land": 12
+  }
+},
+{
+  "model": "core.region",
+  "pk": 323,
+  "fields": {
+    "name": "Saarpfalz-Kreis",
+    "land": 12
+  }
+},
+{
+  "model": "core.region",
+  "pk": 324,
+  "fields": {
+    "name": "Sankt Wendel",
+    "land": 12
+  }
+},
+{
+  "model": "core.region",
+  "pk": 325,
+  "fields": {
+    "name": "Bautzen",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 326,
+  "fields": {
+    "name": "Chemnitz",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 327,
+  "fields": {
+    "name": "Erzgebirgskreis",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 328,
+  "fields": {
+    "name": "Görlitz",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 329,
+  "fields": {
+    "name": "Leipzig",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 330,
+  "fields": {
+    "name": "Leipzig (Landkreis)",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 331,
+  "fields": {
+    "name": "Meißen",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 332,
+  "fields": {
+    "name": "Mittelsachsen",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 333,
+  "fields": {
+    "name": "Nordsachsen",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 334,
+  "fields": {
+    "name": "Sächsische Schweiz-Osterzgebirge",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 335,
+  "fields": {
+    "name": "Vogtlandkreis",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 336,
+  "fields": {
+    "name": "Zwickau",
+    "land": 13
+  }
+},
+{
+  "model": "core.region",
+  "pk": 337,
+  "fields": {
+    "name": "Altmarkkreis Salzwedel",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 338,
+  "fields": {
+    "name": "Anhalt-Bitterfeld",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 339,
+  "fields": {
+    "name": "Börde",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 340,
+  "fields": {
+    "name": "Burgenlandkreis",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 341,
+  "fields": {
+    "name": "Dessau-Roßlau",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 342,
+  "fields": {
+    "name": "Halle (Saale)",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 343,
+  "fields": {
+    "name": "Harz",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 344,
+  "fields": {
+    "name": "Jerichower Land",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 345,
+  "fields": {
+    "name": "Magdeburg",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 346,
+  "fields": {
+    "name": "Mansfeld-Südharz",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 347,
+  "fields": {
+    "name": "Saalekreis",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 348,
+  "fields": {
+    "name": "Salzlandkreis",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 349,
+  "fields": {
+    "name": "Stendal",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 350,
+  "fields": {
+    "name": "Wittenberg",
+    "land": 14
+  }
+},
+{
+  "model": "core.region",
+  "pk": 351,
+  "fields": {
+    "name": "Dithmarschen",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 352,
+  "fields": {
+    "name": "Flensburg",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 353,
+  "fields": {
+    "name": "Herzogtum Lauenburg",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 354,
+  "fields": {
+    "name": "Kiel",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 355,
+  "fields": {
+    "name": "Lübeck",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 356,
+  "fields": {
+    "name": "Neumünster",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 357,
+  "fields": {
+    "name": "Nordfriesland",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 358,
+  "fields": {
+    "name": "Ostholstein",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 359,
+  "fields": {
+    "name": "Pinneberg",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 360,
+  "fields": {
+    "name": "Plön",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 361,
+  "fields": {
+    "name": "Rendsburg-Eckernförde",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 362,
+  "fields": {
+    "name": "Schleswig-Flensburg",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 363,
+  "fields": {
+    "name": "Segeberg",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 364,
+  "fields": {
+    "name": "Steinburg",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 365,
+  "fields": {
+    "name": "Stormarn",
+    "land": 15
+  }
+},
+{
+  "model": "core.region",
+  "pk": 366,
+  "fields": {
+    "name": "Altenburger Land",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 367,
+  "fields": {
+    "name": "Eichsfeld",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 368,
+  "fields": {
+    "name": "Eisenach",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 369,
+  "fields": {
+    "name": "Erfurt",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 370,
+  "fields": {
+    "name": "Gera",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 371,
+  "fields": {
+    "name": "Gotha",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 372,
+  "fields": {
+    "name": "Greiz",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 373,
+  "fields": {
+    "name": "Hildburghausen",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 374,
+  "fields": {
+    "name": "Ilm-Kreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 375,
+  "fields": {
+    "name": "Jena",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 376,
+  "fields": {
+    "name": "Kyffhäuserkreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 377,
+  "fields": {
+    "name": "Nordhausen",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 378,
+  "fields": {
+    "name": "Saale-Holzland-Kreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 379,
+  "fields": {
+    "name": "Saale-Orla-Kreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 380,
+  "fields": {
+    "name": "Saale-Unstrut-Kreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 381,
+  "fields": {
+    "name": "Saalfeld-Rudolstadt",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 382,
+  "fields": {
+    "name": "Schmalkalden-Meiningen",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 383,
+  "fields": {
+    "name": "Sömmerda",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 384,
+  "fields": {
+    "name": "Sonneberg",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 385,
+  "fields": {
+    "name": "Suhl",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 386,
+  "fields": {
+    "name": "Unstrut-Hainich-Kreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 387,
+  "fields": {
+    "name": "Wartburgkreis",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 388,
+  "fields": {
+    "name": "Weimar",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 389,
+  "fields": {
+    "name": "Weimarer Land",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 390,
+  "fields": {
+    "name": "Altkreis Sondershausen",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 391,
+  "fields": {
+    "name": "Altkreis Artern",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 392,
+  "fields": {
+    "name": "Neustadt an der Orla",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 393,
+  "fields": {
+    "name": "Stadtroda",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 394,
+  "fields": {
+    "name": "Greußen",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 395,
+  "fields": {
+    "name": "Bad Langensalza",
+    "land": 16
+  }
+},
+{
+  "model": "core.region",
+  "pk": 396,
+  "fields": {
+    "name": "Apolda",
+    "land": 16
+  }
+}
+]

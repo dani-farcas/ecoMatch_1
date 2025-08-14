@@ -1,0 +1,77 @@
+[
+{
+  "model": "core.request",
+  "pk": 1,
+  "fields": {
+    "client": null,
+    "service_type": 1,
+    "description": "Test",
+    "location": "Bismarckstr. 1, 35390 Gießen, Gießen, Hessen",
+    "created_at": "2025-08-01T17:24:08.112Z",
+    "services": [
+      1,
+      11,
+      14,
+      21
+    ]
+  }
+},
+{
+  "model": "core.request",
+  "pk": 2,
+  "fields": {
+    "client": 1,
+    "service_type": 10,
+    "description": "test",
+    "location": "Birkenweg 9, 35444 Biebertal, Gießen, Hessen",
+    "created_at": "2025-08-01T17:26:23.395Z",
+    "services": [
+      10
+    ]
+  }
+},
+{
+  "model": "core.request",
+  "pk": 3,
+  "fields": {
+    "client": null,
+    "service_type": 6,
+    "description": "",
+    "location": "Gustav-Stresemann-Ring 54, 35396 Gießen, Gießen, Hessen",
+    "created_at": "2025-08-12T14:37:47.534Z",
+    "services": [
+      6,
+      17,
+      19
+    ]
+  }
+},
+{
+  "model": "core.request",
+  "pk": 4,
+  "fields": {
+    "client": null,
+    "service_type": 12,
+    "description": "Test",
+    "location": "Gustav-Stresemann-Ring 54, 35396 Gießen, Gießen, Hessen",
+    "created_at": "2025-08-13T09:48:16.913Z",
+    "services": [
+      12
+    ]
+  }
+},
+{
+  "model": "core.request",
+  "pk": 5,
+  "fields": {
+    "client": 5,
+    "service_type": 11,
+    "description": "Test",
+    "location": "Anger 1, 35394 Gießen, Gießen, Hessen",
+    "created_at": "2025-08-13T10:05:28.293Z",
+    "services": [
+      11
+    ]
+  }
+}
+]

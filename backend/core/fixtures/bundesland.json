@@ -1,0 +1,114 @@
+[
+{
+  "model": "core.bundesland",
+  "pk": 1,
+  "fields": {
+    "name": "Baden-Württemberg"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 2,
+  "fields": {
+    "name": "Bayern"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 3,
+  "fields": {
+    "name": "Berlin"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 4,
+  "fields": {
+    "name": "Brandenburg"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 5,
+  "fields": {
+    "name": "Bremen"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 6,
+  "fields": {
+    "name": "Hamburg"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 7,
+  "fields": {
+    "name": "Hessen"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 8,
+  "fields": {
+    "name": "Mecklenburg-Vorpommern"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 9,
+  "fields": {
+    "name": "Niedersachsen"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 10,
+  "fields": {
+    "name": "Nordrhein-Westfalen"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 11,
+  "fields": {
+    "name": "Rheinland-Pfalz"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 12,
+  "fields": {
+    "name": "Saarland"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 13,
+  "fields": {
+    "name": "Sachsen"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 14,
+  "fields": {
+    "name": "Sachsen-Anhalt"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 15,
+  "fields": {
+    "name": "Schleswig-Holstein"
+  }
+},
+{
+  "model": "core.bundesland",
+  "pk": 16,
+  "fields": {
+    "name": "Thüringen"
+  }
+}
+]
