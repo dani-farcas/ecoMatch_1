@@ -2,43 +2,48 @@ import environ
 import os
 from pathlib import Path
 
-# 📌 Root-Verzeichnis (root/backend)
+# 📌 Basisverzeichnis (root/backend)
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-# 🟢 Environment laden
+# 🟢 Environment-Variablen laden (.env im BASE_DIR)
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
-print("✅ .env geladen – BASE_DIR =", BASE_DIR)
 
-# 🔐 Sicherheitseinstellungen
+# 🔐 Sicherheitseinstellungen (Standard-Werte für Entwicklung)
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = env.bool("DEBUG")
+DEBUG = env.bool("DEBUG", default=True)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
-# 🔑 Custom User Model
+# 🔑 Benutzerdefiniertes User-Modell
 AUTH_USER_MODEL = "core.User"
 
-# 🌐 Root URL Configuration
+# 🌐 Root-URL-Konfiguration
 ROOT_URLCONF = "config.urls"
 
 # 📦 Installierte Apps
 INSTALLED_APPS = [
+    # Django-Standard-Apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    # Drittanbieter-Apps
     "rest_framework",
     "corsheaders",
+    "import_export",  # Für CSV/Excel-Import und -Export
+
+    # Eigene Apps
     "core",
-    "import_export",  # Optional für Datenexport
 ]
 
-# ⚙️ Middleware
+# ⚙️ Middleware (WhiteNoise direkt nach SecurityMiddleware)
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # ✅ für statische Dateien in Produktion
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -51,7 +56,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "core", "templates")],
+        "DIRS": [BASE_DIR / "core" / "templates"],  # Eigene Templates
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -64,11 +69,10 @@ TEMPLATES = [
     },
 ]
 
-
 # 📌 WSGI-Anwendung
 WSGI_APPLICATION = "config.wsgi.application"
 
-# 🟣 REST Framework Einstellungen
+# 🟣 Django REST Framework Einstellungen
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -76,34 +80,36 @@ REST_FRAMEWORK = {
 }
 
 # 🟢 CORS Einstellungen
-CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[env("FRONTEND_URL")])
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
 CORS_ALLOW_CREDENTIALS = True
 
 # 📧 E-Mail Einstellungen
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env.int("EMAIL_PORT")
-EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="")
 
-# 🌐 Frontend-URL für Bestätigungslinks
-FRONTEND_URL = env("FRONTEND_URL")
+# 🌐 Frontend-URL (z. B. für Bestätigungslinks)
+FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:5173")
 
-# 🌐 Internationalisierung
+# 🌍 Internationalisierung
 LANGUAGE_CODE = "de"
 TIME_ZONE = "Europe/Berlin"
 USE_I18N = True
 USE_TZ = True
 
-# 📁 Static Dateien
+# 🎨 Statische Dateien
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Für lokale Entwicklung
 
-# 📁 Media Dateien (optional)
+# 📦 Media-Dateien
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# 🛠️ Logging (Standard: nur Warnungen und Fehler)
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -114,7 +120,7 @@ LOGGING = {
     },
     "root": {
         "handlers": ["console"],
-        "level": "WARNING",  # Cel mai comun, dar poți seta și DEBUG pentru mai multe detalii
+        "level": "WARNING",
     },
     "loggers": {
         "django": {
@@ -122,9 +128,9 @@ LOGGING = {
             "level": "WARNING",
             "propagate": False,
         },
-        "core": {  # numele aplicației tale
+        "core": {
             "handlers": ["console"],
-            "level": "DEBUG",  # pentru a vedea erori și mesaje de debug
+            "level": "DEBUG",  # Zeigt Debug-Meldungen für die App "core"
             "propagate": False,
         },
     },

@@ -4,12 +4,14 @@ djangorestframework==3.16.0
 djangorestframework-simplejwt==5.5.0
 django-cors-headers==4.7.0
 django-environ==0.11.2
+dj-database-url==2.3.0
+django-import-export==4.3.4
 
-# Datenbank Treiber
+# Database
 psycopg2-binary==2.9.10
 
-# WSGI für Production
-
+# WSGI (Production)
+gunicorn==23.0.0
 
 # Utilities
 PyJWT==2.9.0
@@ -18,10 +20,6 @@ sqlparse==0.5.3
 asgiref==3.8.1
 packaging==25.0
 tzdata==2025.2
-python-dotenv
-Pillow
-django-import-export
-xhtml2pdf
-dj-database-url
-xhtml2pdf
-
+python-dotenv==1.0.1
+Pillow==10.4.0
+xhtml2pdf==0.2.15
