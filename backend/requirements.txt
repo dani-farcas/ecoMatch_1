@@ -14,6 +14,7 @@ psycopg2-binary==2.9.10
 gunicorn==23.0.0
 
 # Utilities
+whitenoise==6.7.0
 PyJWT==2.9.0
 itsdangerous==2.2.0
 sqlparse==0.5.3
