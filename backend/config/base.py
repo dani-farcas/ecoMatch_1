@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 env = environ.Env(DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-# 🔐 Sicherheitseinstellungen (Standard-Werte für Entwicklung)
+# 🔐 Sicherheitseinstellungen (Standardwerte für Entwicklung)
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG", default=True)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
@@ -101,9 +101,10 @@ TIME_ZONE = "Europe/Berlin"
 USE_I18N = True
 USE_TZ = True
 
-# 🎨 Statische Dateien
+# 🎨 Statische Dateien (nur in Entwicklung verwendet)
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]  # Für lokale Entwicklung
+STATICFILES_DIRS = [BASE_DIR / "static"]  # nur dev
+# In Produktion wird STATIC_ROOT in prod.py definiert
 
 # 📦 Media-Dateien
 MEDIA_URL = "/media/"
@@ -130,7 +131,7 @@ LOGGING = {
         },
         "core": {
             "handlers": ["console"],
-            "level": "DEBUG",  # Zeigt Debug-Meldungen für die App "core"
+            "level": "DEBUG",
             "propagate": False,
         },
     },

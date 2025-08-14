@@ -20,3 +20,6 @@ staticfiles/
 
 core/data/plz_ort_strasse.json
 
+backend/core/fixtures/backup.json
+
+
