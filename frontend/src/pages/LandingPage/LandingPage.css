@@ -42,6 +42,14 @@ main {
   font-weight: bold;
 }
 
+.cta-note {
+  font-size: 0.85rem;
+  color: #ffffff;
+  margin-top: 6px;
+  text-align: center;
+  font-style: italic;
+}
+
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -85,7 +93,7 @@ main {
   justify-content: center;
   gap: 25px;
   padding: 50px 100px;
-  background-color: rgba(240, 253, 244, 0.75);
+  background-color: rgba(240, 253, 244, 0);
   flex-wrap: wrap;
   flex-shrink: 0;
 }
@@ -93,7 +101,7 @@ main {
 /* 📦 Einzelne klickbare Karte – als Link gestaltet */
 .service-card {
   display: block; /* Link verhält sich wie ein Blockelement */
-  background-color: white;
+  background-color: rgba(225, 255, 255, 0.7);
   width: 250px;
   padding: 20px;
   border-radius: 16px;
@@ -139,8 +147,11 @@ main {
 
 /* 💬 Kundenmeinung */
 .testimonial-section {
-  background-color: #e5e7eb;
-  padding: 20px 20px 20px; /* sus 40px, lateral 20px, jos 50px */
+  background-color: rgba(229, 231, 235, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  width: 38%; 
+  margin: 0 auto;
   text-align: center;
   flex-shrink: 0;
 }

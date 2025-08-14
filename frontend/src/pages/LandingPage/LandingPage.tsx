@@ -11,13 +11,11 @@ import Oli from "@assets/Testimonial/Oli.png";
 
 // 🧱 Wiederverwendbare Komponenten
 
-
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <div className="landing-container">
-
       {/* 🌄 Hauptbotschaft mit Hintergrundbild */}
       <section className="hero-section">
         <h1>
@@ -27,35 +25,50 @@ const LandingPage: React.FC = () => {
           <br />
           lokalen Öko-Lösungen
         </h1>
-        <button
-          className="cta-button"
-          onClick={() => navigate("/gast-start")}
-        >
+        <button className="cta-button" onClick={() => navigate("/gast-start")}>
           Kostenlos starten als Gast
         </button>
+
+        <p className="cta-note">
+          1. Anfrage kostenlos – danach Registrierung &amp; Abo erforderlich
+        </p>
       </section>
 
       {/* 🧩 Dienstleistungen */}
-     <section className="services-section">
-  <a href="https://www.solarwirtschaft.de/" target="_blank" rel="noopener noreferrer" className="service-card">
-    <img src={solarIcon} alt="Solar" />
-    <h3>Solaranlagen</h3>
-    <p>Umfassende Lösungen mit Bussystem für Ihr Zuhause</p>
-  </a>
+      <section className="services-section">
+        <a
+          href="https://www.solarwirtschaft.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="service-card"
+        >
+          <img src={solarIcon} alt="Solar" />
+          <h3>Solaranlagen</h3>
+          <p>Umfassende Lösungen mit Bussystem für Ihr Zuhause</p>
+        </a>
 
-  <a href="https://www.verbraucherzentrale.de/wissen/energie/energiesparen" target="_blank" rel="noopener noreferrer" className="service-card">
-    <img src={houseIcon} alt="Beratung" />
-    <h3>Energieberatung</h3>
-    <p>Unabhängige Beratung, Kosten sparen</p>
-  </a>
+        <a
+          href="https://www.verbraucherzentrale.de/wissen/energie/energiesparen"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="service-card"
+        >
+          <img src={houseIcon} alt="Beratung" />
+          <h3>Energieberatung</h3>
+          <p>Unabhängige Beratung, Kosten sparen</p>
+        </a>
 
-  <a href="https://www.umweltbundesamt.de/themen/nachhaltigkeit-strategien/nachhaltige-entwicklung" target="_blank" rel="noopener noreferrer" className="service-card">
-    <img src={planetIcon} alt="Nachhaltig" />
-    <h3>Nachhaltige Projekte</h3>
-    <p>Grüne Projekte lokal umsetzen, Umwelt schützen</p>
-  </a>
-</section>
-
+        <a
+          href="https://www.umweltbundesamt.de/themen/nachhaltigkeit-strategien/nachhaltige-entwicklung"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="service-card"
+        >
+          <img src={planetIcon} alt="Nachhaltig" />
+          <h3>Nachhaltige Projekte</h3>
+          <p>Grüne Projekte lokal umsetzen, Umwelt schützen</p>
+        </a>
+      </section>
 
       {/* 💬 Kundenmeinung */}
       <section className="testimonial-section">

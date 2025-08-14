@@ -1,9 +1,9 @@
-// 🟢 React + Navigation
+// 📁 src/features/auth/Signup.tsx
+// 🇩🇪 Registrierungsformular mit E-Mail, Passwort, Foto-Upload
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// 🟢 Komponenten & CSS
-import axios from "@/api/axios"; // 🔁 API-Endpunkt anpassen
+import axios from "@/api/axios";
 import "./Signup.css";
 
 const Signup: React.FC = () => {
@@ -18,28 +18,30 @@ const Signup: React.FC = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [photos, setPhotos] = useState<File[]>([]);
 
-  // ✅ Erfolgsnachricht nach Registrierung
-  const [confirmationMessage, setConfirmationMessage] = useState("");
+  // 📢 Meldungen
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // 📤 Neue Bilder hinzufügen
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedFiles = Array.from(e.target.files);
-      setPhotos((prev) => [...prev, ...selectedFiles]);
-    }
-  };
+ // 📤 Foto-Upload
+const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+  if (!files) return; // ⛔ Falls keine Dateien ausgewählt wurden → Abbrechen
 
-  // 🗑️ Einzelnes Foto entfernen
-  const removePhoto = (indexToRemove: number) => {
-    setPhotos((prev) => prev.filter((_, index) => index !== indexToRemove));
-  };
+  setPhotos((prev) => [...prev, ...Array.from(files)]);
+};
+
+  // ❌ Einzelnes Foto löschen
+  const removePhoto = (index: number) =>
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
 
   // 📨 Formular absenden
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
 
     if (password !== confirmPassword) {
-      alert("Passwörter stimmen nicht überein");
+      setErrorMessage("❌ Passwörter stimmen nicht überein.");
       return;
     }
 
@@ -48,23 +50,31 @@ const Signup: React.FC = () => {
       formData.append("username", username);
       formData.append("email", email);
       formData.append("password", password);
+
       photos.forEach((photo, index) => {
         formData.append(`photo_${index}`, photo);
       });
 
-      await axios.post("/register/", formData); // ⚠️ Pfad anpassen falls nötig
+      await axios.post("/register/", formData);
 
-      setConfirmationMessage(
-        "✅ Bitte überprüfe deine E-Mail-Adresse, um dein Konto zu aktivieren."
-      );
+      setSuccessMessage("✅ Konto erfolgreich erstellt! Bitte E-Mail bestätigen.");
+      setTimeout(() => navigate("/login"), 2000);
 
+      // Felder zurücksetzen
       setUsername("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
       setPhotos([]);
-    } catch (error) {
-      alert("❌ Registrierung fehlgeschlagen. Bitte versuche es erneut.");
+    } catch (error: any) {
+      const backendError = error?.response?.data;
+      if (backendError?.email?.[0]?.includes("registriert")) {
+        setErrorMessage(
+          "⚠️ Diese E-Mail ist bereits registriert. Bitte einloggen."
+        );
+      } else {
+        setErrorMessage("❌ Registrierung fehlgeschlagen.");
+      }
     }
   };
 
@@ -72,13 +82,14 @@ const Signup: React.FC = () => {
     <div className="signup-container">
       <div className="signup-form-wrapper">
         <form className="signup-form" onSubmit={handleSubmit}>
-          {confirmationMessage && (
-            <div className="confirmation-banner">{confirmationMessage}</div>
+          {successMessage && (
+            <div className="confirmation-banner">{successMessage}</div>
           )}
+          {errorMessage && <div className="error-banner">{errorMessage}</div>}
 
           <h2>Registrierung</h2>
 
-          {/* 👤 Benutzername */}
+          {/* Benutzername */}
           <label>Benutzername</label>
           <input
             type="text"
@@ -88,7 +99,7 @@ const Signup: React.FC = () => {
             required
           />
 
-          {/* 📧 E-Mail */}
+          {/* E-Mail */}
           <label>E-Mail</label>
           <input
             type="email"
@@ -98,7 +109,7 @@ const Signup: React.FC = () => {
             required
           />
 
-          {/* 🔒 Passwort */}
+          {/* Passwort */}
           <label>Passwort</label>
           <div className="signup-password-wrapper">
             <input
@@ -118,7 +129,7 @@ const Signup: React.FC = () => {
             </span>
           </div>
 
-          {/* 🔁 Passwort bestätigen */}
+          {/* Passwort bestätigen */}
           <label>Passwort bestätigen</label>
           <div className="signup-password-wrapper">
             <input
@@ -138,7 +149,7 @@ const Signup: React.FC = () => {
             </span>
           </div>
 
-          {/* 📸 Foto-Upload */}
+          {/* Foto-Upload */}
           <label>Fotos hochladen</label>
           <div className="signup-photo-upload-area">
             <input
@@ -153,7 +164,7 @@ const Signup: React.FC = () => {
             </label>
           </div>
 
-          {/* 🖼️ Vorschau-Galerie */}
+          {/* Foto-Vorschau */}
           <div className="photo-preview-gallery">
             {photos.map((photo, index) => (
               <div key={index} className="photo-preview-item">
@@ -174,12 +185,12 @@ const Signup: React.FC = () => {
             ))}
           </div>
 
-          {/* 📤 Formular absenden */}
+          {/* Absenden */}
           <button type="submit" className="signup-submit-button">
             Konto erstellen
           </button>
 
-          {/* 🔗 Login-Link */}
+          {/* Login-Link */}
           <p className="signup-link">
             Bereits registriert?{" "}
             <a href="/login" onClick={() => navigate("/login")}>

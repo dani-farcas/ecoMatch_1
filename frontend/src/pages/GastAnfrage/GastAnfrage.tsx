@@ -1,33 +1,26 @@
 // 📁 frontend/src/pages/GastAnfrage.tsx
+// 🇩🇪 Alle Kommentare sind auf Deutsch
+
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AutocompletePLZ from "@/components/autocomplete/AutocompletePLZ";
 import AutocompleteStrasse from "@/components/autocomplete/AutocompleteStrasse";
 import "./GastAnfrage.css";
 
-// ✅ Props mit optionalem plzOrtId
+// ✅ Props für die Straßen-Autocomplete-Komponente
 interface AutocompleteStrasseProps {
   plzOrtId: number | null;
   onStrasseSelected: (strasse: string) => void;
 }
 
 // 🧾 Typdefinitionen
-interface Bundesland {
-  id: number;
-  name: string;
-}
-
-interface Region {
-  id: number;
-  name: string;
-}
-
-interface ServiceType {
-  id: number;
-  name: string;
-  category: string;
-}
+interface Bundesland { id: number; name: string; }
+interface Region { id: number; name: string; }
+interface ServiceType { id: number; name: string; category: string; }
 
 const GastAnfrage: React.FC = () => {
+  const navigate = useNavigate();
+
   // 🧾 Formular-Zustände
   const [bundeslaender, setBundeslaender] = useState<Bundesland[]>([]);
   const [regionen, setRegionen] = useState<Region[]>([]);
@@ -48,7 +41,10 @@ const GastAnfrage: React.FC = () => {
   const [services, setServices] = useState<string[]>([]);
   const [beschreibung, setBeschreibung] = useState("");
   const [bilder, setBilder] = useState<File[]>([]);
+
+  // 💬 UI-Meldungen
   const [message, setMessage] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // 🌍 Bundesländer laden
   useEffect(() => {
@@ -75,30 +71,22 @@ const GastAnfrage: React.FC = () => {
       .catch(() => setMessage("❌ Fehler beim Laden der Leistungen."));
   }, []);
 
-  // 📌 Icon für jede Kategorie
+  // 📌 Icon je Kategorie
   const getIconForCategory = (category: string): string => {
     switch (category) {
-      case "Umweltfachplanung":
-        return "📐";
-      case "Ökologische Erfassung":
-        return "🦋";
-      case "Umweltmanagement":
-        return "🌱";
-      case "Naturschutzberatung":
-        return "🌿";
-      case "Erneuerbare Energien":
-        return "⚡";
-      default:
-        return "🔹";
+      case "Umweltfachplanung": return "📐";
+      case "Ökologische Erfassung": return "🦋";
+      case "Umweltmanagement": return "🌱";
+      case "Naturschutzberatung": return "🌿";
+      case "Erneuerbare Energien": return "⚡";
+      default: return "🔹";
     }
   };
 
   // ✅ Checkbox-Auswahl
   const handleCheckboxChange = (dienst: string) => {
     setServices((prev) =>
-      prev.includes(dienst)
-        ? prev.filter((s) => s !== dienst)
-        : [...prev, dienst]
+      prev.includes(dienst) ? prev.filter((s) => s !== dienst) : [...prev, dienst]
     );
   };
 
@@ -119,23 +107,18 @@ const GastAnfrage: React.FC = () => {
     const gastEmail = localStorage.getItem("gast_email");
     const token = localStorage.getItem("gast_token");
 
-    if (!gastEmail || !token)
-      return setMessage("❌ Keine gültige GAST-E-Mail gefunden.");
+    if (!gastEmail || !token) {
+      setMessage("❌ Keine gültige GAST-E-Mail gefunden.");
+      return;
+    }
 
     if (
-      !vorname ||
-      !nachname ||
-      !telefon ||
-      !firmenname ||
-      !strasse ||
-      !hausnummer ||
-      !plz ||
-      !stadt ||
-      !land ||
-      !region ||
+      !vorname || !nachname || !telefon || !firmenname ||
+      !strasse || !hausnummer || !plz || !stadt || !land || !region ||
       services.length === 0
     ) {
-      return setMessage("❌ Bitte alle Pflichtfelder ausfüllen.");
+      setMessage("❌ Bitte alle Pflichtfelder ausfüllen.");
+      return;
     }
 
     const formData = new FormData();
@@ -160,85 +143,93 @@ const GastAnfrage: React.FC = () => {
         method: "POST",
         body: formData,
       });
+
       if (res.ok) {
-        setMessage("✅ Anfrage erfolgreich gesendet.");
-        setVorname("");
-        setNachname("");
-        setTelefon("");
-        setFirmenname("");
-        setStrasse("");
-        setHausnummer("");
-        setLand("");
-        setRegion("");
-        setPlz("");
-        setStadt("");
-        setBeschreibung("");
-        setServices([]);
-        setBilder([]);
+        // ✅ Erfolg: Formular leeren und auf Bestätigungsansicht umschalten
+        setMessage("");
+        setVorname(""); setNachname(""); setTelefon(""); setFirmenname("");
+        setStrasse(""); setHausnummer(""); setLand(""); setRegion("");
+        setPlz(""); setStadt(""); setBeschreibung(""); setServices([]); setBilder([]);
+        setShowSuccess(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        setMessage("❌ Fehler beim Senden der Anfrage.");
+        const err = await res.json().catch(() => ({}));
+        setMessage(err?.detail || "❌ Fehler beim Senden der Anfrage.");
       }
     } catch {
       setMessage("❌ Netzwerkfehler. Bitte später erneut versuchen.");
     }
   };
 
+  // 🟢 Nach erfolgreichem Absenden: eigene Bestätigungsansicht (Formular ausgeblendet)
+  if (showSuccess) {
+    return (
+      <div className="gast-anfrage-container">
+        <section className="success-panel" role="status" aria-live="polite">
+          <div className="success-icon" aria-hidden>✅</div>
+          <h1 className="success-title">Vielen Dank für Ihre Anfrage!</h1>
+          <p className="success-text">
+            Ihre kostenlose Anfrage wurde <strong>erfolgreich übermittelt</strong>.
+            Unser Team prüft Ihre Angaben und meldet sich in Kürze mit passenden Angeboten.
+          </p>
+          <p className="success-text subtle">
+            Wenn Sie weitere Anfragen stellen und den vollen Funktionsumfang von <strong>ecoMatch</strong> nutzen möchten,
+            erstellen Sie bitte ein Benutzerkonto. Die Registrierung dauert nur wenige Minuten.
+          </p>
+
+          <div className="success-actions">
+            <button className="btn-primary" onClick={() => navigate("/signup")}>
+              Jetzt registrieren
+            </button>
+            <button className="btn-ghost" onClick={() => navigate("/")}>
+              Zur Startseite
+            </button>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // 🧾 Standardansicht: Formular anzeigen
   return (
     <div className="gast-anfrage-container">
       <h2>📝 GAST-Anfrage stellen</h2>
       {message && <p className="nachricht">{message}</p>}
 
       <form onSubmit={handleSubmit}>
-        {/* Ansprechpartner & Firmendaten */}
+        {/* 👥 Ansprechpartner & 🏢 Firmendaten */}
         <div className="formular-oben">
           <div className="formular-block">
             <legend>👤 Ansprechpartner</legend>
             <label>
-              Vorname*:{" "}
-              <input
-                value={vorname}
-                onChange={(e) => setVorname(e.target.value)}
-              />
+              Vorname*:
+              <input value={vorname} onChange={(e) => setVorname(e.target.value)} />
             </label>
             <label>
-              Nachname*:{" "}
-              <input
-                value={nachname}
-                onChange={(e) => setNachname(e.target.value)}
-              />
+              Nachname*:
+              <input value={nachname} onChange={(e) => setNachname(e.target.value)} />
             </label>
             <label>
-              Telefon*:{" "}
-              <input
-                value={telefon}
-                onChange={(e) => setTelefon(e.target.value)}
-              />
+              Telefon*:
+              <input value={telefon} onChange={(e) => setTelefon(e.target.value)} />
             </label>
           </div>
 
           <div className="formular-block">
             <legend>🏢 Firmendaten</legend>
             <label>
-              Firmenname*:{" "}
-              <input
-                value={firmenname}
-                onChange={(e) => setFirmenname(e.target.value)}
-              />
+              Firmenname*:
+              <input value={firmenname} onChange={(e) => setFirmenname(e.target.value)} />
             </label>
             <label>
               Bundesland*:
               <select
                 value={land}
-                onChange={(e) => {
-                  setLand(e.target.value);
-                  setRegion("");
-                }}
+                onChange={(e) => { setLand(e.target.value); setRegion(""); }}
               >
                 <option value="">Bitte wählen</option>
                 {bundeslaender.map((l) => (
-                  <option key={l.id} value={l.name}>
-                    {l.name}
-                  </option>
+                  <option key={l.id} value={l.name}>{l.name}</option>
                 ))}
               </select>
             </label>
@@ -251,12 +242,12 @@ const GastAnfrage: React.FC = () => {
               >
                 <option value="">Bitte wählen</option>
                 {regionen.map((r) => (
-                  <option key={r.id} value={r.name}>
-                    {r.name}
-                  </option>
+                  <option key={r.id} value={r.name}>{r.name}</option>
                 ))}
               </select>
             </label>
+
+            {/* 📍 PLZ/Ort & Straße (abhängig) */}
             <AutocompletePLZ
               onPlzOrtSelected={(id, selectedPlz, selectedOrt) => {
                 setPlz(selectedPlz);
@@ -264,68 +255,57 @@ const GastAnfrage: React.FC = () => {
                 setPlzOrtId(id);
               }}
             />
+
             <AutocompleteStrasse
               plzOrtId={plzOrtId}
               onStrasseSelected={(value) => setStrasse(value)}
             />
+
             <label>
-              Hausnummer*:{" "}
-              <input
-                value={hausnummer}
-                onChange={(e) => setHausnummer(e.target.value)}
-              />
+              Hausnummer*:
+              <input value={hausnummer} onChange={(e) => setHausnummer(e.target.value)} />
             </label>
           </div>
         </div>
 
-        {/* Gewünschte Leistungen */}
+        {/* 🌿 Gewünschte Leistungen */}
         <fieldset>
           <legend>🌿 Gewünschte Leistungen*</legend>
           <div className="leistungen-grid">
-            {Array.from(new Set(alleServices.map((s) => s.category))).map(
-              (category) => {
-                const kategoriedienste = alleServices.filter(
-                  (s) => s.category === category
-                );
-                const icon = getIconForCategory(category);
-                return (
-                  <div key={category} className="leistung-kategorie">
-                    <div className="kategorie-header">
-                      <span>{icon}</span>
-                      <strong>{category}</strong>
-                    </div>
-                    <div className="checkbox-liste">
-                      {kategoriedienste.map((service) => (
-                        <label key={service.id}>
-                          <input
-                            type="checkbox"
-                            checked={services.includes(service.id.toString())}
-                            onChange={() =>
-                              handleCheckboxChange(service.id.toString())
-                            }
-                          />
-                          {service.name}
-                        </label>
-                      ))}
-                    </div>
+            {Array.from(new Set(alleServices.map((s) => s.category))).map((category) => {
+              const kategoriedienste = alleServices.filter((s) => s.category === category);
+              const icon = getIconForCategory(category);
+              return (
+                <div key={category} className="leistung-kategorie">
+                  <div className="kategorie-header">
+                    <span>{icon}</span>
+                    <strong>{category}</strong>
                   </div>
-                );
-              }
-            )}
+                  <div className="checkbox-liste">
+                    {kategoriedienste.map((service) => (
+                      <label key={service.id}>
+                        <input
+                          type="checkbox"
+                          checked={services.includes(service.id.toString())}
+                          onChange={() => handleCheckboxChange(service.id.toString())}
+                        />
+                        {service.name}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </fieldset>
 
-        {/* Hinweise */}
+        {/* 📝 Zusätzliche Hinweise */}
         <label>
           Zusätzliche Hinweise:
-          <textarea
-            value={beschreibung}
-            onChange={(e) => setBeschreibung(e.target.value)}
-          />
+          <textarea value={beschreibung} onChange={(e) => setBeschreibung(e.target.value)} />
         </label>
 
-        {/* Bilder */}
-        {/* 📷 Moderner Datei-Upload */}
+        {/* 📷 Bilder vom Projektort */}
         <div className="bilder-upload">
           <label htmlFor="bilder-upload-btn" className="upload-label">
             📷 Bilder vom Projektort auswählen
@@ -337,18 +317,16 @@ const GastAnfrage: React.FC = () => {
             accept="image/*"
             onChange={handleBildUpload}
           />
-
           <div className="bilder-preview">
             {bilder.map((file, index) => (
               <div className="bild-container" key={index}>
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt={`Bild ${index + 1}`}
-                />
+                <img src={URL.createObjectURL(file)} alt={`Bild ${index + 1}`} />
                 <button
                   type="button"
                   className="bild-entfernen-btn"
                   onClick={() => handleBildEntfernen(index)}
+                  aria-label="Bild entfernen"
+                  title="Bild entfernen"
                 >
                   ❌
                 </button>
@@ -357,6 +335,7 @@ const GastAnfrage: React.FC = () => {
           </div>
         </div>
 
+        {/* ✅ Absenden */}
         <div className="submit-container">
           <button type="submit">✅ Anfrage absenden</button>
         </div>

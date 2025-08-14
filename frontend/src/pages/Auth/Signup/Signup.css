@@ -157,6 +157,20 @@ body,
   object-fit: cover;
 }
 
+/* ❌ Fehlerbanner */
+.error-banner {
+  background-color: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+
 /* ❌ Button zum Entfernen eines Bildes */
 .photo-remove-button {
   position: absolute;

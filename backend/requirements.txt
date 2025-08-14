@@ -23,4 +23,5 @@ Pillow
 django-import-export
 xhtml2pdf
 dj-database-url
+xhtml2pdf
 
