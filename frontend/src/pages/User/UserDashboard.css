@@ -1,0 +1,153 @@
+/* 📁 src/pages/User/UserDashboard.css */
+
+/* Wrapper – nimmt die gesamte Höhe des Viewports ein */
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* exakt ein Viewport hoch */
+  overflow: hidden; /* verhindert globales Scrollen */
+  position: relative;
+}
+
+/* Container – Hauptbereich neben Sidebar */
+.dashboard-container {
+  flex: 1;
+  display: flex;
+  min-height: 0; /* verhindert Scroll-Overflow */
+  margin-top: 60px; /* Platz für den fixen Header */
+  z-index: 1;
+  position: relative;
+}
+
+/* Sidebar links */
+.dashboard-sidebar {
+  width: 220px;
+  background: rgba(255, 255, 255, 0.9);
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  backdrop-filter: blur(6px);
+  height: 100%; /* füllt die gesamte Höhe */
+  overflow-y: auto; /* eigener Scroll bei vielen Menüpunkten */
+}
+
+.dashboard-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+}
+
+.dashboard-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.dashboard-sidebar li {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.dashboard-sidebar li:hover {
+  background: var(--color-primary-light);
+  color: var(--color-accent-dark);
+}
+
+.dashboard-sidebar li.active {
+  background: var(--color-accent-dark);
+  color: white;
+  font-weight: 600;
+}
+
+.dashboard-sidebar li.highlight {
+  background: var(--color-success-bg);
+  color: var(--color-text);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Haupt-Content – füllt restlichen Bereich ohne Scroll */
+.dashboard-content {
+  flex: 1;
+  height: 100%;
+  overflow: hidden; /* kein globaler Scroll */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-sm);
+  background: transparent;
+  border-left: 1px solid var(--color-border-light);
+}
+
+/* Cards im Content – eigener Scroll falls zu groß */
+.profile-edit,
+.profile-view {
+  max-height: 90vh;   /* bleibt im Viewport */
+  overflow-y: auto;   /* eigener Scroll nur im Card */
+}
+
+/* Footer unten */
+footer {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-md) var(--space-xl);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  z-index: 1;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+
+/* Responsive Layout für Mobile */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    flex-direction: row;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    overflow-x: auto;
+    padding: var(--space-md);
+    height: auto; /* Sidebar nicht die volle Höhe auf Mobile */
+  }
+
+  .dashboard-sidebar ul {
+    flex-direction: row;
+    gap: var(--space-md);
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .dashboard-sidebar li {
+    flex: 1;
+    text-align: center;
+  }
+
+  .dashboard-content {
+    padding: var(--space-lg);
+    height: auto; /* auf kleinen Screens normales Scrollen */
+    align-items: flex-start; /* Inhalt oben statt mittig */
+  }
+
+  .profile-edit,
+  .profile-view {
+    max-height: none; /* kein Limit auf Mobile */
+    overflow-y: visible;
+  }
+}

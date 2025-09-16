@@ -1,0 +1,269 @@
+/* ============================
+   🪟 Modal-Fenster
+   ============================ */
+.modal-window {
+  position: fixed;
+  margin-top: 0;
+  width: min(1200px, 100vw);
+  height: 84vh;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1;
+}
+/* 🇩🇪 Minimierte Variante – wie eine kleine Taskbar-Leiste */
+.modal-window.minimized {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 220px;
+  height: auto;
+  background: var(--color-surface, #f9f9f9);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  z-index: 11000;
+}
+
+
+/* Kopfzeile */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: move;
+}
+.modal-header span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.window-actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 6px;
+}
+
+/* ============================
+   📑 Formular
+   ============================ */
+.request-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Eingabefelder */
+.request-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.request-form input,
+.request-form select,
+.request-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+.request-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* ============================
+   👤 Ansprechpartner & Adresse
+   ============================ */
+.form-sections {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.form-section {
+  flex: 1 1 48%;
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.form-section h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-primary);
+}
+
+/* ============================
+   🌿 Leistungen
+   ============================ */
+fieldset {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+legend {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.leistungen-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* 🇩🇪 Wenn Fenster maximiert → 5 Spalten nebeneinander */
+.modal-window.maximized .leistungen-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+/* Jede Kategorie als eigene Spalte */
+.leistung-kategorie {
+  background: var(--color-surface, #fff);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.kategorie-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.checkbox-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.checkbox-liste label {
+  display: flex;
+  flex-direction: row; /* 👉 Text links, Checkbox rechts */
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fafafa;
+  font-weight: 500;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+.checkbox-liste label:hover {
+  border-color: var(--color-primary);
+}
+.checkbox-liste input {
+  margin-left: 12px;
+}
+.checkbox-liste label:has(input:checked) {
+  background: #ecfdf5;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ============================
+   📷 Bilder
+   ============================ */
+fieldset legend {
+  margin-bottom: 6px;
+}
+fieldset:last-of-type {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fafafa;
+}
+
+/* ============================
+   ⬇️ Footer
+   ============================ */
+.form-actions {
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.btn-cancel {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-submit {
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  background: #15803d;
+}
+
+/* 📱 Mobil */
+@media (max-width: 767px) {
+  .modal-window {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transform: none; /* kein translate, direkt oben links */
+    border-radius: 0;
+  }
+}
+
+/* 📊 Tablet */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .modal-window {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
+}
+

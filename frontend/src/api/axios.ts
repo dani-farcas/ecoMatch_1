@@ -1,8 +1,9 @@
 // 📁 src/api/axios.ts
+// 🌍 Zentrale Axios-Instanz mit JWT-Interceptors für Access- & Refresh-Token
 
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-// 🌍 Basis-URL aus .env (z.B. http://localhost:8000/api/)
+// Basis-URL aus .env (Fallback: http://localhost:8000/api/)
 let baseURL = import.meta.env.VITE_API_URL || "http://localhost:8000/api/";
 
 // Sicherstellen, dass baseURL mit '/' endet
@@ -10,19 +11,24 @@ if (!baseURL.endsWith("/")) {
   baseURL += "/";
 }
 
-// 🛠️ Eigene Axios-Instanz erstellen
+// Erweiterung für AxiosRequestConfig, damit wir "_retry" setzen können
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+  _retry?: boolean;
+}
+
+// Eigene Axios-Instanz erstellen
 const api = axios.create({
-  baseURL: baseURL,
+  baseURL,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: false, // Keine Cookies versenden
+  withCredentials: false,
 });
 
-// 🔐 Request-Interceptor: Authorization Header hinzufügen, falls Token vorhanden
+// 🔐 Request-Interceptor: setzt automatisch den Authorization-Header
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("access");
     if (token && config.headers) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -31,13 +37,12 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 🔄 Response-Interceptor: Token bei 401 automatisch erneuern
+// 🔄 Response-Interceptor: Access-Token bei Ablauf automatisch erneuern
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config as CustomAxiosRequestConfig;
 
-    // Prüfen, ob 401 wegen ungültigem Token und ob Retry noch nicht versucht
     if (
       error.response?.status === 401 &&
       error.response.data?.code === "token_not_valid" &&
@@ -46,23 +51,29 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refresh = localStorage.getItem("refreshToken");
+        const refresh = localStorage.getItem("refresh");
         if (!refresh) throw new Error("Kein Refresh-Token vorhanden");
 
-        // Refresh-Token an API senden, um neuen Access-Token zu erhalten
+        // Wichtig: axios.post direkt, nicht über api (um Endlosschleifen zu vermeiden)
         const res = await axios.post(`${baseURL}token/refresh/`, { refresh });
-        const newAccess = res.data.access;
 
-        // Neuen Access-Token speichern
-        localStorage.setItem("accessToken", newAccess);
+        const newAccess = res.data?.access;
+        if (!newAccess) throw new Error("Kein neues Access-Token erhalten");
 
-        // Originalanfrage mit neuem Token erneut senden
-        originalRequest.headers["Authorization"] = `Bearer ${newAccess}`;
+        // Neues Access-Token speichern
+        localStorage.setItem("access", newAccess);
+
+        // Header der Original-Anfrage aktualisieren
+        if (originalRequest.headers) {
+          originalRequest.headers["Authorization"] = `Bearer ${newAccess}`;
+        }
+
+        // Anfrage erneut senden mit aktualisiertem Token
         return api(originalRequest);
       } catch (refreshError) {
-        // Refresh-Token ungültig: Tokens löschen und zum Login weiterleiten
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        // Refresh-Token ungültig oder Fehler → Logout erzwingen
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
         window.location.href = "/login";
         return Promise.reject(refreshError);
       }

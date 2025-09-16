@@ -27,7 +27,7 @@ services:
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: dlm33730@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_DEFAULT_PASSWORD: Admin123
     ports:
       - "5050:80"
     depends_on:

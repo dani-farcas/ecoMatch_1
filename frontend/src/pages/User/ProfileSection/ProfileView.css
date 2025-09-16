@@ -1,0 +1,186 @@
+/* 📁 frontend/src/pages/User/ProfileSection/ProfileView.css */
+
+/* Hauptcontainer */
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  color: #111827;
+}
+
+/* Header mit Avatar */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+}
+
+/* Avatar Container */
+.profile-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Avatar Bild */
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent-dark);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  margin-top: 24px;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Placeholder (Fallback ohne Bild) */
+.profile-avatar.placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--color-accent-dark, #14532d);
+  border: 2px dashed #d1d5db;
+}
+
+/* Avatar Action Buttons */
+.avatar-action {
+  position: absolute;
+  right: -4px;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.avatar-action:hover {
+  background: #f9fafb;
+  transform: scale(1.05);
+}
+
+/* Upload-Icon (oben rechts) */
+.avatar-upload {
+  top: -4px;
+}
+
+/* Remove-Icon (unten rechts) */
+.avatar-remove {
+  bottom: -4px;
+}
+
+.avatar-remove svg {
+  color: #dc2626;
+}
+
+/* Header Titel */
+.profile-header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-primary-dark, #14532d);
+  letter-spacing: -0.5px;
+}
+
+/* Datenkarte */
+.profile-card {
+  background: #ffffff;
+  padding: 48px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-card p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.profile-card p:last-child {
+  border-bottom: none;
+}
+
+.profile-card p strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Aktionen */
+.profile-actions {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.profile-actions button {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Buttons */
+.profile-actions .edit-btn {
+  background: var(--color-accent-dark);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+}
+
+.profile-actions .pdf-btn {
+  background: var(--color-success-bg);
+  color: var(--color-primary);
+  box-shadow: 0 2px 6px rgba(6, 95, 70, 0.3);
+}
+
+.profile-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-actions button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .profile-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .profile-avatar {
+    width: 70px;
+    height: 70px;
+  }
+}

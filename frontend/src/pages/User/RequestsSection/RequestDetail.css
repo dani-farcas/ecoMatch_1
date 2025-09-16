@@ -1,0 +1,73 @@
+/* Hintergrund */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Fenster */
+.modal-window {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  color: var(--color-primary);
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Body */
+.modal-body p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: var(--color-text, #374151);
+}
+
+/* Footer mit zentriertem Button */
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Stil für PDF-Button */
+.btn-pdf {
+  background: var(--color-accent-dark, #16a34a);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: background 0.2s ease;
+}
+
+.btn-pdf:hover {
+  background: var(--color-accent, #22c55e);
+}

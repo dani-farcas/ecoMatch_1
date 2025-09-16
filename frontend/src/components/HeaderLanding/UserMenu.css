@@ -1,0 +1,22 @@
+/* 🇩🇪 Schlichtes, modernes Menü */
+.umenu { position: relative; }
+.umenu-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.1); background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700; cursor: pointer; overflow: hidden;
+}
+.umenu-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.umenu-dropdown {
+  position: absolute; right: 0; top: 44px; min-width: 200px;
+  background: #ffffff; border: 1px solid rgba(0,0,0,.1);
+  border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,.12);
+  padding: 8px; z-index: 30;
+}
+.umenu-dropdown button {
+  width: 100%; text-align: left; padding: 10px 12px; border: 0; background: transparent;
+  border-radius: 8px; cursor: pointer; font-size: 0.95rem;
+}
+.umenu-dropdown button:hover { background: rgba(16,185,129,.1); }
+.umenu-dropdown hr { border: 0; border-top: 1px solid rgba(0,0,0,.06); margin: 6px 0; }

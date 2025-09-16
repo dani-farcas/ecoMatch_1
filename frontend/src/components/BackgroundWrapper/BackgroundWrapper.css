@@ -1,12 +1,19 @@
 .background-wrapper {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(rgba(0, 8, 20, 0.2), rgba(0, 58, 20, 0.2)),
-              url("@assets/pictures/bg-landingpage.png");
+
+  /* folosește variabila globală */
+  background: linear-gradient(
+      rgba(0, 8, 20, 0.2),
+      rgba(0, 58, 20, 0.2)
+    ),
+    var(--background-hero-image);
+
   background-size: cover;
   background-position: center 40%;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
   color: white;
   text-align: center;
   display: flex;

@@ -3,6 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
+import { useAuth } from "@/contexts/AuthContext";
+
 // 📦 Assets
 import solarIcon from "@assets/icon/solar-panel.png";
 import houseIcon from "@assets/icon/eco-house.png";
@@ -10,8 +12,8 @@ import planetIcon from "@assets/icon/planet-earth.png";
 import Oli from "@assets/Testimonial/Oli.png";
 
 // 🧱 Wiederverwendbare Komponenten
-
 const LandingPage: React.FC = () => {
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -25,13 +27,22 @@ const LandingPage: React.FC = () => {
           <br />
           lokalen Öko-Lösungen
         </h1>
-        <button className="cta-button" onClick={() => navigate("/gast-start")}>
-          Kostenlos starten als Gast
-        </button>
 
-        <p className="cta-note">
-          1. Anfrage kostenlos – danach Registrierung &amp; Abo erforderlich
-        </p>
+        {/* ✅ Zeige Button & Hinweis nur wenn User NICHT eingeloggt ist */}
+        {!isAuthenticated && (
+          <>
+            <button
+              className="cta-button"
+              onClick={() => navigate("/gast-start")}
+            >
+              Kostenlos starten als Gast
+            </button>
+
+            <p className="cta-note">
+              1. Anfrage kostenlos – danach Registrierung &amp; Abo erforderlich
+            </p>
+          </>
+        )}
       </section>
 
       {/* 🧩 Dienstleistungen */}

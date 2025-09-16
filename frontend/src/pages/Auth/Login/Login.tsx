@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "@/contexts/AuthContext";
@@ -22,6 +22,16 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [fehler, setFehler] = useState("");
   const [laden, setLaden] = useState(false);
+
+  // 👉 Ref für das Benutzername-Feld
+  const benutzernameRef = useRef<HTMLInputElement>(null);
+
+  // 🔄 Fokussiere automatisch beim Laden
+  useEffect(() => {
+    if (benutzernameRef.current) {
+      benutzernameRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,9 +70,10 @@ const Login: React.FC = () => {
           type="text"
           value={benutzername}
           onChange={(e) => setBenutzername(e.target.value)}
-          placeholder="E-Mail oder Benutzername"
+          placeholder="Benutzername"
           required
           className="login-input"
+          ref={benutzernameRef} // 👉 Hier Fokus setzen
         />
 
         <label className="login-label">Passwort</label>

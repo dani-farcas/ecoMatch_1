@@ -1,144 +1,223 @@
-/* 🌿 GAST – Design identic cu Signup */
+/* ============================================
+   GastStart – moderner Card-Stil (2025)
+   Konsistenz mit GastAnfrage & ProfileEdit
+   ============================================ */
 
-html,
-body,
-#root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
-  font-family: sans-serif;
+:root {
+  --gs-surface: var(--color-surface, #ffffff);
+  --gs-surface-alt: var(--color-surface-hover, #f8fafc);
+  --gs-border: var(--color-border, #e5e7eb);
+  --gs-accent: var(--color-accent, #16a34a);
+  --gs-accent-dark: var(--color-accent-dark, #0e7a36);
+  --gs-text: var(--color-text, #111827);
+  --gs-text-muted: var(--color-text-muted, #6b7280);
+  --gs-radius: var(--radius-lg, 16px);
+  --gs-shadow: var(--shadow-md, 0 12px 30px rgba(0,0,0,0.08));
+  --gs-space: var(--space-lg, 24px);
 }
 
+/* Hauptcontainer: mittig mit eigenem Scroll */
 .gaststart-container {
-  display: flex;                      
-  justify-content: center;           
-  align-items: center;               
-  height: 80vh;                    
-  width: 100vw;                      
-  overflow: hidden;
-}
-
-
-.gaststart-form-wrapper {
-  flex: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
+  justify-content: center;
+  width: min(100%, 1400px);
+  margin: 80px auto;
+  padding: 12px;
+  box-sizing: border-box;
+  height: calc(100vh - 120px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Wrapper für Card */
+.gaststart-form-wrapper {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: var(--gs-space);
   box-sizing: border-box;
 }
 
-
+/* Formular-Card */
 .gaststart-form {
-  background-color: rgba(240, 253, 244, 0.75);
-  padding: 3rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-  width: 600px;
-  max-width: 90vw;
-  box-sizing: border-box;
+  width: min(640px, 92vw);
+  background: color-mix(in srgb, var(--gs-surface) 92%, transparent);
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--gs-border);
+  border-radius: var(--gs-radius);
+  box-shadow: var(--gs-shadow);
+  padding: clamp(20px, 4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--gs-text);
 }
 
+/* Titel */
 .gaststart-form h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  color: #111827;
+  margin: 0 0 6px 0;
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.8rem);
+  font-weight: 700;
+  color: var(--gs-accent-dark);
+  text-align: left;
+  border-bottom: 1px solid var(--gs-border);
+  padding-bottom: 10px;
 }
 
+/* Labels */
 .gaststart-form label {
+  font-size: 0.95rem;
   font-weight: 500;
+  color: #374151;
   display: block;
-  margin-bottom: 0.3rem;
+  margin-bottom: 6px;
 }
 
+/* Eingabefeld */
 .gaststart-input {
   width: 100%;
   height: 48px;
-  padding: 0 0.9rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #fff;
   font-size: 1rem;
   box-sizing: border-box;
-  margin-bottom: 1.2rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.06s ease;
+  margin-bottom: 14px;
 }
 
+/* Fokuszustand */
+.gaststart-input:focus {
+  outline: none;
+  border-color: var(--gs-accent-dark);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--gs-accent) 30%, transparent);
+}
+
+/* Checkbox + Link */
 .checkbox-inline {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 0.9rem;
   flex-wrap: wrap;
-  color: #111827;
+  font-size: 0.95rem;
+  color: var(--gs-text);
+  margin: 2px 0 8px 0;
 }
 
 .checkbox-inline input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: #10b981;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gs-accent);
+  flex-shrink: 0;
 }
 
-button {
-  background-color: #10b981;
-  color: white;
-  border: none;
-  padding: 0.9rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 1rem;
+.checkbox-inline a {
+  color: var(--gs-accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Buttons (einheitlich im Projekt) */
+.gaststart-form .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
-button:hover {
-  background-color: #059669;
+.gaststart-form .btn-primary {
+  background: var(--gs-accent-dark);
+  border-color: var(--gs-accent-dark);
+  color: #fff;
 }
 
+.gaststart-form .btn-ghost {
+  background: var(--gs-surface-alt);
+  border: 1px solid var(--gs-border);
+  color: var(--gs-text);
+}
+
+/* Hover */
+@media (hover: hover) {
+  .gaststart-form .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+}
+.gaststart-form .btn:active {
+  transform: translateY(0);
+}
+
+/* Disabled/Loading */
+.gaststart-form .btn[disabled],
+.gaststart-form .btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Erfolgs-/Fehlermeldungen */
 .erfolg,
 .fehler {
   text-align: center;
   font-size: 0.95rem;
+  margin: 6px 0 2px 0;
 }
 
-.erfolg {
-  color: #15803d;
-  margin-bottom: 1rem;
+.erfolg { color: #166534; }
+.fehler  { color: #b91c1c; }
+
+/* Optional: Hinweis- oder Divider */
+.gaststart-hint {
+  font-size: 0.9rem;
+  color: var(--gs-text-muted);
+}
+.gaststart-divider {
+  height: 1px;
+  background: var(--gs-border);
+  margin: 6px 0 2px 0;
 }
 
-.fehler {
-  color: #dc2626;
-}
-@media (max-width: 480px) {
-  main {
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 100vw;
-    box-sizing: border-box;
-  }
-
+/* Responsiv */
+@media (max-width: 768px) {
   .gaststart-container {
-    width: 100vw;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-position: center center;
-    background-attachment: scroll;
+    margin: 70px auto 24px;
+    height: calc(100vh - 110px);
+    padding: 8px;
   }
-
-  .gaststart-form-wrapper {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
+  .gaststart-form {
+    width: 96vw;
+    padding: 18px;
   }
+}
 
+@media (max-width: 480px) {
+  .gaststart-container {
+    margin: 64px auto 16px;
+    height: calc(100vh - 100px);
+  }
   .gaststart-form {
     width: 100%;
     max-width: 360px;
-    margin: 0 auto;
-    padding: 1.5rem;
+    padding: 16px;
+    gap: 12px;
+  }
+}
+
+/* Bewegungen reduzieren */
+@media (prefers-reduced-motion: reduce) {
+  .gaststart-container *,
+  .gaststart-form .btn {
+    transition: none !important;
   }
 }

@@ -1,0 +1,48 @@
+.confirm-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-xl);
+  text-align: center;
+  font-family: var(--font-family-base);
+}
+
+/* ✅ Erfolgsnachricht */
+.confirm-success {
+  color: var(--color-success);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-md);
+}
+
+/* ❌ Fehlermeldung */
+.confirm-error {
+  color: var(--color-danger);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+/* 🔘 Button im gleichen Stil wie bei Signup/Login */
+.confirm-button {
+  margin-top: var(--space-lg);
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent-dark);
+  color: var(--color-background);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  /* Feste Breite wie bei Signup/Login */
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+  font-weight: var(--font-weight-semibold);
+}
+
+.confirm-button:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
+}

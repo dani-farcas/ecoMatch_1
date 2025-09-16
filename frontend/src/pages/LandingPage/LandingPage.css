@@ -3,7 +3,7 @@
   display: block;
   min-height: 80vh;
   overflow-y: auto;
-  font-family: "Segoe UI", sans-serif;
+  font-family: var(--font-family-base);
 }
 
 /* 🔝 Fixierter Header (kommt aus externer Komponente) */
@@ -14,6 +14,25 @@ header {
   right: 0;
   height: 60px;
   z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-md);
+  background-color: var(--color-background);
+}
+
+/* 🌿 Logo im Header */
+header img {
+  height: 28px;
+  width: auto;
+}
+
+/* 🍔 Burger-Menü */
+.burger-menu {
+  font-size: 28px;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 /* 🧩 Hauptbereich unterhalb des Headers */
@@ -21,15 +40,15 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; 
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
 /* 🌄 Hero-Sektion mit Bild + Farbverlauf */
 .hero-section {
-  flex: 0 0 auto; /* în loc de flex: 1 */
-  padding-top: 50px;
-  padding-bottom: 50px;
+  flex: 0 0 auto;
+  padding-top: calc(5% + var(--space-md));
+  padding-bottom: var(--space-xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,15 +56,16 @@ main {
 }
 
 .hero-section h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  font-weight: bold;
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-3xl);
+  font-weight: var(--font-weight-normal);
+  animation: fadeInUp 1.2s ease-out;
 }
 
 .cta-note {
-  font-size: 0.85rem;
-  color: #ffffff;
-  margin-top: 6px;
+  font-size: var(--font-size-sm);
+  color: var(--color-background);
+  margin-top: var(--space-xs);
   text-align: center;
   font-style: italic;
 }
@@ -61,20 +81,15 @@ main {
   }
 }
 
-.hero-section h1 {
-  animation: fadeInUp 1.2s ease-out;
-}
-
 .cta-button {
-  background-color: #ecfdf5;
-  color: #166534;
+  background-color: var(--color-accent-dark);
+  color: var(--color-on-primary);
   border: none;
-  padding: 12px 24px;
-  font-weight: bold;
-  border-radius: 6px;
+  padding: var(--space-sm) var(--space-lg);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-
   display: inline-block;
   width: auto;
   text-align: center;
@@ -82,75 +97,67 @@ main {
 }
 
 .cta-button:hover {
-  background-color: #d1fae5;
+  background-color: var(--color-background-hover);
   transform: translateY(-2px);
 }
 
 /* 🧩 Dienstleistungen */
-/* 🧩 Layout-Bereich für alle Service-Karten */
 .services-section {
   display: flex;
   justify-content: center;
-  gap: 25px;
-  padding: 50px 100px;
-  background-color: rgba(240, 253, 244, 0);
+  gap: var(--space-lg);
+  padding: var(--space-xl) var(--space-2xl);
+  background-color: transparent;
   flex-wrap: wrap;
   flex-shrink: 0;
 }
 
-/* 📦 Einzelne klickbare Karte – als Link gestaltet */
 .service-card {
-  display: block; /* Link verhält sich wie ein Blockelement */
+  display: block;
   background-color: rgba(225, 255, 255, 0.7);
   width: 250px;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   text-align: center;
-  text-decoration: none; /* keine Unterstreichung */
-  color: inherit; /* kein blau für Links */
+  text-decoration: none;
+  color: inherit;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* 🖱 Hover-Effekt für Karten */
 .service-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
-/* 🖼 Icon-Image innerhalb der Karte */
 .service-card img {
   width: 48px;
   height: 48px;
-  max-width: 100%;
-  max-height: 100%;
   object-fit: contain;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-sm);
 }
 
-/* 🏷 Titel der Karte */
 .service-card h3 {
-  margin-top: 8px;
-  margin-bottom: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #111827;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
 }
 
-/* 📄 Beschreibungstext in der Karte */
 .service-card p {
-  font-size: 0.95rem;
-  color: #4b5563;
+  font-size: var(--font-size-base);
+  color: var(--color-secondary);
   margin: 0;
 }
 
 /* 💬 Kundenmeinung */
 .testimonial-section {
   background-color: rgba(229, 231, 235, 0.8);
-  padding: 20px;
-  border-radius: 8px;
-  width: 38%; 
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  width: 38%;
   margin: 0 auto;
   text-align: center;
   flex-shrink: 0;
@@ -162,42 +169,42 @@ main {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 
 .testimonial-section p {
   font-style: italic;
   max-width: 600px;
-  margin: 0 auto 10px;
-  color: #166534;
+  margin: 0 auto var(--space-sm);
+  color: var(--color-accent-dark);
 }
 
 .testimonial-section strong {
-  color: #166534;
+  color: var(--color-accent-dark);
   font-style: italic;
 }
 
 /* 🔚 Footer */
 footer {
-  background-color: #1e293b;
-  color: white;
+  background-color: #1e293b; /* TODO: neue Variable in variables.css */
+  color: var(--color-background);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  font-size: 14px;
+  padding: var(--space-sm);
+  font-size: var(--font-size-sm);
   flex-shrink: 0;
 }
 
 .footer-links {
   display: flex;
-  gap: 20px;
-  margin-bottom: 0px;
+  gap: var(--space-md);
+  margin-bottom: 0;
   flex-wrap: wrap;
 }
 
 .footer-links a {
-  color: white;
+  color: var(--color-background);
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
@@ -209,21 +216,30 @@ footer {
 .footer-separator {
   width: 100%;
   height: 1px;
-  background-color: #94a3b8;
-  margin: 5px 0;
+  background-color: var(--color-border);
+  margin: var(--space-xs) 0;
 }
 
-/* 🌱 Layout mobil (max. 767px) */
+/* 🌱 Layout mobil */
 @media (max-width: 767px) {
+  header img {
+    height: 24px;
+  }
+
+  .burger-menu {
+    font-size: 26px;
+    margin-right: var(--space-xs);
+  }
+
   .hero-section h1 {
-    font-size: 2rem;
+    font-size: var(--font-size-2xl);
     line-height: 1.3;
     text-align: center;
   }
 
   .services-section {
     flex-direction: column;
-    padding: 30px 20px;
+    padding: var(--space-lg) var(--space-md);
   }
 
   .service-card {
@@ -232,9 +248,13 @@ footer {
     margin: 0 auto;
   }
 
+  .testimonial-section {
+    width: 90%;
+  }
+
   .footer-links {
     flex-direction: column;
-    gap: 10px;
+    gap: var(--space-sm);
   }
 
   .landing-container {
@@ -250,41 +270,43 @@ footer {
   }
 }
 
-/* 📱 Optimierung für Tablet (z.B. iPad Pro 1024px) */
+/* 📱 Optimierung für Tablet */
+@media (max-width: 1024px) {
+  .testimonial-section {
+    width: 80%;
+  }
+}
+
 @media (max-width: 1400px) {
-  /* 🧱 Basisstruktur: keine doppelten Scroll-Leisten */
   html,
   body,
   #root {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow-y: auto; /* ✅ nur äußeres Scrollen erlaubt */
+    overflow-y: auto;
     overflow-x: hidden;
   }
 
-  /* 🧱 Hauptlayout soll keine eigene Scrollbar erzeugen */
   .landing-container {
-    height: auto; /* ✅ kein 100vh + flex mehr */
-    overflow: visible; /* ✅ erlaubt normalen Fluss */
+    height: auto;
+    overflow: visible;
   }
 
-  /* 🌄 Hero-Bereich füllt gesamten sichtbaren Bereich */
   .hero-section {
-    height: 60vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 120px;
-    padding-bottom: 100px;
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-xl);
     background-position: center 22%;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: scroll;
   }
 
-  /* 📝 Testimonial & Footer lückenlos verbinden */
   .testimonial-section {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -292,6 +314,6 @@ footer {
 
   footer {
     margin-top: 0;
-    padding-top: 1rem;
+    padding-top: var(--space-md);
   }
 }

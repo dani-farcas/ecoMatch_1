@@ -1,121 +1,243 @@
-/* HeaderLanding.css – Kopfzeile im ecoMatch-Stil */
+/* ===========================================
+   HeaderLanding – globale Navigationsleiste
+   =========================================== */
 
 .landing-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--color-background);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+}
+
+.header-inner {
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-lg);
+}
+@media (max-width: 1024px) {
+  .header-inner {
+    width: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .header-inner {
+    width: 100%;
+  }
 }
 
 /* Logo */
 .logo {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  text-decoration: none;
 }
-
 .logo-icon {
-  width: 250px;
-  height: auto;
+  height: 160px;
+  width: auto;
 }
 
 /* Navigation */
 .nav-links {
   display: flex;
-  gap: 24px;
   align-items: center;
+  gap: var(--space-2xl);
+  margin-left: auto;
 }
-
 .nav-links a {
-  color: #1e1e1e;
   text-decoration: none;
-  font-weight: 700;
-  font-size: large;
-  transition: color 0.2s ease-in-out;
+  font-size: var(--font-size-base);
+  color: var(--color-link);
+  transition: color 0.2s ease;
 }
-
 .nav-links a:hover {
-  color: #148344;
+  color: var(--color-link-hover);
 }
 
-/* 🔐 Login-Button */
-.login-button {
-  background-color: #1a9f4e;
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: large;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.login-button:hover {
-  background-color: #148344;
-}
-
-/* 🆕 Registrieren-Button */
-.register-button {
-  background-color: transparent;
-  color: #1a9f4e;
-  border: 2px solid #1a9f4e;
-  padding: 8px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: large;
-  transition: all 0.2s ease-in-out;
-  margin-left: 8px;
-}
-
-.register-button:hover {
-  background-color: #1a9f4e;
-  color: white;
-}
-
-/* Container pentru ambele butoane */
-.header-buttons {
+/* Auth-Buttons */
+.nav-auth {
   display: flex;
-  gap: 12px;
-  margin-left: 20px;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.login-button,
+.register-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  line-height: 1;
+  border: none;
+  padding: 0 var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.login-button {
+  background: transparent;
+  color: var(--color-accent-dark);
+  border: 1px solid var(--color-accent);
+}
+.login-button:hover {
+  background: var(--color-accent-light);
+}
+.register-button {
+  background: var(--color-accent-dark);
+  color: var(--color-background);
+}
+.register-button:hover {
+  background: var(--color-accent);
 }
 
-/* 🍔 Burger-Menü */
+/* User-Menü */
+.user-menu {
+  position: relative;
+}
+
+/* Avatar */
+.avatar-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.avatar-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+}
+.avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+.avatar-btn:hover .avatar-img {
+  transform: scale(1.1);
+}
+
+/* Dropdown */
+.user-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-sm) 0;
+  min-width: 220px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dropdown Items */
+.ud-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg);
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.ud-item .ud-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+.ud-item:hover {
+  background: var(--color-background-hover);
+  color: var(--color-primary);
+}
+.ud-item:hover .ud-icon {
+  color: var(--color-primary);
+}
+.ud-item.danger {
+  color: var(--color-danger);
+}
+.ud-item.danger:hover {
+  background: #fee2e2;
+  color: var(--color-danger-dark);
+}
+.ud-item.danger:hover .ud-icon {
+  color: var(--color-danger);
+}
+
+.ud-sep {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-xs) 0;
+}
+
+/* Burger */
+.burger-wrapper {
+  flex: 0 0 auto;
+}
 .burger {
   display: none;
   flex-direction: column;
-  gap: 4px;
+  justify-content: center;
+  gap: var(--space-xs);
+  border: none;
+  background: none !important;
   cursor: pointer;
+  padding: 0;
+}
+.burger span {
+  width: 22px;
+  height: 2px;
+  background: var(--color-primary);
+  transition: all 0.3s ease;
+}
+.burger.is-open span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+.burger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.burger.is-open span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -4px);
 }
 
-.burger div {
-  width: 25px;
-  height: 3px;
-  background-color: #1e1e1e;
-  border-radius: 2px;
-}
-
-/* 🔄 Responsive */
+/* Responsive */
 @media (max-width: 768px) {
   .nav-links {
-    display: none;
     position: absolute;
     top: 60px;
-    right: 20px;
+    right: 0;
     flex-direction: column;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    gap: 16px;
+    align-items: flex-start;
+    background: var(--color-background);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    display: none;
+    margin-left: 0;
   }
-
   .nav-links.open {
     display: flex;
   }
@@ -124,15 +246,7 @@
     display: flex;
   }
 
-  .header-buttons {
-    flex-direction: column;
-    margin-left: 0;
-    gap: 10px;
-  }
-
-  .login-button,
-  .register-button {
-    width: 100%;
-    text-align: center;
+  .nav-auth {
+    display: none;
   }
 }

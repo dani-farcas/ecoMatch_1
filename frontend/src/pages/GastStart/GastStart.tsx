@@ -1,13 +1,17 @@
-// 🟢 GastStart.tsx – Email + Datenschutz Formular
-import React, { useState } from "react";
+// GastStart.tsx – Email + Datenschutz Formular
+import React, { useState, useEffect, useRef } from "react";
 import "./GastStart.css";
 
 const GastStart: React.FC = () => {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    emailRef.current?.focus();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,19 +26,15 @@ const GastStart: React.FC = () => {
       return;
     }
 
-    // Email valid → salvează în localStorage
     localStorage.setItem("gast_email", email);
 
     try {
       setStatus("loading");
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/gast/initiate/`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, consent: true }),
-        }
-      );
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/gast/initiate/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, consent: true }),
+      });
 
       if (res.ok) {
         setStatus("success");
@@ -61,6 +61,7 @@ const GastStart: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="gaststart-input"
             required
+            ref={emailRef}
           />
 
           <label className="checkbox-inline">
@@ -76,7 +77,12 @@ const GastStart: React.FC = () => {
             &nbsp;zu.
           </label>
 
-          <button type="submit" disabled={status === "loading"}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={status === "loading"}
+            aria-busy={status === "loading"}
+          >
             {status === "loading" ? "Sende..." : "Weiter zur Anfrage"}
           </button>
 
@@ -84,9 +90,7 @@ const GastStart: React.FC = () => {
             <p className="erfolg">Bitte überprüfen Sie Ihre E-Mail.</p>
           )}
           {status === "error" && (
-            <p className="fehler">
-              Fehler beim Senden. Bitte erneut versuchen.
-            </p>
+            <p className="fehler">Fehler beim Senden. Bitte erneut versuchen.</p>
           )}
         </form>
       </div>

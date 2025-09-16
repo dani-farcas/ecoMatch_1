@@ -1,36 +1,36 @@
 /* 📄 src/pages/DatenschutzPage.css */
 
 .datenschutz-container {
-  padding: 2rem;
+  padding: var(--space-xl);
   max-width: 800px;
   margin: 0 auto;
-  font-family: sans-serif;
+  font-family: var(--font-family-base);
   line-height: 1.6;
-  color: #1f2937;
-  background-color: #ffffff;
+  color: var(--color-primary);
+  background-color: var(--color-background);
 }
 
 .datenschutz-container h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #111827;
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
 }
 
 .datenschutz-container h2 {
-  font-size: 1.4rem;
-  margin-top: 2rem;
-  color: #047857;
+  font-size: var(--font-size-lg);
+  margin-top: var(--space-xl);
+  color: var(--color-accent-dark);
 }
 
 .datenschutz-container p {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
 }
 
 .datenschutz-container ul {
-  padding-left: 1.2rem;
-  margin-bottom: 1.5rem;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-lg);
 }
 
 .datenschutz-container li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-sm);
 }

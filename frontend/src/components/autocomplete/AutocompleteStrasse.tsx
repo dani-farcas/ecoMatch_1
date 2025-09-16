@@ -1,9 +1,8 @@
 // 📁 frontend/src/components/autocomplete/AutocompleteStrasse.tsx
 
-import React, { useState, useEffect } from "react";
-import "./AutocompleteStrasse.css"; // 🎨 Externe CSS-Datei
+import React, { useState, useEffect, useRef } from "react";
+import "./AutocompleteStrasse.css";
 
-// 🔧 Props vom übergeordneten Formular
 interface AutocompleteStrasseProps {
   plzOrtId: number | null;
   onStrasseSelected: (strasse: string) => void;
@@ -17,39 +16,66 @@ const AutocompleteStrasse: React.FC<AutocompleteStrasseProps> = ({
   const [eingabe, setEingabe] = useState("");
   const [gefiltert, setGefiltert] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1); // Index für Tastaturnavigation
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  // 📦 Lade Straßen vom Backend basierend auf PLZ-Ort-ID
+  // Straßen vom Backend laden
   useEffect(() => {
     if (!plzOrtId) return;
     fetch(`http://localhost:8000/api/strassen/?plz_ort=${plzOrtId}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.strassen)) {
-          console.log("📦 Straßen geladen:", data.strassen);
           setStrassen(data.strassen);
         } else {
-          console.error("❌ Unerwartetes Datenformat:", data);
+          console.error("Unerwartetes Datenformat:", data);
         }
       })
       .catch((err) => {
-        console.error("❌ Fehler beim Laden der Straßen:", err);
+        console.error("Fehler beim Laden der Straßen:", err);
         setStrassen([]);
       });
   }, [plzOrtId]);
 
-  // 🔍 Filtere Vorschläge basierend auf Eingabe
+  // Filter aktualisieren
   useEffect(() => {
     const result = strassen.filter((s) =>
       s.toLowerCase().startsWith(eingabe.toLowerCase())
     );
     setGefiltert(result);
+    setActiveIndex(-1); // Reset beim neuen Tippen
   }, [eingabe, strassen]);
 
-  // 📌 Auswahl einer Straße
+  // Auswahl einer Straße
   const handleSelect = (strasse: string) => {
     setEingabe(strasse);
     setShowDropdown(false);
     onStrasseSelected(strasse);
+  };
+
+  useEffect(() => {
+    if (activeIndex >= 0 && itemRefs.current[activeIndex]) {
+      itemRefs.current[activeIndex]?.scrollIntoView({
+        block: "nearest",
+        behavior: "smooth",
+      });
+    }
+  }, [activeIndex]);
+
+  // Tastatursteuerung
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showDropdown || gefiltert.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((prev) => (prev + 1) % gefiltert.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((prev) => (prev <= 0 ? gefiltert.length - 1 : prev - 1));
+    } else if (e.key === "Enter" && activeIndex >= 0) {
+      e.preventDefault();
+      handleSelect(gefiltert[activeIndex]);
+    }
   };
 
   return (
@@ -58,27 +84,11 @@ const AutocompleteStrasse: React.FC<AutocompleteStrasseProps> = ({
         Straße*
       </label>
 
-      {/* 🛑 Unsichtbares Fake-Feld zum Blockieren von Browser-Autofill */}
-      <input
-        type="text"
-        name="fake-strasse"
-        autoComplete="address-line1"
-        style={{
-          position: "absolute",
-          top: "-1000px",
-          left: "-1000px",
-          opacity: 0,
-        }}
-        tabIndex={-1}
-        aria-hidden="true"
-      />
-
-      {/* ✅ Echtes Eingabefeld mit deaktiviertem Autofill */}
       <input
         type="text"
         id="strasse_input"
         name="strasse_input_custom"
-        autoComplete="new-password" // 🧠 verhindert Autofill in Chrome
+        autoComplete="new-password"
         className="strasse-input"
         placeholder="Straßenname eingeben..."
         value={eingabe}
@@ -88,17 +98,20 @@ const AutocompleteStrasse: React.FC<AutocompleteStrasseProps> = ({
         }}
         onFocus={() => setShowDropdown(true)}
         onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+        onKeyDown={handleKeyDown} // Tastaturevents
       />
 
-      {/* 🔽 Dropdown mit Vorschlägen */}
       {showDropdown && gefiltert.length > 0 && (
         <ul className="strasse-dropdown">
           {gefiltert.map((strasse, idx) => (
             <li
               key={idx}
-              className="strasse-item"
+              ref={(el: HTMLLIElement | null) => {
+                itemRefs.current[idx] = el;
+              }}
+              className={`strasse-item ${idx === activeIndex ? "active" : ""}`}
               onClick={() => handleSelect(strasse)}
-              onMouseDown={(e) => e.preventDefault()} // verhindert Blur
+              onMouseDown={(e) => e.preventDefault()}
             >
               {strasse}
             </li>

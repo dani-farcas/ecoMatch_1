@@ -8,111 +8,100 @@ body,
   overflow: auto; /* ✅ Gesamte Seite ist scrollbar */
 }
 
-/* 📦 Hauptcontainer mit Header, Formular und Footer */
-/* 📦 Hauptcontainer für die gesamte Signup-Seite */
+/* 📦 Hauptcontainer */
 .signup-container {
   display: flex;
   flex-direction: column;
-  width: 100vw; /* 🔁 Gesamte Breite */
-  height: 80vh; /* 🔁 Gesamte Höhe */
-  font-family: sans-serif;
+  width: 100vw;
+  height: 80vh;
+  font-family: var(--font-family-base);
   margin: 0;
   padding: 0;
 }
 
-/* 🧾 Wrapper für das Formular – zentriert auf Desktop */
+/* 🧾 Formular-Wrapper */
 .signup-form-wrapper {
-  flex: 1; /* 🔁 Zwischen Header und Footer ausdehnen */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: var(--space-xl);
   box-sizing: border-box;
 }
 
 /* 📋 Formularbox */
 .signup-form {
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 2rem 2.5rem;
-  border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  padding: var(--space-xl) var(--space-2xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   width: 100%;
   max-width: 620px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-xs);
 }
 
-/* 🖋️ Titel im Formular */
+/* 🖋️ Titel */
 .signup-form h2 {
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  color: #111827;
+  margin-bottom: var(--space-xl);
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary);
 }
 
-/* 🧾 Eingabefeld-Beschriftungen */
+/* 🧾 Labels */
 .signup-form label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #111827;
-  margin-bottom: 0.3rem;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  color: var(--color-primary);
+  margin-bottom: var(--space-xs);
   display: block;
   text-align: left;
 }
 
-/* ✏️ Standard-Eingabefelder */
+/* ✏️ Eingabefelder */
 .signup-input {
   width: 100%;
   height: 42px;
-  padding: 0 0.8rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0 var(--space-md);
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
   box-sizing: border-box;
 }
 
-/* 🔒 Passwortfeld mit Umschalt-Icon */
+/* 🔒 Passwortfeld */
 .signup-password-wrapper {
   position: relative;
-  margin-bottom: 1.2rem;
+  margin-bottom: var(--space-md);
 }
 
 .signup-password-input {
   width: 100%;
   height: 48px;
-  padding: 0 40px 0 0.9rem; /* spațiu pentru icon în dreapta */
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 0 40px 0 var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
   box-sizing: border-box;
 }
 
 .toggle-password-icon {
   position: absolute;
   top: 50%;
-  right: 12px;
+  right: var(--space-sm);
   transform: translateY(-50%);
   font-size: 1.1rem;
-  color: #444;
+  color: var(--color-secondary);
   cursor: pointer;
   user-select: none;
 }
 
-/* 🖼️ Veralteter Logo-Upload (nicht mehr verwendet) */
-.signup-upload-button {
-  height: 48px;
-  background-color: #fff;
-  text-align: left;
-  color: #333;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-/* 📸 Moderner Bereich: Foto-Upload */
+/* 📸 Foto-Upload */
 .signup-photo-upload-area {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
   position: relative;
 }
 
@@ -123,32 +112,32 @@ body,
 .photo-upload-label {
   display: inline-block;
   width: 100%;
-  padding: 0.9rem;
+  padding: var(--space-md);
   text-align: center;
-  background-color: #f0fdf4;
-  color: #15803d;
-  border: 2px dashed #15803d;
-  border-radius: 8px;
-  font-weight: 600;
+  background-color: var(--color-background-hover);
+  color: var(--color-accent-dark);
+  border: 2px dashed var(--color-accent-dark);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
 }
 
-/* 🖼️ Galerie für Bildvorschau */
+/* 🖼️ Vorschau */
 .photo-preview-gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.7rem;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .photo-preview-item {
   position: relative;
   width: 80px;
   height: 80px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
 }
 
 .photo-preview-img {
@@ -159,89 +148,88 @@ body,
 
 /* ❌ Fehlerbanner */
 .error-banner {
-  background-color: #fee2e2;
-  border: 1px solid #ef4444;
-  color: #991b1b;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  background-color: #fee2e2; /* TODO: var(--color-error-bg) */
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger-hover);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
   text-align: center;
   animation: fadeIn 0.4s ease-in-out;
 }
 
-
-/* ❌ Button zum Entfernen eines Bildes */
+/* ❌ Bild entfernen */
 .photo-remove-button {
   position: absolute;
   top: -6px;
   right: -6px;
-  background-color: #dc2626;
+  background-color: var(--color-danger);
   border: none;
-  color: white;
-  border-radius: 50%;
+  color: var(--color-background);
+  border-radius: var(--radius-full);
   width: 22px;
   height: 22px;
   font-size: 0.9rem;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-sm);
 }
 
-/* ✅ Erfolgsmeldungen */
+/* ✅ Erfolg/Nachricht */
 .signup-message {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
 }
 
 .signup-success {
-  color: #15803d;
+  color: var(--color-success);
 }
 
 .signup-error {
-  color: #dc2626;
+  color: var(--color-danger);
 }
 
-/* 📤 Absende-Button */
+/* 📤 Submit-Button */
 .signup-submit-button {
   width: 100%;
-  padding: 0.9rem;
+  padding: var(--space-md);
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #15803d;
-  color: white;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background-color: var(--color-accent-dark);
+  color: var(--color-background);
   cursor: pointer;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-lg);
 }
 
-/* 🔗 Link zur Login-Seite */
+/* 🔗 Login-Link */
 .signup-link {
   text-align: center;
-  font-size: 0.9rem;
-  color: #111827;
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
 }
 
 .signup-link a {
-  color: #15803d;
-  font-weight: bold;
+  color: var(--color-accent-dark);
+  font-weight: var(--font-weight-bold);
   text-decoration: none;
 }
 
-/* ✅ Erfolgsbanner nach Registrierung */
+/* ✅ Erfolgsbanner */
 .confirmation-banner {
-  background-color: #d1fae5;
-  border: 1px solid #10b981;
-  color: #065f46;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  background-color: var(--color-accent-light);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent-dark);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
   text-align: center;
   animation: fadeIn 0.4s ease-in-out;
 }
 
-/* 💨 Einfache Fade-In-Animation */
+/* 💨 Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -253,15 +241,15 @@ body,
   }
 }
 
-/* 📱 Optimierung für kleine Bildschirme */
+/* 📱 Responsive */
 @media (max-height: 700px), (max-width: 480px) {
   .signup-form-wrapper {
     align-items: flex-start;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
   }
 
   .signup-form {
-    padding: 2rem;
+    padding: var(--space-xl);
   }
 }

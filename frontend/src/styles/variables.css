@@ -1,0 +1,109 @@
+/* ===========================================
+   🌿 ecoMatch Design Tokens (CSS Variables)
+   =========================================== */
+
+/* ===== Design Tokens Global ===== */
+:root {
+  /* 🎨 Farben */
+  --color-primary: #1c1917;          /* fast Schwarz für Text */
+  --color-secondary: #525252;        /* neutrales Grau für sekundären Text */
+  --color-accent: #22c55e;           /* lebendiges Grün für Hauptaktionen */
+  --color-accent-dark: #16a34a;      /* dunkleres Grün für Hover */
+  --color-accent-light: #bbf7d0;     /* helles Grün für Hintergründe */
+  --color-background: #ffffff;       /* Standard Hintergrund */
+  --color-background-alt: #f9fafb;   /* Alternative für Sektionen */
+  --color-border: #e5e7eb;           /* feine Linien/Separator */
+  --color-link: #525252;
+  --color-link-hover: #1c1917;
+  --color-danger: #ef4444;           /* Rot für Fehler/Aktionen */
+  --color-danger-hover: #b91c1c;
+  --color-warning: #f59e0b;
+  --color-success: #16a34a;
+  --color-error-bg: #fee2e2;         /* sehr helles Rot für Fehlerhintergründe */
+  --color-success-bg: #d1fae5;       /* sehr helles Grün für Erfolgsbanner */
+  --color-warning-bg: #fef3c7;       /* sehr helles Orange für Warnungen */
+  --color-background-transparent: rgba(255, 255, 255, 0.1); /* Weiß mit 80% Deckkraft */
+
+
+  /* 🆕 Zusätzliche Variablen für ChatBot */
+  --color-on-primary: #ffffff;       /* Text auf Primär- und Akzentfarbe */
+  --color-text: #1c1917;             /* Standard Textfarbe */
+  --color-surface: #ffffff;          /* Basis-Fläche (z. B. Chatfenster) */
+  --color-surface-alt: #f9fafb;      /* Alternative Fläche (z. B. Body) */
+  --color-surface-muted: #e5e7eb;    /* Graue Fläche für Bot-Nachrichten */
+  --color-success-light: #dcfce7;    /* Helles Grün für User-Nachrichten */
+  --color-success-dark: #065f46;     /* Dunkler Grünton für Text */
+
+
+
+  --background-hero-image: url("@assets/pictures/bg-landingpage.png");
+
+  /* 🖋 Typografie */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-size-sm: 0.85rem;
+  --font-size-base: 0.95rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+
+  /* 📏 Spacing (8px-System) */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 64px;
+
+  /* 🟦 Radii */
+  --radius-sm: 6px;
+  --radius-md: 6px;
+  --radius-lg: 6px;
+  --radius-full: 9999px;
+
+  /* 🕶 Schatten */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.05);
+
+  /* 📱 Breakpoints */
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
+  --bp-wide: 1440px;
+}
+
+/* ===== Basis Styles ===== */
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  color: var(--color-primary);
+  background-color: var(--color-background);
+  line-height: 1.6;
+  width: 80%;
+  margin: 0 auto;
+}
+/* 📱 Auf Smartphones: volle Breite */
+@media (max-width: 768px) {
+  body {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* 📱 Tablet */
+@media (min-width: 768px) and (max-width: 1366px) {
+  body {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

@@ -1,7 +1,7 @@
 // 📁 src/features/auth/Signup.tsx
 // 🇩🇪 Registrierungsformular mit E-Mail, Passwort, Foto-Upload
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "@/api/axios";
 import "./Signup.css";
@@ -17,6 +17,12 @@ const Signup: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [photos, setPhotos] = useState<File[]>([]);
+
+  const benutzernameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+  benutzernameRef.current?.focus();
+}, []);
 
   // 📢 Meldungen
   const [successMessage, setSuccessMessage] = useState("");
@@ -35,48 +41,57 @@ const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhotos((prev) => prev.filter((_, i) => i !== index));
 
   // 📨 Formular absenden
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage("");
-    setSuccessMessage("");
+// 📨 Formular absenden
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setErrorMessage("");
+  setSuccessMessage("");
 
-    if (password !== confirmPassword) {
-      setErrorMessage("❌ Passwörter stimmen nicht überein.");
-      return;
+  // 🇩🇪 Schnelle Frontend-Validierung
+  if (password !== confirmPassword) {
+    setErrorMessage("❌ Passwörter stimmen nicht überein.");
+    return;
+  }
+
+  try {
+    const formData = new FormData();
+
+    // 🇩🇪 Pflichtfelder
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("password2", confirmPassword); // ✅ wichtig
+
+    // 🇩🇪 Datei-Uploads (kompatibel für Avatar + mehrere Fotos)
+    if (photos[0]) formData.append("avatar", photos[0]);        // optional, falls Backend "avatar" kennt
+    photos.forEach((photo) => formData.append("photos[]", photo)); // optional, falls Backend Liste erwartet
+
+    await axios.post("/register/", formData); // ⚠️ kein manuelles Content-Type setzen
+
+    setSuccessMessage("✅ Konto erfolgreich erstellt! Bitte E-Mail bestätigen.");
+    setTimeout(() => navigate("/login"), 2000);
+
+    // 🇩🇪 Felder zurücksetzen
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setPhotos([]);
+  } catch (error: any) {
+    // 🇩🇪 Backend-Fehler schöner anzeigen
+    const data = error?.response?.data || {};
+    if (data?.email?.[0]?.toLowerCase().includes("registriert")) {
+      setErrorMessage("⚠️ Diese E-Mail ist bereits registriert. Bitte einloggen.");
+    } else if (data?.password2?.length) {
+      setErrorMessage(`❌ ${data.password2[0]}`);
+    } else if (data?.password?.length) {
+      setErrorMessage(`❌ ${data.password[0]}`);
+    } else {
+      setErrorMessage("❌ Registrierung fehlgeschlagen.");
     }
+  }
+};
 
-    try {
-      const formData = new FormData();
-      formData.append("username", username);
-      formData.append("email", email);
-      formData.append("password", password);
-
-      photos.forEach((photo, index) => {
-        formData.append(`photo_${index}`, photo);
-      });
-
-      await axios.post("/register/", formData);
-
-      setSuccessMessage("✅ Konto erfolgreich erstellt! Bitte E-Mail bestätigen.");
-      setTimeout(() => navigate("/login"), 2000);
-
-      // Felder zurücksetzen
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setPhotos([]);
-    } catch (error: any) {
-      const backendError = error?.response?.data;
-      if (backendError?.email?.[0]?.includes("registriert")) {
-        setErrorMessage(
-          "⚠️ Diese E-Mail ist bereits registriert. Bitte einloggen."
-        );
-      } else {
-        setErrorMessage("❌ Registrierung fehlgeschlagen.");
-      }
-    }
-  };
 
   return (
     <div className="signup-container">
@@ -97,6 +112,7 @@ const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            ref={benutzernameRef} 
           />
 
           {/* E-Mail */}

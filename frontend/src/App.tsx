@@ -1,14 +1,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// 🌐 Globale Kontexte
+// Globale Kontexte
 import { AuthProvider } from "./contexts/AuthContext";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
 
-// 🧱 Gemeinsames Layout
+// Gemeinsames Layout
 import UniversalLayout from "./layouts/UniversalLayout";
 
-// 🌍 Öffentliche Seiten
+// Öffentliche Seiten
 import LandingPage from "./pages/LandingPage/LandingPage";
 import GastStart from "./pages/GastStart/GastStart";
 import DatenschutzPage from "@/pages/DatenschutzPage/DatenschutzPage";
@@ -21,12 +21,10 @@ import ConfirmEmailInvalid from "./pages/Auth/ConfirmEmail/ConfirmEmailInvalid";
 import GastConfirmieren from "@pages/GastConfirmieren/GastConfirmieren";
 import GastAnfrage from "@pages/GastAnfrage/GastAnfrage";
 
-// 🔐 Geschützte Bereiche
-import ProtectedRoute from "./components/ProtectedRoute";
-import ClientDashboard from "./pages/Client/ClientDashboard";
-import ProviderDashboard from "./pages/Provider/ProviderDashboard";
+// User-Dashboard
+import UserDashboard from "./pages/User/UserDashboard";
 
-// 🔁 Scrollt bei Seitenwechsel automatisch nach oben
+// Hilfskomponente: Scrollt bei Routenwechsel nach oben
 import ScrollToTop from "@components/ScrollToTop";
 
 const App: React.FC = () => {
@@ -34,11 +32,12 @@ const App: React.FC = () => {
 
   return (
     <>
-      <ScrollToTop /> {/* 🔁 Wichtig: Nur einmal und außerhalb von <Routes> */}
+      {/* Scrollen bei jedem Routenwechsel */}
+      <ScrollToTop /> 
       <Routes>
-        {/* 🌍 Öffentliche Routen mit gemeinsamem Layout */}
+        {/* Öffentliche Routen mit UniversalLayout */}
         <Route element={<UniversalLayout />}>
-          <Route path="/" element={<LandingPage />} />
+          <Route index element={<LandingPage />} />
           <Route path="/gast-start" element={<GastStart />} />
           <Route path="/gast-confirmieren" element={<GastConfirmieren />} />
           <Route path="/gast-anfrage" element={<GastAnfrage />} />
@@ -46,34 +45,13 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route
-            path="/confirm-email/:uid/:token/"
-            element={<ConfirmEmail />}
-          />
-          <Route
-            path="/confirm-email/invalid"
-            element={<ConfirmEmailInvalid />}
-          />
+          <Route path="/confirm-email/:uid/:token/" element={<ConfirmEmail />} />
+          <Route path="/confirm-email/invalid" element={<ConfirmEmailInvalid />} />
           <Route path="/abo/:plan" element={<AboDetailPage />} />
         </Route>
 
-        {/* 🔐 Geschützte Dashboards */}
-        <Route
-          path="/dashboard/client"
-          element={
-            <ProtectedRoute>
-              <ClientDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard/provider"
-          element={
-            <ProtectedRoute>
-              <ProviderDashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* Dashboard (aktuell ohne ProtectedRoute für Test) */}
+        <Route path="/dashboard" element={<UserDashboard />} />
       </Routes>
     </>
   );
